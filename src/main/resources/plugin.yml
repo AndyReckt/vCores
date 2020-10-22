@@ -1,0 +1,11 @@
+name: vScoreboard
+version: ${project.version}
+main: net.vectromc.vscoreboard.VScoreboard
+api-version: 1.16
+authors: [Yochran]
+depend: [vNitrogen, vStaffUtils]
+description: One of the server cores for VectroMC
+commands:
+  Onlineplayers:
+    description: Get the amount of online players.
+    aliases: [online, list, listallplayers, listplayers]
