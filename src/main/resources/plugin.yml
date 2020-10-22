@@ -1,0 +1,62 @@
+name: vBasic
+version: ${project.version}
+main: net.vectromc.vbasic.vBasic
+api-version: 1.16
+depend: [vNitrogen]
+authors: [Yochran]
+description: One of the server cores for VectroMC
+commands:
+  vBasic:
+    description: Gets the plugin information.
+    usage: /<command>
+    aliases: basic
+  Teleport:
+    description: Teleport yourself to another player, or teleport another player to another player.
+    usage: /<command>
+    aliases: tp
+  TeleportHere:
+    description: Teleport another player to yourself.
+    usage: /<command>
+    aliases: tphere
+  TeleportAll:
+    description: Teleport all online players to yourself.
+    usage: /<command>
+    aliases: tpall
+  ToggleStaffAlerts:
+    description: Toggle on or off staff alerts.
+    usage: /<command>
+    aliases: [tsa, talerts]
+  Broadcast:
+    description: Broadcast a message to the whole server.
+    usage: /<command>
+    aliases: [alert, bc, announce]
+  Gamemode:
+    description: Set your or another players gamemode.
+    usage: /<command>
+    aliases: gm
+  Gmc:
+    description: Set your or another players gamemode to creative.
+    usage: /<command>
+    aliases: gm1
+  Gms:
+    description: Set your or another players gamemode to survival.
+    usage: /<command>
+    aliases: gm0
+  Gmsp:
+    description: Set your or another players gamemode to spectator.
+    usage: /<command>
+    aliases: gm3
+  Gma:
+    description: Set your or another players gamemode to adventure.
+    usage: /<command>
+    aliases: gm2
+  Heal:
+    description: Heal yourself or another player.
+    usage: /<command>
+  Feed:
+    description: Feed yourself or another player.
+    usage: /<command>
+  List:
+    description: List all online players on the server.
+    usage: /<command>
+    aliases: [online, listplayers]

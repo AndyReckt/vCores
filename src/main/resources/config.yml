@@ -1,0 +1,106 @@
+# vBasic v1.0 by Yochran
+# https://github.com/Yochran
+
+# One of the server cores for VectroMC
+# https://vectromc.net
+
+# Prefixes:
+
+PluginPrefix: "&7[&6&lvBasic&7]"
+ServerPrefix: "&7[&6&lVectroMC&7]"
+
+# Permissions:
+
+StaffAlertsPermission: "vbasic.staffalerts"
+TeleportPermission: "vbasic.teleport"
+
+# Config Messages:
+
+MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
+NoPermission: "%server_prefix% &cYou do not have permission to use that command."
+
+JoinMessage: true
+LeaveMessage: true
+
+JoinMsg: "&7(&a&l+&7) %player%"
+LeaveMsg: "&7(&c&l-&7) %player%"
+
+ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
+
+# Everything regarding /teleport is below:
+
+TeleportIncorrectUsage: "%server_prefix% &cIncorrect Usage! /tp <player> [player]"
+TeleportHereIncorrectUsage: "%server_prefix% &cIncorrect Usage! /tphere <player>"
+TeleportInvalidPlayer: "%server_prefix% &cInvalid Player!"
+
+# You cannot use server or plugin prefix for these below!
+TeleportedToPlayer: "&eYou have teleported to %target%&e."
+TeleportedToPlayerNotSender: "&eYou have been teleported to %player%&e."
+TeleportPlayerToYou: "&eYou have teleported %target% &eto you."
+PlayerTeleportedPlayerToPlayer: "&eYou have been teleported to %target% &eby %player%&e."
+YouTeleportedPlayerToPlayer: "&eYou have teleported %target1% &eto &e%target2%&e."
+TpAll: "&eYou have teleported &6ALL &eplayers to you."
+
+# Everything regarding /broadcast is below:
+
+BroadcastIncorrectUsage: "%server_prefix% &cIncorrect Usage! /bc <message>"
+BroadcastFormat: "&7[&6&lALERT&7] &f&l%message%"
+
+# Everything regarding /gamemode is below:
+
+GamemodePermission: "vbasic.gamemode"
+
+GamemodeIncorrectUsage: "%server_prefix% Incorrect Usage! /gamemode <survival/creative/adventure/spectator> [player]"
+
+CreativeSelf: "&eYour gamemode has been set to &6Creative&e."
+SurvivalSelf: "&eYour gamemode has been set to &6Survival&e."
+SpectatorSelf: "&eYour gamemode has been set to &6Spectator&e."
+AdventureSelf: "&eYour gamemode has been set to &6Adventure&e."
+
+CreativeOther: "&eYou have set %target%&e's gamemode to &6Creative&e."
+SurvivalOther: "&eYou have set %target%&e's gamemode to &6Survival&e."
+SpectatorOther: "&eYou have set %target%&e's gamemode to &6Spectator&e."
+AdventureOther: "&eYou have set %target%&e's gamemode to &6Adventure&e."
+
+GamemodeInvalidPlayer: "%server_prefix% &cInvalid Player!"
+
+# Everything relating to heal and feed is below:
+
+HealPermission: "vbasic.heal"
+FeedPermission: "vbasic.feed"
+
+HealSelfMsg: "&eYou have been healed."
+HealOtherMsg: "&eYou have healed %target%&e."
+
+FeedSelfMsg: "&eYou have been fed."
+FeedOtherMsg: "&eYou have fed %target%&e."
+
+HealInvalidPlayer: "%server_prefix% &cInvalid Player!"
+FeedInvalidPlayer: "%server_prefix% &cInvalid Player!"
+
+# Everything relating to /list is below:
+
+ListHeader: |-
+  %liner%
+  %Owner%&7, %Developer%&7, %Manager%&7, %Admin%&7, %Senior-Mod%&7, %Mod%&7, %Trial-Mod%&7, %Builder%&7, %Default%&7.
+  %spacer%
+ListMiddle: |-
+  %Owners%&7, %Developers%&7, %Managers%&7, %Admins%&7, %Senior-Mods%&7, %Mods&7, %Trail-Mods%&7, %Builders%&7, %Defaults&&7.
+ListFooter: |-
+  %liner%
+
+# Staff Alerts for everything are below:
+
+StaffAlerts:
+  # You cannot use server or plugin prefix for these below!
+  ToggleOnMessage: "&eYou have toggled &6on &estaff alerts."
+  ToggleOffMessage: "&eYou have toggled &6off &estaff alerts."
+  TeleportToPlayer: "&7&o[%player% &7&oteleported to %target%&7&o]"
+  TeleportHerePlayer: "&7&o[%player% &7&oteleported %target% &7&oto themselves]"
+  PlayerTeleportedPlayerToPlayer: "&7&o[%player% &7&oteleported %target1% &7&oto %target2%&7&o]"
+  TpAll: "&7&o[%player% &7&oteleported all players to themself]"
+  Broadcast: "&7&o[%player% &7&obroadcasted: &e&o%message%&7&o]"
+  HealSelf: "&7&o[%player% &7&ohas healed themselves&7&o]"
+  HealOther: "&7&o[%player% &7&ohas healed %target%&7&o]"
+  FeedSelf: "&7&o[%player% &7&ohas fed themselves&7&o]"
+  FeedOther: "&7&o[%player% &7&ohas fed %target%&7&o]"
