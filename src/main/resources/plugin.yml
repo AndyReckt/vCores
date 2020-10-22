@@ -1,0 +1,31 @@
+name: vStaffUtils
+version: ${project.version}
+main: net.vectromc.vstaffutils.vStaffUtils
+api-version: 1.16
+authors: [Yochran]
+description: One of the server cores for VectroMC
+commands:
+  vStaffUtils:
+    description: Gets the plugin information.
+    usage: /<command>
+    aliases: staffutils
+  Vanish:
+    description: Hide yourself from all online players.
+    usage: /<command>
+    aliases: [v, invis, invisibility]
+  BuildMode:
+    description: Toggle on or off your buildmode.
+    usage: /<command>
+    aliases: [build, bm]
+  Modmode:
+    description: Put yourself or another player into modmode.
+    usage: /<command>
+    aliases: [mod, staff, staffm, modm, mmode, smode]
+  Freeze:
+    description: Freeze a player.
+    usage: /<command>
+    aliases: [ss, screenshare]
+  Report:
+    description: Report a player for breaking the rules.
+    usage: /<command>
+    aliases: rpt
