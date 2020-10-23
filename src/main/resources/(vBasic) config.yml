@@ -78,16 +78,25 @@ FeedOtherMsg: "&eYou have fed %target%&e."
 HealInvalidPlayer: "%server_prefix% &cInvalid Player!"
 FeedInvalidPlayer: "%server_prefix% &cInvalid Player!"
 
-# Everything relating to /list is below:
+# Everything relating to /msg, /tgc, and /tms is below:
 
-ListHeader: |-
-  %liner%
-  %Owner%&7, %Developer%&7, %Manager%&7, %Admin%&7, %Senior-Mod%&7, %Mod%&7, %Trial-Mod%&7, %Builder%&7, %Default%&7.
-  %spacer%
-ListMiddle: |-
-  %Owners%&7, %Developers%&7, %Managers%&7, %Admins%&7, %Senior-Mods%&7, %Mods&7, %Trail-Mods%&7, %Builders%&7, %Defaults&&7.
-ListFooter: |-
-  %liner%
+MsgIncorrectUsage: "%server_prefix% &cIncorrect Usage! /msg <player> <message>"
+ReplyIncorrectUsage: "%server_prefix% &cIncorrect Usage! /r <message>"
+ReplyNotMessaging: "&cYou are not messaging anyone!"
+
+MsgToFormat: "&e(To %target%&e)%message%"
+MsgFromFormat: "&e(From %player%&e)%message%"
+TpmToError: "&cYou cannot send messages as you have private messages disabled."
+TpmFromError: "&cYou cannot send this user messages as they have private messages disabled."
+TgcChatError: "&cYou cannot talk in chat as you have global chat disabled."
+PlayerNotFound: "&cThat player was not found."
+
+TpmOn: "&aYou have enabled private messages."
+TpmOff: "&cYou have disabled private messages."
+TmsOn: "&aYou have enabled message sounds."
+TmsOff: "&cYou have disabled message sounds."
+TgcOn: "&aYou have enabled global chat."
+TgcOff: "&cYou have disabled global chat."
 
 # Staff Alerts for everything are below:
 
