@@ -64,9 +64,17 @@ While none of these plugins actually have an API, in vNitrogen I am using the se
   - /tphere <player>
   - /tpall
   - /togglestaffalerts (! IMPORTANT !)
+  - /msg <player> <message>
+  - /reply <message>
+  - /togglemessages
+  - /togglemessagesounds
+  - /toggleglobalchat
+  - /settings
   
 ### Listeners:
   - Player log listeners, where you can set custom join messages through the config.yml.
+  - Chat listeners, so that if you have global chat disabled, you are not able to see anyone chat, and you are not able to chat yourself.
+  - Settings GUI click listeners, that way when you click an item in the settings GUI, it toggles that selection.
   
 ### Toggle Staff Alerts:
 This is an important feature. For commands in vBasic such as /heal, /feed, /teleport, /broadcast, there are staff alerts that notify online staff what action a player is doing. However, this isn't just in the vBasic plugin. As I said earlier, vStaffUtils is dependant on vBasic. So, if you have staff alerts toggled, whenever a player vanishes, modmodes, buildmodes, freezes, or anything like that, it also triggers the staff alert notification. All staff alert messages customizable through the config.yml.
