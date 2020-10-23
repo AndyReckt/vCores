@@ -143,10 +143,10 @@ public class PlayerScoreboard implements Listener {
 
         objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectroMC"));
         replaceScore(objective, 9, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
-        replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&6&lOnline:"));
+        replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&e&lOnline:"));
         replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&f " + online));
         replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&7 "));
-        replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&6&lRank:"));
+        replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&e&lRank:"));
         replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&f " + rank));
         replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
         replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
