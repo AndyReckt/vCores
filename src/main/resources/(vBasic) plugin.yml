@@ -60,3 +60,27 @@ commands:
     description: List all online players on the server.
     usage: /<command>
     aliases: [online, listplayers]
+  Message:
+    description: Message another player on the server.
+    usage: /<command>
+    aliases: [msg, tell, whisper, t, wh, w]
+  Reply:
+    description: Reply to a player currently messaging you.
+    usage: /<command>
+    aliases: r
+  ToggleGlobalChat:
+    description: Toggle on or off global chat.
+    usage: /<command>
+    aliases: [tgc, tc, togglechat]
+  ToggleMessageSounds:
+    description: Toggle on or off messaging sounds.
+    usage: /<command>
+    aliases: [tms, togglesounds]
+  ToggleMessages:
+    description: Toggle on or off private messages.
+    usage: /<command>
+    aliases: [blockmsg, tpm, tm]
+  Settings:
+    description: Open the GUI for player settings.
+    usage: /<command>
+    aliases: [playersettings, options, playeroptions]
