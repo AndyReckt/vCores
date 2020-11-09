@@ -23,6 +23,9 @@ These plugins need parts of the other plugins to have functionality.
   - /act
   - /mct
   - /bct
+  - /warn <player> <reason>
+  - /mute <player> [-s] <reason>
+  - /unmute <player> [-s]
   
 ### Listeners:
   - A chat formatting listener, that formats the prefixes of the ranks (customizable in the config.yml) to be shown in chat.
