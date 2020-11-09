@@ -46,3 +46,14 @@ commands:
     description: Toggle on or off management chat.
     usage: /<command>
     aliases: [tmc, mct]
+  Warn:
+    description: Warn a player on the server
+    usage: /<command>
+  Mute:
+    description: Mute a player on the server
+    usage: /<command>
+    aliases: [silence, permmute]
+  Unmute:
+    description: Unmute a player on the server
+    usage: /<command>
+    aliases: [unsilence, unpermmute]
