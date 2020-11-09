@@ -1,18 +1,21 @@
 package net.vectromc.vnitrogen;
 
+import com.sun.org.apache.xerces.internal.xs.StringList;
 import net.vectromc.vnitrogen.chats.AdminChatCommand;
 import net.vectromc.vnitrogen.chats.BuildChatCommand;
 import net.vectromc.vnitrogen.chats.ManagementChatCommand;
 import net.vectromc.vnitrogen.chats.StaffChatCommand;
 import net.vectromc.vnitrogen.commands.NitrogenCommand;
 import net.vectromc.vnitrogen.commands.SetRankCommand;
+import net.vectromc.vnitrogen.commands.punishments.MuteCommand;
+import net.vectromc.vnitrogen.commands.punishments.UnmuteCommand;
+import net.vectromc.vnitrogen.commands.punishments.WarnCommand;
 import net.vectromc.vnitrogen.commands.toggles.AdminChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.BuildChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.ManagementChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.StaffChatToggle;
-import net.vectromc.vnitrogen.listeners.ChatFormat;
-import net.vectromc.vnitrogen.listeners.StaffLogEvents;
-import net.vectromc.vnitrogen.listeners.StaffWorldChangeEvents;
+import net.vectromc.vnitrogen.data.PlayerData;
+import net.vectromc.vnitrogen.listeners.*;
 import net.vectromc.vnitrogen.listeners.chatlisteners.ACToggleListener;
 import net.vectromc.vnitrogen.listeners.chatlisteners.BCToggleListener;
 import net.vectromc.vnitrogen.listeners.chatlisteners.MCToggleListener;
@@ -21,6 +24,8 @@ import net.vectromc.vnitrogen.listeners.starterlisteners.ACStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.BCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.MCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.SCStarterListener;
+import net.vectromc.vnitrogen.management.PlayerManagement;
+import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -31,6 +36,8 @@ import java.util.UUID;
 
 public final class vNitrogen extends JavaPlugin {
 
+    public PlayerData data;
+
     @Override
     public void onEnable() {
         // Plugin startup logic
@@ -39,6 +46,8 @@ public final class vNitrogen extends JavaPlugin {
         registerCommands();
         runRunnables();
         registerRanks();
+        registerData();
+        refreshMutes();
         startupAnnouncements();
 
     }
@@ -57,6 +66,7 @@ public final class vNitrogen extends JavaPlugin {
     public ArrayList<UUID> staffchat_toggle = new ArrayList<>();
     public ArrayList<UUID> adminchat_toggle = new ArrayList<>();
     public ArrayList<UUID> managementchat_toggle = new ArrayList<>();
+    public ArrayList<String> muted = new ArrayList<>();
 
     private void startupAnnouncements() {
         System.out.println("[VectroMC] vNitrogen v1.0 by Yochran is loading...");
@@ -82,6 +92,10 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("staffchattoggle").setExecutor(new StaffChatToggle());
         getCommand("adminchattoggle").setExecutor(new AdminChatToggle());
         getCommand("managementchattoggle").setExecutor(new ManagementChatToggle());
+        // Punishments
+        getCommand("Warn").setExecutor(new WarnCommand());
+        getCommand("Mute").setExecutor(new MuteCommand());
+        getCommand("Unmute").setExecutor(new UnmuteCommand());
     }
 
     private void registerEvents() {
@@ -99,8 +113,11 @@ public final class vNitrogen extends JavaPlugin {
         manager.registerEvents(new ACStarterListener(), this);
         manager.registerEvents(new MCStarterListener(), this);
         // Login/Logout/World Change
+        manager.registerEvents(new PlayerLogEvent(), this);
         manager.registerEvents(new StaffLogEvents(), this);
         manager.registerEvents(new StaffWorldChangeEvents(), this);
+        // Punishments
+        manager.registerEvents(new MuteChatListener(), this);
     }
 
     private void runRunnables() {
@@ -250,6 +267,21 @@ public final class vNitrogen extends JavaPlugin {
             target2.setDisplayName(getConfig().getString("Builder.color") + target2.getName());
         } else {
             target2.setDisplayName(getConfig().getString("Default.color") + target2.getName());
+        }
+    }
+
+    private void registerData() {
+        data = new PlayerData();
+        data.setupData();
+        data.saveData();
+        data.reloadData();
+    }
+
+    private void refreshMutes() {
+        if (data.config.contains("MutedPlayers")) {
+            for (String mutedPlayers : data.config.getConfigurationSection("MutedPlayers").getKeys(false)) {
+                muted.add(mutedPlayers);
+            }
         }
     }
 }
