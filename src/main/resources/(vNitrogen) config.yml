@@ -103,3 +103,42 @@ StaffWorldChange:
   format: "&b[S] %player% &3connected to &b%newWorld% &3from &b%oldWorld%"
   permission: "vnitrogen.staff.log"
   notifypermission: "vnitrogen.notify"
+
+# Below is everything regarding punishments.
+
+Silent:
+  Notify: "vnitrogen.notify.silent"
+  Prefix: "&7(Silent)"
+
+Warn:
+  Permission: "vnitrogen.warn"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /warn <player> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  GlobalMessage: "%executor% &ahas warned %target%&a."
+  ExecutorResponse: "&aYou have warned %player% &afor&f%reason%&a."
+  TargetResponse: |-
+    &cYou have been warned for&7%reason%&c.
+    &4Please stop breaking the rules.
+
+Mute:
+  Permission: "vnitrogen.mute"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /mute <player> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  PlayerIsMuted: "%server_prefix% &cPlayer is already muted!"
+  GlobalMessage: "%executor% &ahas permanently muted %target%&a."
+  ExecutorResponse: "&aYou have permanently muted %player% &afor&f%reason%&a."
+  TargetResponse: |-
+    &cYou have been permanently muted for&7%reason%&c.
+    &4This mute will not expire.
+  OnChatError: |-
+    &cYou cannot talk as you are muted for&7%reason%&c.
+    &4This mute will not expire.
+
+Unmute:
+  Permission: "vnitrogen.unmute"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unmute <player> [-s]"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  PlayerIsNotMuted: "%server_prefix% &cPlayer is not muted!"
+  GlobalMessage: "%executor% &ahas unmuted %target%&a."
+  ExecutorResponse: "&aYou have unmuted %player%&a."
+  TargetResponse: "&aYou have been unmuted."
