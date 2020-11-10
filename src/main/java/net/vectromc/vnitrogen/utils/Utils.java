@@ -5,6 +5,8 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.SimpleDateFormat;
+
 public class Utils {
 
     private static vNitrogen plugin;
@@ -36,4 +38,6 @@ public class Utils {
     public static void spacer(CommandSender sender) {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 "));
     }
+
+    public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yy HH:mm:ss z");
 }
