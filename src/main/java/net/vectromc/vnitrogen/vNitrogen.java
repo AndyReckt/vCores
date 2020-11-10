@@ -98,6 +98,7 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("Ban").setExecutor(new BanCommand());
         getCommand("Unban").setExecutor(new UnbanCommand());
         getCommand("TempMute").setExecutor(new TempmuteCommand());
+        getCommand("TempBan").setExecutor(new TempbanCommand());
     }
 
     private void registerEvents() {
