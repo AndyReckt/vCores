@@ -1,83 +1,89 @@
-name: vNitrogen
+name: vBasic
 version: ${project.version}
-main: net.vectromc.vnitrogen.vNitrogen
+main: net.vectromc.vbasic.vBasic
 api-version: 1.16
+depend: [vNitrogen]
 authors: [Yochran]
 description: One of the server cores for VectroMC
-website: https://vectromc.net
 commands:
-  vNitrogen:
+  vBasic:
     description: Gets the plugin information.
     usage: /<command>
-    aliases: nitrogen
-  Setrank:
-    description: Set a users rank.
+    aliases: basic
+  Teleport:
+    description: Teleport yourself to another player, or teleport another player to another player.
     usage: /<command>
-    aliases: rankset
-  BuildChat:
-    description: Talk to all online builders.
+    aliases: tp
+  TeleportHere:
+    description: Teleport another player to yourself.
     usage: /<command>
-    aliases: [bldc, buildc, bchat]
-  StaffChat:
-    description: Talk to all online staff.
+    aliases: tphere
+  TeleportAll:
+    description: Teleport all online players to yourself.
     usage: /<command>
-    aliases: [sc, staffc, schat]
-  AdminChat:
-    description: Talk to all online admins.
+    aliases: tpall
+  ToggleStaffAlerts:
+    description: Toggle on or off staff alerts.
     usage: /<command>
-    aliases: [ac, adminc, achat]
-  ManagementChat:
-    description: Talk to all online managers and above.
+    aliases: [tsa, talerts]
+  Broadcast:
+    description: Broadcast a message to the whole server.
     usage: /<command>
-    aliases: [mc, managementc, mchat]
-  BuildChatToggle:
-    description: Toggle on or off build chat.
+    aliases: [alert, bc, announce]
+  Gamemode:
+    description: Set your or another players gamemode.
     usage: /<command>
-    aliases: [tbc, bct]
-  StaffChatToggle:
-    description: Toggle on or off staff chat.
+    aliases: gm
+  Gmc:
+    description: Set your or another players gamemode to creative.
     usage: /<command>
-    aliases: [tsc, sct]
-  AdminChatToggle:
-    description: Toggle on or off admin chat.
+    aliases: gm1
+  Gms:
+    description: Set your or another players gamemode to survival.
     usage: /<command>
-    aliases: [tac, act]
-  ManagementChatToggle:
-    description: Toggle on or off management chat.
+    aliases: gm0
+  Gmsp:
+    description: Set your or another players gamemode to spectator.
     usage: /<command>
-    aliases: [tmc, mct]
-  Warn:
-    description: Warn a player on the server
+    aliases: gm3
+  Gma:
+    description: Set your or another players gamemode to adventure.
     usage: /<command>
-  Mute:
-    description: Mute a player on the server
+    aliases: gm2
+  Heal:
+    description: Heal yourself or another player.
     usage: /<command>
-    aliases: [silence, permmute]
-  Unmute:
-    description: Unmute a player on the server
+  Feed:
+    description: Feed yourself or another player.
     usage: /<command>
-    aliases: [unsilence, unpermmute]
-  History:
-    description: Get the punishment history of a user.
+  List:
+    description: List all online players on the server.
     usage: /<command>
-    aliases: [c, hist]
-  Kick:
-    description: Kick a player off the server.
+    aliases: [online, listplayers]
+  Message:
+    description: Message another player on the server.
     usage: /<command>
-    aliases: boot
-  Ban:
-    description: Ban a player from the server.
+    aliases: [msg, tell, whisper, t, wh, w]
+  Reply:
+    description: Reply to a player currently messaging you.
     usage: /<command>
-    aliases: [banish, b]
-  Unban:
-    description: Unban a player from the server.
+    aliases: r
+  ToggleGlobalChat:
+    description: Toggle on or off global chat.
     usage: /<command>
-    aliases: [unbanish, ub]
-  TempMute:
-    description: Mute a player temporarily.
+    aliases: [tgc, tc, togglechat]
+  ToggleMessageSounds:
+    description: Toggle on or off messaging sounds.
     usage: /<command>
-    aliases: [tm, tsilence, tempsilence]
-  TempBan:
-    description: Ban a player temporarily.
+    aliases: [tms, togglesounds]
+  ToggleMessages:
+    description: Toggle on or off private messages.
     usage: /<command>
-    aliases: [tbanish, tempbanish, tb]
+    aliases: [blockmsg, tpm, tm]
+  Settings:
+    description: Open the GUI for player settings.
+    usage: /<command>
+    aliases: [playersettings, options, playeroptions]
+  Back:
+    description: Return to a previous location after teleporting.
+    usage: /<command>
