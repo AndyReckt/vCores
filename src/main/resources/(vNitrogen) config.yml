@@ -142,6 +142,20 @@ Mute:
     &cYou cannot talk as you are muted for&7%reason%&c.
     &4This mute will not expire.
 
+TempMute:
+  Permission: "vnitrogen.mute"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /tempmute <player> <time> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  PlayerIsMuted: "%server_prefix% &cPlayer is already muted!"
+  GlobalMessage: "%executor% &ahas temporarily muted %target%&a."
+  ExecutorResponse: "&aYou have temporarily muted %player% &afor&f%reason%&a."
+  TargetResponse: |-
+    &cYou have been temporarily muted for&7%reason%&c.
+    &cThis mute expires in: &7%expiry%&c.
+  OnChatError: |-
+    &cYou cannot talk as you are muted for&7%reason%&c.
+    &cThis mute expires in: &7%expiry%&c.
+
 Unmute:
   Permission: "vnitrogen.unmute"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unmute <player> [-s]"
