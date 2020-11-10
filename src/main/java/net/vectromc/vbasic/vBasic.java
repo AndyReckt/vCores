@@ -4,6 +4,7 @@ import net.vectromc.vbasic.commands.*;
 import net.vectromc.vbasic.listeners.ChatListener;
 import net.vectromc.vbasic.listeners.PlayerLogEvents;
 import net.vectromc.vbasic.listeners.SettingsClickListeners;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -35,6 +36,7 @@ public final class vBasic extends JavaPlugin {
     public ArrayList<UUID> tms = new ArrayList<>();
     public ArrayList<UUID> tgc = new ArrayList<>();
     public HashMap<String, String> reply = new HashMap<>();
+    public HashMap<Player, Location> back = new HashMap<>();
 
     private void startupAnnouncements() {
         System.out.println("[VectroMC] vBasic v1.0 by Yochran is loading...");
@@ -66,6 +68,7 @@ public final class vBasic extends JavaPlugin {
         getCommand("togglemessagesounds").setExecutor(new ToggleMessageSounds());
         getCommand("togglemessages").setExecutor(new ToggleMessages());
         getCommand("settings").setExecutor(new SettingsCommand());
+        getCommand("Back").setExecutor(new BackCommand());
     }
 
     private void registerEvents() {
