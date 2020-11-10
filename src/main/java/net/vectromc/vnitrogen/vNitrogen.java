@@ -1,15 +1,12 @@
 package net.vectromc.vnitrogen;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
 import net.vectromc.vnitrogen.chats.AdminChatCommand;
 import net.vectromc.vnitrogen.chats.BuildChatCommand;
 import net.vectromc.vnitrogen.chats.ManagementChatCommand;
 import net.vectromc.vnitrogen.chats.StaffChatCommand;
 import net.vectromc.vnitrogen.commands.NitrogenCommand;
 import net.vectromc.vnitrogen.commands.SetRankCommand;
-import net.vectromc.vnitrogen.commands.punishments.MuteCommand;
-import net.vectromc.vnitrogen.commands.punishments.UnmuteCommand;
-import net.vectromc.vnitrogen.commands.punishments.WarnCommand;
+import net.vectromc.vnitrogen.commands.punishments.*;
 import net.vectromc.vnitrogen.commands.toggles.AdminChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.BuildChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.ManagementChatToggle;
@@ -24,8 +21,6 @@ import net.vectromc.vnitrogen.listeners.starterlisteners.ACStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.BCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.MCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.SCStarterListener;
-import net.vectromc.vnitrogen.management.PlayerManagement;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -47,6 +42,7 @@ public final class vNitrogen extends JavaPlugin {
         runRunnables();
         registerRanks();
         registerData();
+        refreshBans();
         refreshMutes();
         startupAnnouncements();
 
@@ -67,6 +63,7 @@ public final class vNitrogen extends JavaPlugin {
     public ArrayList<UUID> adminchat_toggle = new ArrayList<>();
     public ArrayList<UUID> managementchat_toggle = new ArrayList<>();
     public ArrayList<String> muted = new ArrayList<>();
+    public ArrayList<String> banned = new ArrayList<>();
 
     private void startupAnnouncements() {
         System.out.println("[VectroMC] vNitrogen v1.0 by Yochran is loading...");
@@ -96,6 +93,10 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("Warn").setExecutor(new WarnCommand());
         getCommand("Mute").setExecutor(new MuteCommand());
         getCommand("Unmute").setExecutor(new UnmuteCommand());
+        getCommand("History").setExecutor(new HistoryCommand());
+        getCommand("Kick").setExecutor(new KickCommand());
+        getCommand("Ban").setExecutor(new BanCommand());
+        getCommand("Unban").setExecutor(new UnbanCommand());
     }
 
     private void registerEvents() {
@@ -118,6 +119,7 @@ public final class vNitrogen extends JavaPlugin {
         manager.registerEvents(new StaffWorldChangeEvents(), this);
         // Punishments
         manager.registerEvents(new MuteChatListener(), this);
+        manager.registerEvents(new BanJoinListener(), this);
     }
 
     private void runRunnables() {
@@ -281,6 +283,14 @@ public final class vNitrogen extends JavaPlugin {
         if (data.config.contains("MutedPlayers")) {
             for (String mutedPlayers : data.config.getConfigurationSection("MutedPlayers").getKeys(false)) {
                 muted.add(mutedPlayers);
+            }
+        }
+    }
+
+    private void refreshBans() {
+        if (data.config.contains("BannedPlayers")) {
+            for (String bannedPlayers : data.config.getConfigurationSection("BannedPlayers").getKeys(false)) {
+                banned.add(bannedPlayers);
             }
         }
     }
