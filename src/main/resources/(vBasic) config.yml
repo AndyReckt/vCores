@@ -40,6 +40,8 @@ TeleportPlayerToYou: "&eYou have teleported %target% &eto you."
 PlayerTeleportedPlayerToPlayer: "&eYou have been teleported to %target% &eby %player%&e."
 YouTeleportedPlayerToPlayer: "&eYou have teleported %target1% &eto &e%target2%&e."
 TpAll: "&eYou have teleported &6ALL &eplayers to you."
+BackMessage: "&eYou have teleported to your previous location."
+BackError: "&eYou have nowhere to teleport back to."
 
 # Everything regarding /broadcast is below:
 
@@ -113,3 +115,4 @@ StaffAlerts:
   HealOther: "&7&o[%player% &7&ohas healed %target%&7&o]"
   FeedSelf: "&7&o[%player% &7&ohas fed themselves&7&o]"
   FeedOther: "&7&o[%player% &7&ohas fed %target%&7&o]"
+  Back: "&7&o[%player% &7&ohas teleported to their previous location]"
