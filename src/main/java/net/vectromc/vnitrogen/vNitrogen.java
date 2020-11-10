@@ -64,6 +64,7 @@ public final class vNitrogen extends JavaPlugin {
     public ArrayList<UUID> managementchat_toggle = new ArrayList<>();
     public ArrayList<String> muted = new ArrayList<>();
     public ArrayList<String> banned = new ArrayList<>();
+    public  ArrayList<String> alts = new ArrayList<>();
 
     private void startupAnnouncements() {
         System.out.println("[VectroMC] vNitrogen v1.0 by Yochran is loading...");
@@ -99,6 +100,7 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("Unban").setExecutor(new UnbanCommand());
         getCommand("TempMute").setExecutor(new TempmuteCommand());
         getCommand("TempBan").setExecutor(new TempbanCommand());
+        getCommand("Alts").setExecutor(new AltsCommand());
     }
 
     private void registerEvents() {
