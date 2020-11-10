@@ -26,6 +26,10 @@ These plugins need parts of the other plugins to have functionality.
   - /warn <player> <reason>
   - /mute <player> [-s] <reason>
   - /unmute <player> [-s]
+  - /ban <player> [-s] <reason>
+  - /unban <player> [-s]
+  - /kick <player> [-s] <reason>
+  - /history <player>
   
 ### Listeners:
   - A chat formatting listener, that formats the prefixes of the ranks (customizable in the config.yml) to be shown in chat.
@@ -44,6 +48,7 @@ While none of these plugins actually have an API, in vNitrogen I am using the se
   - /modmode [player]
   - /report <player>
   - /freeze <player>
+  - /invsee <player>
   
 ### Listeners:
   - Modmode item listeners, for when you use certain items.
