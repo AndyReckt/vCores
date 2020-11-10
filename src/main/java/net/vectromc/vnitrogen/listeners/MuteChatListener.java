@@ -48,8 +48,8 @@ public class MuteChatListener implements Listener {
     @EventHandler
     public void onCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
-        String command = event.getMessage();
-        if (command.equalsIgnoreCase("/message") || command.equalsIgnoreCase("/msg") || command.equalsIgnoreCase("/tell") || command.equalsIgnoreCase("/whisper") || command.equalsIgnoreCase("/w") || command.equalsIgnoreCase("/t")) {
+        String command = event.getMessage().toLowerCase();
+        if (command.contains("/message") || command.contains("/msg") || command.contains("/tell") || command.contains("/whisper") || command.contains("/w") || command.contains("/t")) {
             if (plugin.muted.contains(player.getUniqueId().toString())) {
                 event.setCancelled(true);
                 PlayerManagement playerManagement = new PlayerManagement(player);
