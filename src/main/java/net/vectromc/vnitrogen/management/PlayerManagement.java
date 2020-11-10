@@ -32,4 +32,24 @@ public class PlayerManagement {
         plugin.data.config.set(player.getUniqueId().toString() + ".MutesAmount", getMutesAmount() + 1);
         plugin.data.saveData();
     }
+
+    public int getKicksAmount() {
+        return plugin.data.config.getInt(player.getUniqueId().toString() + ".KicksAmount");
+    }
+
+    public void addKick() {
+        plugin.data.config.set(player.getUniqueId().toString() + ".Name", player.getName());
+        plugin.data.config.set(player.getUniqueId().toString() + ".KicksAmount", getKicksAmount() + 1);
+        plugin.data.saveData();
+    }
+
+    public int getBansAmount() {
+        return plugin.data.config.getInt(player.getUniqueId().toString() + ".BansAmount");
+    }
+
+    public  void addBan() {
+        plugin.data.config.set(player.getUniqueId().toString() + ".Name", player.getName());
+        plugin.data.config.set(player.getUniqueId().toString() + ".BansAmount", getBansAmount() + 1);
+        plugin.data.saveData();
+    }
 }
