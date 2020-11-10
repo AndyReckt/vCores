@@ -11,6 +11,9 @@ ServerPrefix: "&7[&6&lVectroMC&7]"
 
 # Ranks:
 
+Console:
+  name: "&c&lConsole"
+
 Owner:
   prefix: "&7(&4Owner&7) &4"
   color: "&4"
@@ -110,6 +113,11 @@ Silent:
   Notify: "vnitrogen.notify.silent"
   Prefix: "&7(Silent)"
 
+History:
+  Permission: "vnitrogen.history"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /c <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player"
+
 Warn:
   Permission: "vnitrogen.warn"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /warn <player> [-s] <reason>"
@@ -142,3 +150,32 @@ Unmute:
   GlobalMessage: "%executor% &ahas unmuted %target%&a."
   ExecutorResponse: "&aYou have unmuted %player%&a."
   TargetResponse: "&aYou have been unmuted."
+
+Kick:
+  Permission: "vnitrogen.kick"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /kick <player> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  GlobalMessage: "%executor% &ahas kicked %target%&a."
+  ExecutorResponse: "&aYou have kicked %player%&a for&f%reason%&a."
+  KickMessage: |-
+    &cYou have been &4kicked &cfrom the server.
+    &7You were kicked for:&f%reason%&7.
+
+Ban:
+  Permission: "vnitrogen.ban"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /ban <player> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  GlobalMessage: "%executor% &ahas permanently banned %target%&a."
+  ExecutorResponse: "&aYou have permanently banned %player%&a for&f%reason%&a."
+  BanMessage: |-
+    &cYou have been &4banned &cfrom the server.
+    &7You were banned for:&f%reason%&7.
+    &4This ban will not expire.
+
+Unban:
+  Permission: "vnitrogen.unban"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unban <player> [-s]"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  PlayerIsNotBanned: "%server_prefix% &cPlayer is not banned!"
+  GlobalMessage: "%executor% &ahas unbanned %target%&a."
+  ExecutorResponse: "&aYou have unbanned %player%&a."
