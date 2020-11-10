@@ -204,3 +204,12 @@ Unban:
   PlayerIsNotBanned: "%server_prefix% &cPlayer is not banned!"
   GlobalMessage: "%executor% &ahas unbanned %target%&a."
   ExecutorResponse: "&aYou have unbanned %player%&a."
+
+Alts:
+  Permission: "vnitrogen.alts"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /alts <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  JoinMessageDetected: |-
+    &c[A] %player% &3joined, &b%amount% &3alts were detected!
+    &3Alt Accounts &7(&4Banned&7, &6Muted&7, &aOnline&7, &7Offline&7): %alts%
+  CommandMessage: "&3Alt Accounts of %player% &7(&4Banned&7, &6Muted&7, &aOnline&7, &7Offline&7): %alts%"
