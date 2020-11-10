@@ -97,6 +97,7 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("Kick").setExecutor(new KickCommand());
         getCommand("Ban").setExecutor(new BanCommand());
         getCommand("Unban").setExecutor(new UnbanCommand());
+        getCommand("TempMute").setExecutor(new TempmuteCommand());
     }
 
     private void registerEvents() {
@@ -120,6 +121,7 @@ public final class vNitrogen extends JavaPlugin {
         // Punishments
         manager.registerEvents(new MuteChatListener(), this);
         manager.registerEvents(new BanJoinListener(), this);
+        manager.registerEvents(new GUIClickListener(), this);
     }
 
     private void runRunnables() {
