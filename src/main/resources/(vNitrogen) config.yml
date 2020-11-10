@@ -186,6 +186,17 @@ Ban:
     &7You were banned for:&f%reason%&7.
     &4This ban will not expire.
 
+TempBan:
+  Permission: "vnitrogen.tempban"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /tempban <player> <time> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  GlobalMessage: "%executor% &ahas temporarily banned %target%&a."
+  ExecutorResponse: "&aYou have temporarily banned %player%&a for&f%reason%&a."
+  BanMessage: |-
+    &cYou have been &4banned &cfrom the server.
+    &7You were banned for:&f%reason%&7.
+    &cThis ban will expire on: &7%expiry%&c.
+
 Unban:
   Permission: "vnitrogen.unban"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unban <player> [-s]"
