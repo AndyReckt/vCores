@@ -70,6 +70,8 @@ public class BanCommand implements CommandExecutor {
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Silent", silent.toString());
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Server", player.getWorld().getName());
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Date", System.currentTimeMillis());
+                        plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Temp", "false");
+                        plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Duration", "Permanent");
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Status", "Active");
                         plugin.data.config.set("BannedPlayers." + target.getUniqueId().toString() + ".Name", target.getName());
                         plugin.data.saveData();
@@ -136,6 +138,8 @@ public class BanCommand implements CommandExecutor {
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Silent", silent.toString());
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Server", player.getWorld().getName());
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Date", System.currentTimeMillis());
+                        plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Temp", "false");
+                        plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Duration", "Permanent");
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Status", "Active");
                         plugin.data.config.set("BannedPlayers." + target2.getUniqueId().toString() + ".Name", target2.getName());
                         plugin.data.saveData();
