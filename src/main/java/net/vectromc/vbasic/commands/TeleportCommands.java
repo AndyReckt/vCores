@@ -5,6 +5,7 @@ import net.vectromc.vbasic.vBasic;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -35,6 +36,9 @@ public class TeleportCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
+                            plugin.back.remove(player);
+                            Location oldLoc = player.getLocation();
+                            plugin.back.put(player, oldLoc);
                             nitrogen.setTargetColor(target);
                             nitrogen.setPlayerColor(player);
                             player.teleport(target);
@@ -52,6 +56,9 @@ public class TeleportCommands implements CommandExecutor {
                         Player target2 = Bukkit.getPlayer(args[1]);
                         if (target != null) {
                             if (target2 != null) {
+                                plugin.back.remove(target);
+                                Location oldLoc = target.getLocation();
+                                plugin.back.put(target, oldLoc);
                                 nitrogen.setTargetColor(target);
                                 nitrogen.setTarget2Color(target2);
                                 nitrogen.setPlayerColor(player);
@@ -88,6 +95,9 @@ public class TeleportCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
+                            plugin.back.remove(target);
+                            Location oldLoc = target.getLocation();
+                            plugin.back.put(target, oldLoc);
                             nitrogen.setTargetColor(target);
                             nitrogen.setPlayerColor(player);
                             target.teleport(player);
@@ -117,6 +127,11 @@ public class TeleportCommands implements CommandExecutor {
                     nitrogen.setPlayerColor(player);
                     Utils.sendMessage(player, plugin.getConfig().getString("TpAll"));
                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                        if (onlinePlayers.hasPermission(plugin.getConfig().getString("TeleportPermission"))) {
+                            plugin.back.remove(onlinePlayers);
+                            Location oldLoc = player.getLocation();
+                            plugin.back.put(onlinePlayers, oldLoc);
+                        }
                         onlinePlayers.teleport(player);
                     }
                     for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
