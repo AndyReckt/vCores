@@ -73,3 +73,7 @@ commands:
     description: Unban a player from the server.
     usage: /<command>
     aliases: [unbanish, ub]
+  TempMute:
+    description: Mute a player temporarily.
+    usage: /<command>
+    aliases: [tm, tsilence, tempsilence]
