@@ -57,3 +57,19 @@ commands:
     description: Unmute a player on the server
     usage: /<command>
     aliases: [unsilence, unpermmute]
+  History:
+    description: Get the punishment history of a user.
+    usage: /<command>
+    aliases: [c, hist]
+  Kick:
+    description: Kick a player off the server.
+    usage: /<command>
+    aliases: boot
+  Ban:
+    description: Ban a player from the server.
+    usage: /<command>
+    aliases: [banish, b]
+  Unban:
+    description: Unban a player from the server.
+    usage: /<command>
+    aliases: [unbanish, ub]
