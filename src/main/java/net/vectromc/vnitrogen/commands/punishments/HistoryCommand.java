@@ -148,7 +148,13 @@ public class HistoryCommand implements CommandExecutor {
                                     executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
                                 }
                                 reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Reason");
-                                duration = "Permanent";
+
+                                if (plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Duration").equalsIgnoreCase("Permanent")) {
+                                    duration = "Never";
+                                } else {
+                                    duration = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Duration")));
+                                }
+
                                 server = plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Server");
                                 silent = plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Silent");
                                 date = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Date")));
@@ -179,7 +185,7 @@ public class HistoryCommand implements CommandExecutor {
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eType: " + type));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eExecutor: " + executorName));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&', "&eReason:&6" + reason));
-                                muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eDuration: &6" + duration));
+                                muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eExpire(s/d) on: &6" + duration));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&a "));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eServer: &6" + server));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eSilent: &6" + silent));
@@ -420,7 +426,13 @@ public class HistoryCommand implements CommandExecutor {
                                     executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
                                 }
                                 reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Reason");
-                                duration = "Permanent";
+
+                                if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Duration").equalsIgnoreCase("Permanent")) {
+                                    duration = "Never";
+                                } else {
+                                    duration = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Duration")));
+                                }
+
                                 server = plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Server");
                                 silent = plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Silent");
                                 date = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Date")));
@@ -451,7 +463,7 @@ public class HistoryCommand implements CommandExecutor {
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eType: " + type));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eExecutor: " + executorName));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&', "&eReason:&6" + reason));
-                                muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eDuration: &6" + duration));
+                                muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eExpire(s/d) on: &6" + duration));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&a "));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eServer: &6" + server));
                                 muteLore.add(ChatColor.translateAlternateColorCodes('&',"&eSilent: &6" + silent));
