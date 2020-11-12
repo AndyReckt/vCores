@@ -84,3 +84,18 @@ commands:
   Alts:
     description: Check if another player has any alts.
     usage: /<command>
+  Mutechat:
+    description: Mute the server chat.
+    usage: /<command>
+    aliases: [muteserverchat, muteglobalchat]
+  ClearChat:
+    description: Clear the server chat.
+    usage: /<command>
+  Blacklist:
+    description: Blacklist a players IP address from the server.
+    usage: /<command>
+    aliases: [bl, permblacklist, permbl, banip, ipban]
+  Unblacklist:
+    description: Unblacklist a player.
+    usage: /<command>
+    aliases: [unbl, ubl, unbanip, unipban]
