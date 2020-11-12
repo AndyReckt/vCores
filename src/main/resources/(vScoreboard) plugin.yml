@@ -9,3 +9,6 @@ commands:
   Onlineplayers:
     description: Get the amount of online players.
     aliases: [online, list, listallplayers, listplayers]
+  ToggleScoreboard:
+    description: Toggle on or off the scoreboard
+    aliases: [tsb]
