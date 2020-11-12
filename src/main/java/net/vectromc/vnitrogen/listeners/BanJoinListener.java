@@ -33,12 +33,12 @@ public class BanJoinListener implements Listener {
                 } else {
                     String reason = plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + playerManagement.getBansAmount() + ".Reason");
                     String expirationDate = Utils.TIME_FORMAT.format(new Date(plugin.data.config.getLong(player.getUniqueId().toString() + ".Bans." + playerManagement.getBansAmount() + ".Duration")));
-                    player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("TempBan.BanMessage").replaceAll("%reason%", reason).replaceAll("%executor%", player.getDisplayName()).replaceAll("%expiry%", expirationDate)));
+                    player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("TempBan.BanMessage").replaceAll("%reason%", reason).replaceAll("%expiry%", expirationDate)));
                     plugin.data.saveData();
                 }
             } else {
                 String reason = plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + playerManagement.getBansAmount() + ".Reason");
-                player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Ban.BanMessage").replaceAll("%reason%", reason).replaceAll("%executor%", player.getDisplayName())));
+                player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Ban.BanMessage").replaceAll("%reason%", reason)));
                 plugin.data.saveData();
             }
         }

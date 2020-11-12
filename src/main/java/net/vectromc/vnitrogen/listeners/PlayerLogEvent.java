@@ -20,24 +20,11 @@ public class PlayerLogEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (player.hasPermission("vnitrogen.groups.owner")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Owner");
-        } else if (player.hasPermission("vnitrogen.groups.developer")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Developer");
-        } else if (player.hasPermission("vnitrogen.groups.manager")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Manager");
-        } else if (player.hasPermission("vnitrogen.groups.admin")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Admin");
-        } else if (player.hasPermission("vnitrogen.groups.seniormod")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Senior-Mod");
-        } else if (player.hasPermission("vnitrogen.groups.mod")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Mod");
-        } else if (player.hasPermission("vnitrogen.groups.trialmod")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Trial-Mod");
-        } else if (player.hasPermission("vnitrogen.groups.builder")) {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Builder");
-        } else {
-            plugin.data.config.set(player.getUniqueId() + ".Rank", "Default");
+        for (String rank : plugin.ranks) {
+            String permName = plugin.getConfig().getString("Ranks." + rank + ".permission");
+            if (player.hasPermission(permName)) {
+                plugin.data.config.set(player.getUniqueId().toString() + ".Rank", rank);
+            }
         }
         plugin.data.config.set(player.getUniqueId() + ".Name", player.getName());
 
@@ -50,7 +37,7 @@ public class PlayerLogEvent implements Listener {
             if (plugin.data.config.getString("IPs." + player.getUniqueId().toString() + ".IP").equals(plugin.data.config.get("IPs." + allUUIDS + ".IP")) && !allUUIDS.equals(player.getUniqueId().toString())) {
                 amount++;
                 Player altPlayer = Bukkit.getPlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                String altStatus;
+                String altStatus = "";
                 if (altPlayer != null) {
                     if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altPlayer.getUniqueId().toString())) {
                         altStatus = "&6" + altPlayer.getName();
@@ -59,8 +46,12 @@ public class PlayerLogEvent implements Listener {
                     }
                 } else {
                     OfflinePlayer altOfflinePlayer = Bukkit.getOfflinePlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                    if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
-                        altStatus = "&4" + altOfflinePlayer.getName();
+                    if (plugin.data.config.getConfigurationSection("BlacklistedIPs").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                        if (plugin.data.config.getString("BlacklistedIPs." + altOfflinePlayer.getUniqueId().toString() + ".IP").equalsIgnoreCase(plugin.data.config.getString("IPs." + altOfflinePlayer.getUniqueId().toString() + ".IP"))) {
+                            altStatus = "&4" + altOfflinePlayer.getName();
+                        }
+                    } else if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                        altStatus = "&c" + altOfflinePlayer.getName();
                     } else if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
                         altStatus = "&6" + altOfflinePlayer.getName();
                     } else {
@@ -83,7 +74,7 @@ public class PlayerLogEvent implements Listener {
                             str = str + " " + alt;
                         }
                     }
-                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Alts.JoinMessageDetected").replaceAll("%player%", player.getDisplayName()).replaceAll("%amount%", amountStr).replaceAll("%alts%", str)));
+                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Alts.JoinMessageDetected").replaceAll("%player%", player.getDisplayName()).replaceAll("%amount%", amountStr)));
                     plugin.alts.clear();
                 }
             }
