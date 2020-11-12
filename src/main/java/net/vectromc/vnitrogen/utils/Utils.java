@@ -40,4 +40,12 @@ public class Utils {
     }
 
     public static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("MM/dd/yy HH:mm:ss z");
+
+    public static final SimpleDateFormat TIME_FORMAT = new SimpleDateFormat("MM/dd/yy HH:mm:ss z");
+
+    public static void chatClearer(Player onlinePlayers) {
+        for (int i = 0; i < 50; i++) {
+            onlinePlayers.sendMessage(ChatColor.translateAlternateColorCodes('&', "&a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n &a \n "));
+        }
+    }
 }
