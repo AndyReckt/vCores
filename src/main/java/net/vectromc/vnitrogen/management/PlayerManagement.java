@@ -52,4 +52,14 @@ public class PlayerManagement {
         plugin.data.config.set(player.getUniqueId().toString() + ".BansAmount", getBansAmount() + 1);
         plugin.data.saveData();
     }
+
+    public int getBlacklistsAmount() {
+        return plugin.data.config.getInt(player.getUniqueId().toString() + ".BlacklistsAmount");
+    }
+
+    public void addBlacklist() {
+        plugin.data.config.set(player.getUniqueId().toString() + ".Name", player.getName());
+        plugin.data.config.set(player.getUniqueId().toString() + ".BlacklistsAmount", getBlacklistsAmount() + 1);
+        plugin.data.saveData();
+    }
 }
