@@ -111,18 +111,18 @@ public class PlayerScoreboard implements Listener {
         }
 
         if (staffUtils.modmode.contains(player.getUniqueId())) {
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lMonsoon &7| &7Mod-Mode"));
+            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectro &7| &7Mod-Mode"));
             replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
             if (staffUtils.vanished.contains(player.getUniqueId())) {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lVanished: &aYes"));
+                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &aYes"));
             } else {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lVanished: &cNo"));
+                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &cNo"));
             }
-            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lStaff Online: &a" + staffonline));
-            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lPlayers Online: &a" + online));
-            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lServer: &a" + player.getWorld().getName()));
+            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&e * &f&lStaff Online: &6" + staffonline));
+            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&e * &f&lPlayers Online: &6" + online));
+            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&e * &f&lServer: &6" + player.getWorld().getName()));
             replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7 Monsoon SMP"));
+            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
             replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
             if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
                 objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -132,15 +132,15 @@ public class PlayerScoreboard implements Listener {
         }
 
         if (!plugin.tsb.contains(player.getUniqueId())) {
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lMonsoon"));
+            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectroMC"));
             replaceScore(objective, 9, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
-            replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&2&lOnline:"));
+            replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&6&lOnline:"));
             replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&f " + online));
             replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&7 "));
-            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&2&lRank:"));
+            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&6&lRank:"));
             replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&f " + rank));
             replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7 Monsoon SMP"));
+            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
             replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
             if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
                 objective.setDisplaySlot(DisplaySlot.SIDEBAR);
