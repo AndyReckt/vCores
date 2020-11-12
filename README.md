@@ -29,6 +29,10 @@ These plugins need parts of the other plugins to have functionality.
   - /ban <player> [-s] <reason>
   - /unban <player> [-s]
   - /kick <player> [-s] <reason>
+  - /tempmute <player> <time> [-] <reason>
+  - /tempban <player> <time> [-s] <reason>
+  - /blacklist <player> [-s] <reason>
+  - /alts <player>
   - /history <player>
   
 ### Listeners:
