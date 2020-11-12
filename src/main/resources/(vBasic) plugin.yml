@@ -84,3 +84,6 @@ commands:
     description: Open the GUI for player settings.
     usage: /<command>
     aliases: [playersettings, options, playeroptions]
+  Back:
+    description: Return to a previous location after teleporting.
+    usage: /<command>
