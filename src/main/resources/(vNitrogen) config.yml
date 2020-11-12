@@ -14,47 +14,77 @@ ServerPrefix: "&7[&6&lVectroMC&7]"
 Console:
   name: "&c&lConsole"
 
-Owner:
-  prefix: "&7(&4Owner&7) &4"
-  color: "&4"
-Developer:
-  prefix: "&7(&6&oDeveloper&7) &6&o"
-  color: "&6&o"
-Manager:
-  prefix: "&7(&9Manager&7) &9"
-  color: "&9"
-Admin:
-  prefix: "&7(&cAdmin&7) &c"
-  color: "&c"
-Senior-Mod:
-  prefix: "&7(&5&oSenior-Mod&7) &5&o"
-  color: "&5&o"
-Mod:
-  prefix: "&7(&5Mod&7) &5"
-  color: "&5"
-Trial-Mod:
-  prefix: "&7(&eTrial-Mod&7) &e"
-  color: "&e"
-Builder:
-  prefix: "&7(&2Builder&7) &2"
-  color: "&2"
-Default:
-  prefix: "&7"
-  color: "&7"
+# RANK NAMES MUST BE UPPERCASE!!!!
+
+Ranks:
+  OWNER:
+    default: false
+    prefix: "&7(&4Owner&7) &4"
+    color: "&4"
+    display: "&4Owner"
+    permission: "vnitrogen.groups.owner"
+  DEVELOPER:
+    default: false
+    prefix: "&7(&6&oDeveloper&7) &6&o"
+    color: "&6&o"
+    display: "&6&oDeveloper"
+    permission: "vnitrogen.groups.developer"
+  MANAGER:
+    default: false
+    prefix: "&7(&9Manager&7) &9"
+    color: "&9"
+    display: "&9Manager"
+    permission: "vnitrogen.groups.manager"
+  ADMIN:
+    default: false
+    prefix: "&7(&cAdmin&7) &c"
+    color: "&c"
+    display: "&cAdmin"
+    permission: "vnitrogen.groups.admin"
+  SENIOR-MOD:
+    default: false
+    prefix: "&7(&5&oSenior-Mod&7) &5&o"
+    color: "&5&o"
+    display: "&5&oSenior-Mod"
+    permission: "vnitrogen.groups.seniormod"
+  MOD:
+    default: false
+    prefix: "&7(&5Mod&7) &5"
+    color: "&5"
+    display: "&5Mod"
+    permission: "vnitrogen.groups.mod"
+  TRIAL-MOD:
+    default: false
+    prefix: "&7(&eTrial-Mod&7) &e"
+    color: "&e"
+    display: "&eTrial-Mod"
+    permission: "vnitrogen.groups.trialmod"
+  BUILDER:
+    default: false
+    prefix: "&7(&2Builder&7) &2"
+    color: "&2"
+    display: "&2Builder"
+    permission: "vnitrogen.groups.builder"
+  DEFAULT:
+    default: true
+    prefix: "&7"
+    color: "&7"
+    display: "&7Default"
+    permission: "vnitrogen.groups.default"
 
 # Config Messages:
 
 YouMustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 CantFindPlayer: "%server_prefix% &cThat player was not found."
-ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
+ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml, and the playerdata.yml."
 
 # Everything regarding to the /setrank command:
 
 Setrank:
+  CommandToRun: "pex user %player% group set %rank%"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /setrank <player> <rank>"
   InvalidRank: "%server_prefix% &cInvalid Rank!"
-  # You cannot use %server_prefix% or %plugin_prefix% for these messages below!
   SenderSetRank: "&aYou have set %target%&a's rank to %rank%&a."
   TargetSetRank: "&aYour rank has been set to %rank%&a."
 
@@ -205,11 +235,45 @@ Unban:
   GlobalMessage: "%executor% &ahas unbanned %target%&a."
   ExecutorResponse: "&aYou have unbanned %player%&a."
 
+Blacklist:
+  Permission: "vnitrogen.blacklist"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /blacklist <player> [-s] <reason>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  GlobalMessage: "%executor% &ahas permanently blacklisted %target%&a."
+  ExecutorResponse: "&aYou have permanently blacklisted %player%&a for&f%reason%&a."
+  CantBlacklist: "%server_prefix% &cYou cannot blacklist a player who's never joined."
+  BlacklistMessage: |-
+    &cYou have been &4blacklisted &cfrom the server.
+    &7You were blacklisted for:&f%reason%&7.
+    &4This blacklist will not expire.
+
+Unblacklist:
+  Permission: "vnitrogen.unblacklist"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unblacklist <player> [-s]"
+  InvalidPlayer: "%server_prefix% &cInvalid Player."
+  PlayerIsNotBlacklisted: "%server_prefix% &cPlayer is not blacklisted!"
+  GlobalMessage: "%executor% &ahas unblacklisted %target%&a."
+  ExecutorResponse: "&aYou have unblacklisted %player%&a."
+
 Alts:
   Permission: "vnitrogen.alts"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /alts <player>"
   InvalidPlayer: "%server_prefix% &cInvalid Player!"
   JoinMessageDetected: |-
-    &c[A] %player% &3joined, &b%amount% &3alts were detected!
-    &3Alt Accounts &7(&4Banned&7, &6Muted&7, &aOnline&7, &7Offline&7): %alts%
-  CommandMessage: "&3Alt Accounts of %player% &7(&4Banned&7, &6Muted&7, &aOnline&7, &7Offline&7): %alts%"
+    &c[A] %player% &3joined, &b%amount% &3alts were detected! &7(/alts %player%&7)
+  CommandMessage: "&3Alt Accounts of %player% &7(&4Blacklisted&7, &cBanned&7, &6Muted&7, &aOnline&7, &7Offline&7): %alts%"
+
+MuteChat:
+  Permission: "vnitrogen.mutechat"
+  Bypass: "vnitrogen.mutechat.bypass"
+  GlobalMessageOn: "%player% &ahas muted the &2server chat&a."
+  GlobalMessageOff: "%player% &ahas unmuted the &2server chat&a."
+  StaffMessageOn: "&b[S] &3[%world%] %player% &3has &bmuted &3the server chat."
+  StaffMessageOff: "&b[S] &3[%world%] %player% &3has &bunmuted &3the server chat."
+  ChatError: "&cYou cannot talk as the chat is muted."
+
+ClearChat:
+  Permission: "vnitrogen.clearchat"
+  NotifyPermission: "vnitrogen.clearchat.notify"
+  GlobalMessage: "%player% &ahas cleared the &2server chat&a."
+  StaffMessage: "&b[S] &3[%world%] %player% &3has &bcleared &3the server chat."
