@@ -18,6 +18,7 @@ TeleportPermission: "vbasic.teleport"
 
 MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
+InvalidPlayer: "%server_prefix% &cInvalid Player!"
 
 JoinMessage: true
 LeaveMessage: true
@@ -99,6 +100,18 @@ TmsOn: "&aYou have enabled message sounds."
 TmsOff: "&cYou have disabled message sounds."
 TgcOn: "&aYou have enabled global chat."
 TgcOff: "&cYou have disabled global chat."
+
+# Everything regarding the spawn is below:
+
+SpawnEveryJoin: false
+
+Spawn:
+  X: 0.5
+  Y: 60
+  Z: 0.5
+  World: world
+  Pitch: 0.0
+  Yaw: 0.1
 
 # Staff Alerts for everything are below:
 
