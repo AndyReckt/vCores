@@ -1,4 +1,4 @@
-# vScoreboard v1.0 by Yochran
+# vBasic v1.0 by Yochran
 # https://github.com/Yochran
 
 # One of the server cores for VectroMC
@@ -17,6 +17,8 @@ MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 
 Scoreboard:
   Enabled: true
+  ToggleOffMessage: "&cYou have toggled off the scoreboard."
+  ToggleOnMessage: "&aYou have toggled on the scoreboard."
 
 StaffScoreboard:
   Enabled: true
