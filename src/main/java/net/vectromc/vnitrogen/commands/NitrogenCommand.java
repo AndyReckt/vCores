@@ -31,6 +31,9 @@ public class NitrogenCommand implements CommandExecutor {
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
                     plugin.reloadConfig();
+                    plugin.data.saveData();
+                    plugin.data.reloadData();
+                    plugin.registerRanks();
                     Utils.sendMessage(player, plugin.getConfig().getString("ReloadConfig").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                 } else {
                     Utils.liner(player);
