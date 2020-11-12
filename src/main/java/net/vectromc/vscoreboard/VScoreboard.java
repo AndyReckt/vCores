@@ -1,10 +1,14 @@
 package net.vectromc.vscoreboard;
 
 import net.vectromc.vscoreboard.commands.ListCommand;
+import net.vectromc.vscoreboard.commands.ToggleScoreboardCommand;
 import net.vectromc.vscoreboard.listeners.CommandListener;
 import net.vectromc.vscoreboard.utils.ScoreboardRunnable;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.ArrayList;
+import java.util.UUID;
 
 public final class VScoreboard extends JavaPlugin {
 
@@ -28,6 +32,8 @@ public final class VScoreboard extends JavaPlugin {
         shutdownAnnouncements();
     }
 
+    public ArrayList<UUID> tsb = new ArrayList<>();
+
     private void startupAnnouncements() {
         System.out.println("[VectroMC] vScoreboard v1.0 by Yochran is loading...");
         System.out.println("[VectroMC] vScoreboard v1.0 by Yochran has successfully loaded.");
@@ -46,6 +52,7 @@ public final class VScoreboard extends JavaPlugin {
 
     private void registerCommands() {
         getCommand("Onlineplayers").setExecutor(new ListCommand());
+        getCommand("ToggleScoreboard").setExecutor(new ToggleScoreboardCommand());
     }
 
     private void runRunnables() {

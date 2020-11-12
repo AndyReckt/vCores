@@ -32,8 +32,10 @@ public class PlayerScoreboard implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        scoreboard(player);
-        this.enabled.add(player.getUniqueId());
+        if (!plugin.tsb.contains(player.getUniqueId())) {
+            scoreboard(player);
+            this.enabled.add(player.getUniqueId());
+        }
     }
 
     @EventHandler
@@ -90,7 +92,7 @@ public class PlayerScoreboard implements Listener {
         final Objective objective = (score.getObjective(player.getName()) == null) ? score.registerNewObjective(player.getName(), "dummy") : score.getObjective(player.getName());
         int online;
         int staffonline;
-        String rank;
+        String rank = "";
 
         int vanished = staffUtils.vanished.size();
         online = Bukkit.getOnlinePlayers().size() - vanished;
@@ -100,39 +102,27 @@ public class PlayerScoreboard implements Listener {
                 staffonline++;
             }
         }
-        if (player.hasPermission("vnitrogen.groups.owner")) {
-            rank = nitrogen.getConfig().getString("Owner.color") + "Owner";
-        } else if (player.hasPermission("vnitrogen.groups.developer")) {
-            rank = nitrogen.getConfig().getString("Developer.color") + "Developer";
-        } else if (player.hasPermission("vnitrogen.groups.manager")) {
-            rank = nitrogen.getConfig().getString("Manager.color") + "Manager";
-        } else if (player.hasPermission("vnitrogen.groups.admin")) {
-            rank = nitrogen.getConfig().getString("Admin.color") + "Admin";
-        } else if (player.hasPermission("vnitrogen.groups.seniormod")) {
-            rank = nitrogen.getConfig().getString("Senior-Mod.color") + "Senior-Mod";
-        } else if (player.hasPermission("vnitrogen.groups.mod")) {
-            rank = nitrogen.getConfig().getString("Mod.color") + "Mod";
-        } else if (player.hasPermission("vnitrogen.groups.trialmod")) {
-            rank = nitrogen.getConfig().getString("Trial-Mod.color") + "Trial-Mod";
-        } else if (player.hasPermission("vnitrogen.groups.builder")) {
-            rank = nitrogen.getConfig().getString("Builder.color") + "Builder";
-        } else {
-            rank = nitrogen.getConfig().getString("Default.color") + "Default";
+
+        for (String rankLoop : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+            String permName = nitrogen.getConfig().getString("Ranks." + rankLoop + ".permission");
+            if (player.hasPermission(permName)) {
+                rank = nitrogen.getConfig().getString("Ranks." + rankLoop + ".display");
+            }
         }
 
         if (staffUtils.modmode.contains(player.getUniqueId())) {
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectroMC &7| &7Mod-Mode"));
+            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lMonsoon &7| &7Mod-Mode"));
             replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
             if (staffUtils.vanished.contains(player.getUniqueId())) {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &aYes"));
+                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lVanished: &aYes"));
             } else {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &cNo"));
+                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lVanished: &cNo"));
             }
-            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&e * &f&lStaff Online: &6" + staffonline));
-            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&e * &f&lPlayers Online: &6" + online));
-            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&e * &f&lServer: &6" + player.getWorld().getName()));
+            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lStaff Online: &a" + staffonline));
+            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lPlayers Online: &a" + online));
+            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&2 * &f&lServer: &a" + player.getWorld().getName()));
             replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
+            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7 Monsoon SMP"));
             replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
             if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
                 objective.setDisplaySlot(DisplaySlot.SIDEBAR);
@@ -141,19 +131,21 @@ public class PlayerScoreboard implements Listener {
             return;
         }
 
-        objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectroMC"));
-        replaceScore(objective, 9, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
-        replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&e&lOnline:"));
-        replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&f " + online));
-        replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&7 "));
-        replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&e&lRank:"));
-        replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&f " + rank));
-        replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-        replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
-        replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
-        if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
-            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+        if (!plugin.tsb.contains(player.getUniqueId())) {
+            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&a&lMonsoon"));
+            replaceScore(objective, 9, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
+            replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&2&lOnline:"));
+            replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&f " + online));
+            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&7 "));
+            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&2&lRank:"));
+            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&f " + rank));
+            replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
+            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7 Monsoon SMP"));
+            replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
+            if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
+                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            }
+            player.setScoreboard(score);
         }
-        player.setScoreboard(score);
     }
 }
