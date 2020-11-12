@@ -14,7 +14,6 @@ import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -49,6 +48,7 @@ public class HistoryCommand implements CommandExecutor {
 
                         int Mutes = 0;
                         int Bans = 0;
+                        int Blacklists = 0;
                         int Kicks = 0;
                         int Warns = 0;
                         String executorName = null;
@@ -59,30 +59,92 @@ public class HistoryCommand implements CommandExecutor {
                         String server = null;
                         String silent;
 
+                        if (plugin.data.config.contains(target.getUniqueId().toString() + ".Blacklists")) {
+                            for (String blacklistNumber : plugin.data.config.getConfigurationSection(target.getUniqueId().toString() + ".Blacklists").getKeys(false)) {
+                                Blacklists++;
+                                type = "&8Blacklist";
+                                String exeUuid = plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Executor");
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
+                                if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                } else {
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
+                                    }
+                                }
+                                reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Reason");
+                                duration = "Permanent";
+                                server = plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Server");
+                                silent = plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Silent");
+                                date = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Date")));
+
+                                ItemStack blacklistItem = XMaterial.LIME_WOOL.parseItem();
+                                ItemMeta blacklistMeta = blacklistItem.getItemMeta();
+
+                                if (plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Active")) {
+                                    String status = "&a&lActive";
+                                    blacklistItem = XMaterial.LIME_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&a&l, (" + date + "&a&l)"));
+                                } else if (plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Revoked")) {
+                                    String status = "&c&lRevoked";
+                                    blacklistItem = XMaterial.RED_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&c&l, (" + date + "&c&l)"));
+                                } else if (plugin.data.config.getString(target.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Expired")) {
+                                    String status = "&6&lExpired";
+                                    blacklistItem = XMaterial.ORANGE_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&6&l, (" + date + "&6&l)"));
+                                } else {
+                                    String status = "&7&lUnknown";
+                                    blacklistItem = XMaterial.GRAY_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&7&l, (" + date + "&7&l)"));
+                                }
+
+                                ArrayList<String> blacklistLore = new ArrayList<>();
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------"));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eType: " + type));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eExecutor: " + executorName));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&eReason:&6" + reason));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eDuration: &6" + duration));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&a "));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eServer: &6" + server));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eSilent: &6" + silent));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------"));
+
+                                blacklistMeta.setLore(blacklistLore);
+                                blacklistItem.setItemMeta(blacklistMeta);
+                                histInv.addItem(blacklistItem);
+                            }
+                        }
+
                         if (plugin.data.config.contains(target.getUniqueId().toString() + ".Bans")) {
                             for (String banNumber : plugin.data.config.getConfigurationSection(target.getUniqueId().toString() + ".Bans").getKeys(false)) {
                                 Bans++;
                                 type = "&4Ban";
                                 String exeUuid = plugin.data.config.getString(target.getUniqueId().toString() + ".Bans." + Bans + ".Executor");
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Bans." + Bans + ".Reason");
@@ -140,25 +202,21 @@ public class HistoryCommand implements CommandExecutor {
                                 Mutes++;
                                 type = "&6Mute";
                                 String exeUuid = plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Executor");
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Mutes." + Mutes + ".Reason");
@@ -216,25 +274,21 @@ public class HistoryCommand implements CommandExecutor {
                                 Kicks++;
                                 type = "&cKick";
                                 String exeUuid = plugin.data.config.getString(target.getUniqueId().toString() + ".Kicks." + Kicks + ".Executor");
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Kicks." + Kicks + ".Reason");
@@ -267,25 +321,21 @@ public class HistoryCommand implements CommandExecutor {
                                 Warns++;
                                 type = "&eWarn";
                                 String exeUuid = plugin.data.config.getString(target.getUniqueId().toString() + ".Warns." + Warns + ".Executor");
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target.getUniqueId().toString() + ".Warns." + Warns + ".Reason");
@@ -316,29 +366,23 @@ public class HistoryCommand implements CommandExecutor {
 
                     } else {
                         OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
-                        String target2color;
+                        String target2color = "";
                         String target2name = args[0];
+                        String dfColor = "";
+                        for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                            if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                            }
+                        }
                         if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                            target2color = plugin.getConfig().getString("Default.color");
+                            target2color = dfColor;
                         } else {
-                            if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Owner")) {
-                                target2color = plugin.getConfig().getString("Owner.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Developer")) {
-                                target2color = plugin.getConfig().getString("Developer.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Manager")) {
-                                target2color = plugin.getConfig().getString("Manager.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Admin")) {
-                                target2color = plugin.getConfig().getString("Admin.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                target2color = plugin.getConfig().getString("Senior-Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Mod")) {
-                                target2color = plugin.getConfig().getString("Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                target2color = plugin.getConfig().getString("Trial-Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Builder")) {
-                                target2color = plugin.getConfig().getString("Builder.color");
-                            } else {
-                                target2color = plugin.getConfig().getString("Default.color");
+                            for (String rank : plugin.ranks) {
+                                if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                    target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                } else {
+                                    target2color = dfColor;
+                                }
                             }
                         }
                         String target2display = target2color + target2name;
@@ -349,6 +393,7 @@ public class HistoryCommand implements CommandExecutor {
                         }
                         int Mutes = 0;
                         int Bans = 0;
+                        int Blacklists = 0;
                         int Kicks = 0;
                         int Warns = 0;
                         String executorName = null;
@@ -359,30 +404,90 @@ public class HistoryCommand implements CommandExecutor {
                         String server = null;
                         String silent;
 
+                        if (plugin.data.config.contains(target2.getUniqueId().toString() + ".Blacklists")) {
+                            for (String blacklistNumber : plugin.data.config.getConfigurationSection(target2.getUniqueId().toString() + ".Blacklists").getKeys(false)) {
+                                Blacklists++;
+                                type = "&8Blacklist";
+                                String exeUuid = plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Executor");
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
+                                if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                } else {
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
+                                    }
+                                }
+                                reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Reason");
+                                duration = "Permanent";
+                                server = plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Server");
+                                silent = plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Silent");
+                                date = Utils.DATE_FORMAT.format(new Date(plugin.data.config.getLong(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Date")));
+
+                                ItemStack blacklistItem = XMaterial.LIME_WOOL.parseItem();
+                                ItemMeta blacklistMeta = blacklistItem.getItemMeta();
+
+                                if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Active")) {
+                                    String status = "&a&lActive";
+                                    blacklistItem = XMaterial.LIME_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&a&l, (" + date + "&a&l)"));
+                                } else if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Revoked")) {
+                                    String status = "&c&lRevoked";
+                                    blacklistItem = XMaterial.RED_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&c&l, (" + date + "&c&l)"));
+                                } else if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Blacklists." + Blacklists + ".Status").equalsIgnoreCase("Expired")) {
+                                    String status = "&6&lExpired";
+                                    blacklistItem = XMaterial.ORANGE_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&6&l, (" + date + "&6&l)"));
+                                } else {
+                                    String status = "&7&lUnknown";
+                                    blacklistItem = XMaterial.GRAY_WOOL.parseItem();
+                                    blacklistMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', status + "&7&l, (" + date + "&7&l)"));
+                                }
+
+                                ArrayList<String> blacklistLore = new ArrayList<>();
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------"));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eType: " + type));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eExecutor: " + executorName));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&eReason:&6" + reason));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eDuration: &6" + duration));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&a "));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eServer: &6" + server));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&',"&eSilent: &6" + silent));
+                                blacklistLore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------"));
+
+                                blacklistMeta.setLore(blacklistLore);
+                                blacklistItem.setItemMeta(blacklistMeta);
+                                histInv.addItem(blacklistItem);
+                            }
+                        }
+
                         if (plugin.data.config.contains(target2.getUniqueId().toString() + ".Bans")) {
                             for (String banNumber : plugin.data.config.getConfigurationSection(target2.getUniqueId().toString() + ".Bans").getKeys(false)) {
                                 Bans++;
                                 type = "&4Ban";
                                 String exeUuid = plugin.data.config.getString(target2.getUniqueId().toString() + ".Bans." + Bans + ".Executor");
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Bans." + Bans + ".Reason");
@@ -440,25 +545,20 @@ public class HistoryCommand implements CommandExecutor {
                                 Mutes++;
                                 type = "&6Mute";
                                 String exeUuid = plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Executor");
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Mutes." + Mutes + ".Reason");
@@ -516,25 +616,20 @@ public class HistoryCommand implements CommandExecutor {
                                 Kicks++;
                                 type = "&cKick";
                                 String exeUuid = plugin.data.config.getString(target2.getUniqueId().toString() + ".Kicks." + Kicks + ".Executor");
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Kicks." + Kicks + ".Reason");
@@ -567,25 +662,21 @@ public class HistoryCommand implements CommandExecutor {
                                 Warns++;
                                 type = "&eWarn";
                                 String exeUuid = plugin.data.config.getString(target2.getUniqueId().toString() + ".Warns." + Warns + ".Executor");
+
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(exeUuid) || !plugin.data.config.contains(exeUuid + ".Rank")) {
-                                    executorName = plugin.getConfig().getString("Default.color") + plugin.data.config.getString(exeUuid + ".Name");
+                                    executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
                                 } else {
-                                    if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Owner")) {
-                                        executorName = plugin.getConfig().getString("Owner.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Developer")) {
-                                        executorName = plugin.getConfig().getString("Developer.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Manager")) {
-                                        executorName = plugin.getConfig().getString("Manager.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Admin")) {
-                                        executorName = plugin.getConfig().getString("Admin.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        executorName = plugin.getConfig().getString("Senior-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Mod")) {
-                                        executorName = plugin.getConfig().getString("Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        executorName = plugin.getConfig().getString("Trial-Mod.color") + plugin.data.config.getString(exeUuid + ".Name");
-                                    } else {
-                                        executorName = plugin.getConfig().getString("Default.color") + plugin.getConfig().getString(exeUuid + ".Name");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(exeUuid + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                            executorName = plugin.data.config.getString("Ranks." + rank.toUpperCase() + ".color") + plugin.data.config.getString(exeUuid + ".Name");
+                                        } else {
+                                            executorName = dfColor + plugin.data.config.getString(exeUuid + ".Name");
+                                        }
                                     }
                                 }
                                 reason = plugin.data.config.getString(target2.getUniqueId().toString() + ".Warns." + Warns + ".Reason");

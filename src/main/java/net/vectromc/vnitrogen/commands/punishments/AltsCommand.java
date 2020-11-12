@@ -35,7 +35,7 @@ public class AltsCommand implements CommandExecutor {
                             if (plugin.data.config.getString("IPs." + target.getUniqueId().toString() + ".IP").equals(plugin.data.config.get("IPs." + allUUIDS + ".IP")) && !allUUIDS.equals(target.getUniqueId().toString())) {
                                 amount++;
                                 Player altPlayer = Bukkit.getPlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                                String altStatus;
+                                String altStatus = "";
                                 if (altPlayer != null) {
                                     if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altPlayer.getUniqueId().toString())) {
                                         altStatus = "&6" + altPlayer.getName();
@@ -44,8 +44,12 @@ public class AltsCommand implements CommandExecutor {
                                     }
                                 } else {
                                     OfflinePlayer altOfflinePlayer = Bukkit.getOfflinePlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                                    if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
-                                        altStatus = "&4" + altOfflinePlayer.getName();
+                                    if (plugin.data.config.getConfigurationSection("BlacklistedIPs").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                                        if (plugin.data.config.getString("BlacklistedIPs." + altOfflinePlayer.getUniqueId().toString() + ".IP").equalsIgnoreCase(plugin.data.config.getString("IPs." + altOfflinePlayer.getUniqueId().toString() + ".IP"))) {
+                                            altStatus = "&4" + altOfflinePlayer.getName();
+                                        }
+                                    } else if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                                        altStatus = "&c" + altOfflinePlayer.getName();
                                     } else if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
                                         altStatus = "&6" + altOfflinePlayer.getName();
                                     } else {
@@ -75,7 +79,7 @@ public class AltsCommand implements CommandExecutor {
                             if (plugin.data.config.getString("IPs." + target2.getUniqueId().toString() + ".IP").equals(plugin.data.config.get("IPs." + allUUIDS + ".IP")) && !allUUIDS.equals(target2.getUniqueId().toString())) {
                                 amount++;
                                 Player altPlayer = Bukkit.getPlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                                String altStatus;
+                                String altStatus= "";
                                 if (altPlayer != null) {
                                     if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altPlayer.getUniqueId().toString())) {
                                         altStatus = "&6" + altPlayer.getName();
@@ -84,8 +88,12 @@ public class AltsCommand implements CommandExecutor {
                                     }
                                 } else {
                                     OfflinePlayer altOfflinePlayer = Bukkit.getOfflinePlayer(plugin.data.config.getString("IPs." + allUUIDS + ".Name"));
-                                    if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
-                                        altStatus = "&4" + altOfflinePlayer.getName();
+                                    if (plugin.data.config.getConfigurationSection("BlacklistedIPs").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                                        if (plugin.data.config.getString("BlacklistedIPs." + altOfflinePlayer.getUniqueId().toString() + ".IP").equalsIgnoreCase(plugin.data.config.getString("IPs." + altOfflinePlayer.getUniqueId().toString() + ".IP"))) {
+                                            altStatus = "&4" + altOfflinePlayer.getName();
+                                        }
+                                    } else if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
+                                        altStatus = "&c" + altOfflinePlayer.getName();
                                     } else if (plugin.data.config.getConfigurationSection("MutedPlayers").getKeys(false).contains(altOfflinePlayer.getUniqueId().toString())) {
                                         altStatus = "&6" + altOfflinePlayer.getName();
                                     } else {
@@ -96,29 +104,21 @@ public class AltsCommand implements CommandExecutor {
                             }
                         }
                         if (amount >= 1) {
-                            String target2color;
+                            String target2color = "";
                             String target2name = target2.getName();
+                            String dfColor = "";
+                            for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                    dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                }
+                            }
                             if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                                target2color = plugin.getConfig().getString("Default.color");
+                                target2color = dfColor;
                             } else {
-                                if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Owner")) {
-                                    target2color = plugin.getConfig().getString("Owner.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Developer")) {
-                                    target2color = plugin.getConfig().getString("Developer.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Manager")) {
-                                    target2color = plugin.getConfig().getString("Manager.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Admin")) {
-                                    target2color = plugin.getConfig().getString("Admin.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                    target2color = plugin.getConfig().getString("Senior-Mod.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Mod")) {
-                                    target2color = plugin.getConfig().getString("Mod.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                    target2color = plugin.getConfig().getString("Trial-Mod.color");
-                                } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Builder")) {
-                                    target2color = plugin.getConfig().getString("Builder.color");
-                                } else {
-                                    target2color = plugin.getConfig().getString("Default.color");
+                                for (String rank : plugin.ranks) {
+                                    if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                                        target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
                                 }
                             }
                             String target2display = target2color + target2name;
