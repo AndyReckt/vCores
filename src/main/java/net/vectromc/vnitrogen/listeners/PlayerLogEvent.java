@@ -23,10 +23,11 @@ public class PlayerLogEvent implements Listener {
         for (String rank : plugin.ranks) {
             String permName = plugin.getConfig().getString("Ranks." + rank + ".permission");
             if (player.hasPermission(permName)) {
-                plugin.data.config.set(player.getUniqueId().toString() + ".Rank", rank);
+                plugin.pData.config.set(player.getUniqueId().toString() + ".Rank", rank);
             }
         }
-        plugin.data.config.set(player.getUniqueId() + ".Name", player.getName());
+        plugin.pData.config.set(player.getUniqueId() + ".Name", player.getName());
+        plugin.pData.saveData();
 
         String ip = player.getAddress().getAddress().getHostAddress();
         plugin.data.config.set("IPs." + player.getUniqueId().toString() + ".IP", ip);
