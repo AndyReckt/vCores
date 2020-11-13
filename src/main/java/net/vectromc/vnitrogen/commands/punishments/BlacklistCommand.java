@@ -1,7 +1,6 @@
 package net.vectromc.vnitrogen.commands.punishments;
 
-import com.sun.org.apache.xerces.internal.xs.StringList;
-import net.vectromc.vnitrogen.management.PlayerManagement;
+import net.vectromc.vnitrogen.management.PunishmentManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
@@ -71,8 +70,8 @@ public class BlacklistCommand implements CommandExecutor {
                         } else {
                             Utils.sendMessage(player, plugin.getConfig().getString("Silent.Prefix") + " " + plugin.getConfig().getString("Blacklist.ExecutorResponse").replaceAll("%player%", target.getDisplayName()).replaceAll("%reason%", reason));
                         }
-                        PlayerManagement playerManagement = new PlayerManagement(target);
-                        playerManagement.addBlacklist();
+                        PunishmentManagement punishmentManagement = new PunishmentManagement(target);
+                        punishmentManagement.addBlacklist();
                         plugin.data.config.set(target.getUniqueId() + ".Blacklists." + id + ".Executor", player.getUniqueId().toString());
                         plugin.data.config.set(target.getUniqueId() + ".Blacklists." + id + ".Reason", reason);
                         plugin.data.config.set(target.getUniqueId() + ".Blacklists." + id + ".Silent", silent.toString());
@@ -119,11 +118,11 @@ public class BlacklistCommand implements CommandExecutor {
                                     dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
                                 }
                             }
-                            if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
+                            if (!plugin.pData.config.contains(target2.getUniqueId().toString()) || !plugin.pData.config.contains(target2.getUniqueId().toString() + ".Rank")) {
                                 target2color = dfColor;
                             } else {
                                 for (String rank : plugin.ranks) {
-                                    if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                                    if (plugin.pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
                                         target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
                                     }
                                 }
@@ -143,8 +142,8 @@ public class BlacklistCommand implements CommandExecutor {
                             } else {
                                 Utils.sendMessage(player, plugin.getConfig().getString("Silent.Prefix") + " " + plugin.getConfig().getString("Blacklist.ExecutorResponse").replaceAll("%player%", target2display).replaceAll("%reason%", reason));
                             }
-                            PlayerManagement playerManagement = new PlayerManagement(target2);
-                            playerManagement.addBlacklist();
+                            PunishmentManagement punishmentManagement = new PunishmentManagement(target2);
+                            punishmentManagement.addBlacklist();
                             plugin.data.config.set(target2.getUniqueId() + ".Blacklists." + id + ".Executor", player.getUniqueId().toString());
                             plugin.data.config.set(target2.getUniqueId() + ".Blacklists." + id + ".Reason", reason);
                             plugin.data.config.set(target2.getUniqueId() + ".Blacklists." + id + ".Silent", silent.toString());

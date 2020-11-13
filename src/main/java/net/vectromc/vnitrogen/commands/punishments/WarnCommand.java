@@ -1,11 +1,10 @@
 package net.vectromc.vnitrogen.commands.punishments;
 
-import net.vectromc.vnitrogen.management.PlayerManagement;
+import net.vectromc.vnitrogen.management.PunishmentManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -65,9 +64,9 @@ public class WarnCommand implements CommandExecutor {
                         }
                         Utils.sendMessage(target, plugin.getConfig().getString("Warn.TargetResponse").replaceAll("%reason%", reason).replaceAll("%executor%", player.getDisplayName()));
 
-                        PlayerManagement playerManagement = new PlayerManagement(target);
+                        PunishmentManagement punishmentManagement = new PunishmentManagement(target);
                         int id = plugin.data.config.getInt(target.getUniqueId().toString() + ".WarnsAmount") + 1;
-                        playerManagement.addWarn();
+                        punishmentManagement.addWarn();
                         plugin.data.config.set(target.getUniqueId() + ".Warns." + id + ".Executor", player.getUniqueId().toString());
                         plugin.data.config.set(target.getUniqueId() + ".Warns." + id + ".Reason", reason);
                         plugin.data.config.set(target.getUniqueId() + ".Warns." + id + ".Silent", silent.toString());

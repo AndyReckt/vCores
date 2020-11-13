@@ -1,6 +1,5 @@
 package net.vectromc.vnitrogen.commands.punishments;
 
-import net.vectromc.vnitrogen.management.PlayerManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
@@ -79,30 +78,22 @@ public class UnmuteCommand implements CommandExecutor {
                             Utils.sendMessage(player, plugin.getConfig().getString("Unmute.PlayerIsNotMuted").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                         } else {
                             String target2name = args[0];
-                            String target2color;
+                            String target2color = "";
                             if (args.length == 1) {
                                 this.silent = false;
+                                String dfColor = "";
+                                for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                    if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                        dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                    }
+                                }
                                 if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                                    target2color = plugin.getConfig().getString("Default.color");
+                                    target2color = dfColor;
                                 } else {
-                                    if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Owner")) {
-                                        target2color = plugin.getConfig().getString("Owner.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Developer")) {
-                                        target2color = plugin.getConfig().getString("Developer.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Manager")) {
-                                        target2color = plugin.getConfig().getString("Manager.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Admin")) {
-                                        target2color = plugin.getConfig().getString("Admin.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                        target2color = plugin.getConfig().getString("Senior-Mod.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Mod")) {
-                                        target2color = plugin.getConfig().getString("Mod.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                        target2color = plugin.getConfig().getString("Trial-Mod.color");
-                                    } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Builder")) {
-                                        target2color = plugin.getConfig().getString("Builder.color");
-                                    } else {
-                                        target2color = plugin.getConfig().getString("Default.color");
+                                    for (String rank : plugin.ranks) {
+                                        if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                                            target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                        }
                                     }
                                 }
                                 String target2display = target2color + target2name;
@@ -121,27 +112,19 @@ public class UnmuteCommand implements CommandExecutor {
                                     Utils.sendMessage(player, plugin.getConfig().getString("Unmute.IncorrectUsage").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                                 } else {
                                     this.silent = true;
+                                    String dfColor = "";
+                                    for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                                        if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                            dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                        }
+                                    }
                                     if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                                        target2color = plugin.getConfig().getString("Default.color");
+                                        target2color = dfColor;
                                     } else {
-                                        if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Owner")) {
-                                            target2color = plugin.getConfig().getString("Owner.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Developer")) {
-                                            target2color = plugin.getConfig().getString("Developer.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Manager")) {
-                                            target2color = plugin.getConfig().getString("Manager.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Admin")) {
-                                            target2color = plugin.getConfig().getString("Admin.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                            target2color = plugin.getConfig().getString("Senior-Mod.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Mod")) {
-                                            target2color = plugin.getConfig().getString("Mod.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                            target2color = plugin.getConfig().getString("Trial-Mod.color");
-                                        } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Builder")) {
-                                            target2color = plugin.getConfig().getString("Builder.color");
-                                        } else {
-                                            target2color = plugin.getConfig().getString("Default.color");
+                                        for (String rank : plugin.ranks) {
+                                            if (plugin.data.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                                                target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                            }
                                         }
                                     }
                                     String target2display = target2color + target2name;

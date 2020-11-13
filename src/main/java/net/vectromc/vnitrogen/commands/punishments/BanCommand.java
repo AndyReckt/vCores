@@ -1,6 +1,6 @@
 package net.vectromc.vnitrogen.commands.punishments;
 
-import net.vectromc.vnitrogen.management.PlayerManagement;
+import net.vectromc.vnitrogen.management.PunishmentManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
@@ -62,9 +62,9 @@ public class BanCommand implements CommandExecutor {
                         } else {
                             Utils.sendMessage(player, plugin.getConfig().getString("Silent.Prefix") + " " + plugin.getConfig().getString("Ban.ExecutorResponse").replaceAll("%player%", target.getDisplayName()).replaceAll("%reason%", reason));
                         }
-                        PlayerManagement playerManagement = new PlayerManagement(target);
+                        PunishmentManagement punishmentManagement = new PunishmentManagement(target);
                         int id = plugin.data.config.getInt(target.getUniqueId().toString() + ".BansAmount") + 1;
-                        playerManagement.addBan();
+                        punishmentManagement.addBan();
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Executor", player.getUniqueId().toString());
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Reason", reason);
                         plugin.data.config.set(target.getUniqueId() + ".Bans." + id + ".Silent", silent.toString());
@@ -78,7 +78,7 @@ public class BanCommand implements CommandExecutor {
                         plugin.banned.add(target.getUniqueId().toString());
                     } else {
                         OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
-                        String target2color;
+                        String target2color = "";
                         String target2name = args[0];
                         plugin.setPlayerColor(player);
                         String reason = "";
@@ -92,27 +92,19 @@ public class BanCommand implements CommandExecutor {
                         } else {
                             this.silent = false;
                         }
-                        if (!plugin.data.config.contains(target2.getUniqueId().toString()) || !plugin.data.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                            target2color = plugin.getConfig().getString("Default.color");
+                        String dfColor = "";
+                        for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                            if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
+                                dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                            }
+                        }
+                        if (!plugin.pData.config.contains(target2.getUniqueId().toString()) || !plugin.pData.config.contains(target2.getUniqueId().toString() + ".Rank")) {
+                            target2color = dfColor;
                         } else {
-                            if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Owner")) {
-                                target2color = plugin.getConfig().getString("Owner.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Developer")) {
-                                target2color = plugin.getConfig().getString("Developer.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Manager")) {
-                                target2color = plugin.getConfig().getString("Manager.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Admin")) {
-                                target2color = plugin.getConfig().getString("Admin.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Senior-Mod")) {
-                                target2color = plugin.getConfig().getString("Senior-Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Mod")) {
-                                target2color = plugin.getConfig().getString("Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Trial-Mod")) {
-                                target2color = plugin.getConfig().getString("Trial-Mod.color");
-                            } else if (plugin.data.config.getString(target2.getUniqueId() + ".Rank").equalsIgnoreCase("Builder")) {
-                                target2color = plugin.getConfig().getString("Builder.color");
-                            } else {
-                                target2color = plugin.getConfig().getString("Default.color");
+                            for (String rank : plugin.ranks) {
+                                if (plugin.pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                                    target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
+                                }
                             }
                         }
                         String target2display = target2color + target2name;
@@ -130,9 +122,9 @@ public class BanCommand implements CommandExecutor {
                         } else {
                             Utils.sendMessage(player, plugin.getConfig().getString("Silent.Prefix") + " " + plugin.getConfig().getString("Ban.ExecutorResponse").replaceAll("%player%", target2display).replaceAll("%reason%", reason));
                         }
-                        PlayerManagement playerManagement = new PlayerManagement(target2);
+                        PunishmentManagement punishmentManagement = new PunishmentManagement(target2);
                         int id = plugin.data.config.getInt(target2.getUniqueId().toString() + ".BansAmount") + 1;
-                        playerManagement.addBan();
+                        punishmentManagement.addBan();
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Executor", player.getUniqueId().toString());
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Reason", reason);
                         plugin.data.config.set(target2.getUniqueId() + ".Bans." + id + ".Silent", silent.toString());

@@ -1,6 +1,6 @@
 package net.vectromc.vnitrogen.commands.punishments;
 
-import net.vectromc.vnitrogen.management.PlayerManagement;
+import net.vectromc.vnitrogen.management.PunishmentManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
@@ -63,9 +63,9 @@ public class KickCommand implements CommandExecutor {
                         } else {
                             Utils.sendMessage(player, plugin.getConfig().getString("Silent.Prefix") + " " + plugin.getConfig().getString("Kick.ExecutorResponse").replaceAll("%player%", target.getDisplayName()).replaceAll("%reason%", reason));
                         }
-                        PlayerManagement playerManagement = new PlayerManagement(target);
+                        PunishmentManagement punishmentManagement = new PunishmentManagement(target);
                         int id = plugin.data.config.getInt(target.getUniqueId().toString() + ".KicksAmount") + 1;
-                        playerManagement.addKick();
+                        punishmentManagement.addKick();
                         plugin.data.config.set(target.getUniqueId() + ".Kicks." + id + ".Executor", player.getUniqueId().toString());
                         plugin.data.config.set(target.getUniqueId() + ".Kicks." + id + ".Reason", reason);
                         plugin.data.config.set(target.getUniqueId() + ".Kicks." + id + ".Silent", silent.toString());
