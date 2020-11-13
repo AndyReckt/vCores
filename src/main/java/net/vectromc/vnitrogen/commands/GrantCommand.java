@@ -53,9 +53,13 @@ public class GrantCommand implements CommandExecutor, Listener {
                     for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                         if (plugin.getConfig().getString("Ranks." + rank + ".name").equalsIgnoreCase(clickedRank)) {
                             Player player = clicker;
-                            OfflinePlayer target = plugin.grantPlayer.get(player);
-                            plugin.grantRank.put(player, clickedRank);
-                            openDurationGUI(player, target);
+                            if (player.hasPermission(plugin.getConfig().getString("Ranks." + rank + ".grantPermission"))) {
+                                OfflinePlayer target = plugin.grantPlayer.get(player);
+                                plugin.grantRank.put(player, clickedRank);
+                                openDurationGUI(player, target);
+                            } else {
+                                event.setCancelled(true);
+                            }
                         }
                     }
                 }
@@ -90,14 +94,8 @@ public class GrantCommand implements CommandExecutor, Listener {
                         if (plugin.getConfig().getString("Grant.ReasonMenu.Items." + reason + ".ID").equalsIgnoreCase(clickedReason)) {
                             Player player = clicker;
                             OfflinePlayer target = plugin.grantPlayer.get(player);
-                            if (clickedReason.equalsIgnoreCase(plugin.getConfig().getString("Grant.ReasonMenu.Items.Custom.ID"))) {
-                                plugin.grantCustomReason.add(player.getUniqueId());
-                                player.closeInventory();
-                                Utils.sendMessage(player, plugin.getConfig().getString("Grant.CustomReasonChatMessage"));
-                            } else {
-                                plugin.grantReason.put(player, clickedReason);
-                                openConfirmationGUI(player, target);
-                            }
+                            plugin.grantReason.put(player, clickedReason);
+                            openConfirmationGUI(player, target);
                         }
                     }
                 }
@@ -118,8 +116,7 @@ public class GrantCommand implements CommandExecutor, Listener {
                         String reason = plugin.grantReason.get(player);
                         String rankBefore = "";
                         for (String ranks : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                            String rankPerm = plugin.getConfig().getString("Ranks." + ranks + ".permission");
-                            if (player.hasPermission(rankPerm)) {
+                            if (plugin.pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase(ranks)) {
                                 rankBefore = plugin.getConfig().getString("Ranks." + ranks + ".name");
                             }
                         }
@@ -272,9 +269,18 @@ public class GrantCommand implements CommandExecutor, Listener {
                             rankItemMeta.setDisplayName(rankDisplay);
                             List<String> lore = new ArrayList<>();
                             for (String itemLore : plugin.getConfig().getStringList("Grant.GrantMenu.Lore")) {
-                                String newLore = itemLore
-                                        .replace("%player%", targetDisplay)
-                                        .replace("%rank%", rankDisplay);
+                                String newLore = "";
+                                if (player.hasPermission(plugin.getConfig().getString("Ranks." + rank + ".grantPermission"))) {
+                                    newLore = itemLore
+                                            .replace("%player%", targetDisplay)
+                                            .replace("%rank%", rankDisplay)
+                                            .replace("%availability%", "&a&lClick to grant this rank.");
+                                } else {
+                                    newLore = itemLore
+                                            .replace("%player%", targetDisplay)
+                                            .replace("%rank%", rankDisplay)
+                                            .replace("%availability%", "&c&lYou do not have permission to grant this rank.");
+                                }
                                 lore.add(ChatColor.translateAlternateColorCodes('&', newLore));
                             }
                             rankItemMeta.setLore(lore);
