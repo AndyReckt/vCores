@@ -33,8 +33,8 @@ public class SetRankCommand implements CommandExecutor {
                         String target2display = plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".color") + target2.getName();
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun").replaceAll("%player%", target2.getName()).replaceAll("%rank%", rankName));
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.SenderSetRank").replaceAll("%target%", target2display).replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
-                        plugin.data.config.set(target2.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
-                        plugin.data.config.set(target2.getUniqueId().toString() + ".Name", target2.getName());
+                        plugin.pData.config.set(target2.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
+                        plugin.pData.config.set(target2.getUniqueId().toString() + ".Name", target2.getName());
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
@@ -46,12 +46,12 @@ public class SetRankCommand implements CommandExecutor {
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun").replaceAll("%player%", target.getName()).replaceAll("%rank%", rankName));
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.SenderSetRank").replaceAll("%target%", target.getDisplayName()).replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         Utils.sendMessage(target, plugin.getConfig().getString("Setrank.TargetSetRank").replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
-                        plugin.data.config.set(target.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
-                        plugin.data.config.set(target.getUniqueId().toString() + ".Name", target.getName());
+                        plugin.pData.config.set(target.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
+                        plugin.pData.config.set(target.getUniqueId().toString() + ".Name", target.getName());
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
-                    plugin.data.saveData();
+                    plugin.pData.saveData();
                 }
             }
         }
