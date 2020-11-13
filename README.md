@@ -5,7 +5,7 @@ These are the server cores for VectroMC. Source code for all 4 of them are under
 These plugins are 4 of the server cores, for the relaunch of a server VectroMC. My friend EtshawMC is the owner of this server, and when we discussed starting it back up, I opted in to become a developer, so these server cores are the biproduct of that. 
 
 # Note:
-vBasic, vStaffUtils and vScoreboard are all dependant on vNitrogen. vNitrogen is currently dependant on PermissionsEX (Only for the /setrank command), but later I will add a section in the config.yml where you can customize the command that is run on /setrank.
+vBasic, vStaffUtils and vScoreboard are all dependant on vNitrogen. vNitrogen is dependant on some sort of permissions plugin, however there are no hooks therefore you can use ANY permissions plugin, as it is concurrent with every single one because of the config.yml.
 
 vStaffUtils is dependant on vBasic as well as vNitrogen, and vScoreboard is dependant on vStaffUtils, and vNitrogen.
 
@@ -15,6 +15,9 @@ These plugins need parts of the other plugins to have functionality.
 
 ### Commands:
   - /setrank <player> <rank>
+  - /grant <player>
+  - /ungrant <player> <id>
+  - /grants <player>
   - /staffchat <message>
   - /adminchat <message>
   - /managementchat <message>
