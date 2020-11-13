@@ -4,14 +4,15 @@ import net.vectromc.vnitrogen.chats.AdminChatCommand;
 import net.vectromc.vnitrogen.chats.BuildChatCommand;
 import net.vectromc.vnitrogen.chats.ManagementChatCommand;
 import net.vectromc.vnitrogen.chats.StaffChatCommand;
-import net.vectromc.vnitrogen.commands.NitrogenCommand;
-import net.vectromc.vnitrogen.commands.SetRankCommand;
+import net.vectromc.vnitrogen.commands.*;
 import net.vectromc.vnitrogen.commands.punishments.*;
 import net.vectromc.vnitrogen.commands.toggles.AdminChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.BuildChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.ManagementChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.StaffChatToggle;
+import net.vectromc.vnitrogen.data.GrantData;
 import net.vectromc.vnitrogen.data.PlayerData;
+import net.vectromc.vnitrogen.data.PunishmentData;
 import net.vectromc.vnitrogen.listeners.*;
 import net.vectromc.vnitrogen.listeners.chatlisteners.ACToggleListener;
 import net.vectromc.vnitrogen.listeners.chatlisteners.BCToggleListener;
@@ -21,6 +22,7 @@ import net.vectromc.vnitrogen.listeners.starterlisteners.ACStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.BCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.MCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.SCStarterListener;
+import net.vectromc.vnitrogen.runnables.GrantActivityUpdater;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
@@ -33,7 +35,9 @@ import java.util.UUID;
 
 public final class vNitrogen extends JavaPlugin {
 
-    public PlayerData data;
+    public PunishmentData data;
+    public GrantData gData;
+    public PlayerData pData;
 
     @Override
     public void onEnable() {
@@ -41,8 +45,8 @@ public final class vNitrogen extends JavaPlugin {
         saveDefaultConfig();
         registerEvents();
         registerCommands();
-        runRunnables();
         registerData();
+        runRunnables();
         registerRanks();
         refreshBlacklists();
         refreshBans();
@@ -56,11 +60,16 @@ public final class vNitrogen extends JavaPlugin {
         // Plugin shutdown logic
         shutdownAnnouncements();
     }
-    
+
+    public HashMap<Player, OfflinePlayer> grantPlayer = new HashMap<>();
+    public HashMap<Player, String> grantRank = new HashMap<>();
+    public HashMap<Player, String> grantDuration = new HashMap<>();
+    public HashMap<Player, String> grantReason = new HashMap<>();
     public ArrayList<UUID> buildchat_toggle = new ArrayList<>();
     public ArrayList<UUID> staffchat_toggle = new ArrayList<>();
     public ArrayList<UUID> adminchat_toggle = new ArrayList<>();
     public ArrayList<UUID> managementchat_toggle = new ArrayList<>();
+    public ArrayList<UUID> grantCustomReason = new ArrayList<>();
     public ArrayList<String> ranks = new ArrayList<>();
     public ArrayList<String> muted = new ArrayList<>();
     public ArrayList<String> banned = new ArrayList<>();
@@ -82,6 +91,7 @@ public final class vNitrogen extends JavaPlugin {
         // Plugin
         getCommand("vNitrogen").setExecutor(new NitrogenCommand());
         getCommand("Setrank").setExecutor(new SetRankCommand());
+        getCommand("Grant").setExecutor(new GrantCommand());
         // Chats
         getCommand("BuildChat").setExecutor(new BuildChatCommand());
         getCommand("StaffChat").setExecutor(new StaffChatCommand());
@@ -107,12 +117,15 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("ClearChat").setExecutor(new ClearChatCommand());
         getCommand("Blacklist").setExecutor(new BlacklistCommand());
         getCommand("Unblacklist").setExecutor(new UnblacklistCommand());
+        getCommand("Grants").setExecutor(new GrantsCommand());
+        getCommand("Ungrant").setExecutor(new UngrantCommand());
     }
 
     private void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
         // Chat Formatting
         manager.registerEvents(new ChatFormat(), this);
+        manager.registerEvents(new GrantChatListener(), this);
         // Toggles
         manager.registerEvents(new BCToggleListener(), this);
         manager.registerEvents(new SCToggleListener(), this);
@@ -130,12 +143,14 @@ public final class vNitrogen extends JavaPlugin {
         // Punishments
         manager.registerEvents(new MuteChatListener(), this);
         manager.registerEvents(new BanJoinListener(), this);
-        manager.registerEvents(new GUIClickListener(), this);
         manager.registerEvents(new BlacklistJoinListener(), this);
+        // GUIs
+        manager.registerEvents(new GUIClickListener(), this);
+        manager.registerEvents(new GrantCommand(), this);
     }
 
     private void runRunnables() {
-
+        new GrantActivityUpdater().runTaskTimer(this, 0, 20);
     }
 
     public void registerRanks() {
@@ -204,10 +219,20 @@ public final class vNitrogen extends JavaPlugin {
     }
 
     private void registerData() {
-        data = new PlayerData();
+        data = new PunishmentData();
         data.setupData();
         data.saveData();
         data.reloadData();
+
+        gData = new GrantData();
+        gData.setupData();
+        gData.saveData();
+        gData.reloadData();
+
+        pData = new PlayerData();
+        pData.setupData();
+        pData.saveData();
+        pData.reloadData();
     }
 
     private void refreshMutes() {
