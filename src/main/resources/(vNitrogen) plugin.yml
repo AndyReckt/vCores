@@ -99,3 +99,14 @@ commands:
     description: Unblacklist a player.
     usage: /<command>
     aliases: [unbl, ubl, unbanip, unipban]
+  Grant:
+    description: Grant a player a rank through a cool GUI
+    usage: /<command>
+  Grants:
+    description: View the grants of a player.
+    usage: /<command>
+    aliases: [granthistory, granthist, grantshist, grantshistory, cg, gc]
+  Ungrant:
+    description: Revoke the grant of a player.
+    usage: /<command>
+    aliases: [revokegrant, removegrant]
