@@ -80,7 +80,7 @@ public class GrantsCommand implements CommandExecutor {
                                 if (plugin.gData.config.get(target.getUniqueId().toString() + ".Grants." + Grants + ".Duration").equals("Permanent")) {
                                     duration = "Permanent";
                                 } else {
-                                    duration = Utils.DATE_FORMAT.format(new Date(plugin.gData.config.getLong(target.getUniqueId().toString() + ".Bans." + Grants + ".Duration")));
+                                    duration = Utils.DATE_FORMAT.format(new Date(plugin.gData.config.getLong(target.getUniqueId().toString() + ".Grants." + Grants + ".Duration")));
                                 }
 
                                 date = Utils.DATE_FORMAT.format(new Date(plugin.gData.config.getLong(target.getUniqueId().toString() + ".Grants." + Grants + ".Date")));
