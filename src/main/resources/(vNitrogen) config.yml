@@ -25,6 +25,7 @@ Ranks:
     display: "&4Owner"
     grantItem: "RED_WOOL"
     permission: "vnitrogen.groups.owner"
+    grantPermission: "vnitrogen.grants.owner"
   DEVELOPER:
     default: false
     name: "Developer"
@@ -33,6 +34,7 @@ Ranks:
     display: "&6&oDeveloper"
     grantItem: "ORANGE_WOOL"
     permission: "vnitrogen.groups.developer"
+    grantPermission: "vnitrogen.grants.developer"
   MANAGER:
     default: false
     name: "Manager"
@@ -41,6 +43,7 @@ Ranks:
     display: "&9Manager"
     grantItem: "BLUE_WOOL"
     permission: "vnitrogen.groups.manager"
+    grantPermission: "vnitrogen.grants.manager"
   ADMIN:
     default: false
     name: "Admin"
@@ -49,6 +52,7 @@ Ranks:
     display: "&cAdmin"
     grantItem: "RED_WOOL"
     permission: "vnitrogen.groups.admin"
+    grantPermission: "vnitrogen.grants.admin"
   SENIOR-MOD:
     default: false
     name: "Senior-Mod"
@@ -57,6 +61,7 @@ Ranks:
     display: "&5&oSenior-Mod"
     grantItem: "PURPLE_WOOL"
     permission: "vnitrogen.groups.seniormod"
+    grantPermission: "vnitrogen.grants.seniormod"
   MOD:
     default: false
     name: "Mod"
@@ -65,6 +70,7 @@ Ranks:
     display: "&5Mod"
     grantItem: "PURPLE_WOOL"
     permission: "vnitrogen.groups.mod"
+    grantPermission: "vnitrogen.grants.mod"
   TRIAL-MOD:
     default: false
     name: "Trial-Mod"
@@ -73,6 +79,7 @@ Ranks:
     display: "&eTrial-Mod"
     grantItem: "YELLOW_WOOL"
     permission: "vnitrogen.groups.trialmod"
+    grantPermission: "vnitrogen.grants.trialmod"
   BUILDER:
     default: false
     name: "Builder"
@@ -81,6 +88,7 @@ Ranks:
     display: "&2Builder"
     grantItem: "GREEN_WOOL"
     permission: "vnitrogen.groups.builder"
+    grantPermission: "vnitrogen.grants.builder"
   DEFAULT:
     default: true
     name: "Default"
@@ -89,6 +97,7 @@ Ranks:
     display: "&7Default"
     grantItem: "GRAY_WOOL"
     permission: "vnitrogen.groups.default"
+    grantPermission: "vnitrogen.grants.default"
 
 # Config Messages:
 
@@ -120,6 +129,7 @@ Grant:
       - "&eClicking this option will set"
       - "%player%&e's rank to %rank%&e."
       - "&7&m----------------------------------&r"
+      - "%availability%"
   DurationMenu:
     Items:
       TenSeconds:
@@ -217,10 +227,10 @@ Grant:
         Name: "&3Testing"
         ID: "Testing"
         Slot: 15
-      Custom:
-        Item: "OAK_SIGN"
-        Name: "&2Custom Reason"
-        ID: "Custom Reason"
+      Other:
+        Item: "GREEN_WOOL"
+        Name: "&2Other"
+        ID: "Other"
         Slot: 16
     Lore:
       - "&7&m----------------------------------"
