@@ -19,57 +19,75 @@ Console:
 Ranks:
   OWNER:
     default: false
+    name: "Owner"
     prefix: "&7(&4Owner&7) &4"
     color: "&4"
     display: "&4Owner"
+    grantItem: "RED_WOOL"
     permission: "vnitrogen.groups.owner"
   DEVELOPER:
     default: false
+    name: "Developer"
     prefix: "&7(&6&oDeveloper&7) &6&o"
     color: "&6&o"
     display: "&6&oDeveloper"
+    grantItem: "ORANGE_WOOL"
     permission: "vnitrogen.groups.developer"
   MANAGER:
     default: false
+    name: "Manager"
     prefix: "&7(&9Manager&7) &9"
     color: "&9"
     display: "&9Manager"
+    grantItem: "BLUE_WOOL"
     permission: "vnitrogen.groups.manager"
   ADMIN:
     default: false
+    name: "Admin"
     prefix: "&7(&cAdmin&7) &c"
     color: "&c"
     display: "&cAdmin"
+    grantItem: "RED_WOOL"
     permission: "vnitrogen.groups.admin"
   SENIOR-MOD:
     default: false
+    name: "Senior-Mod"
     prefix: "&7(&5&oSenior-Mod&7) &5&o"
     color: "&5&o"
     display: "&5&oSenior-Mod"
+    grantItem: "PURPLE_WOOL"
     permission: "vnitrogen.groups.seniormod"
   MOD:
     default: false
+    name: "Mod"
     prefix: "&7(&5Mod&7) &5"
     color: "&5"
     display: "&5Mod"
+    grantItem: "PURPLE_WOOL"
     permission: "vnitrogen.groups.mod"
   TRIAL-MOD:
     default: false
+    name: "Trial-Mod"
     prefix: "&7(&eTrial-Mod&7) &e"
     color: "&e"
     display: "&eTrial-Mod"
+    grantItem: "YELLOW_WOOL"
     permission: "vnitrogen.groups.trialmod"
   BUILDER:
     default: false
+    name: "Builder"
     prefix: "&7(&2Builder&7) &2"
     color: "&2"
     display: "&2Builder"
+    grantItem: "GREEN_WOOL"
     permission: "vnitrogen.groups.builder"
   DEFAULT:
     default: true
+    name: "Default"
     prefix: "&7"
     color: "&7"
     display: "&7Default"
+    grantItem: "GRAY_WOOL"
     permission: "vnitrogen.groups.default"
 
 # Config Messages:
@@ -87,6 +105,162 @@ Setrank:
   InvalidRank: "%server_prefix% &cInvalid Rank!"
   SenderSetRank: "&aYou have set %target%&a's rank to %rank%&a."
   TargetSetRank: "&aYour rank has been set to %rank%&a."
+
+# Everything regarding to the /grant command:
+
+Grant:
+  Permission: "vnitrogen.grant"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /grant <player>"
+  GrantMenu:
+    Lore:
+      - "&7&m----------------------------------"
+      - "&eGrant the %rank% &erank to %player%&e."
+      - "&e "
+      - "&eClicking this option will set"
+      - "%player%&e's rank to %rank%&e."
+      - "&7&m----------------------------------&r"
+  DurationMenu:
+    Items:
+      TenSeconds:
+        Item: "WHITE_WOOL"
+        Name: "&f10 Seconds"
+        ID: "10 Seconds"
+        Slot: 10
+      OneMinute:
+        Item: "YELLOW_WOOL"
+        Name: "&e1 Minute"
+        ID: "1 Minute"
+        Slot: 11
+      FiveMinutes:
+        Item: "ORANGE_WOOL"
+        Name: "&65 Minutes"
+        ID: "5 Minutes"
+        Slot: 12
+      ThirtyMinutes:
+        Item: "RED_WOOL"
+        Name: "&c30 Minutes"
+        ID: "30 Minutes"
+        Slot: 13
+      OneHour:
+        Item: "GREEN_WOOL"
+        Name: "&21 Hour"
+        ID: "1 Hour"
+        Slot: 14
+      ThreeHours:
+        Item: "LIME_WOOL"
+        Name: "&a3 Hours"
+        ID: "3 Hours"
+        Slot: 15
+      OneDay:
+        Item: "BLUE_WOOL"
+        Name: "&91 Day"
+        ID: "1 Day"
+        Slot: 16
+      OneWeek:
+        Item: "CYAN_WOOL"
+        Name: "&31 Week"
+        ID: "1 Week"
+        Slot: 20
+      OneMonth:
+        Item: "LIGHT_BLUE_WOOL"
+        Name: "&b1 Month"
+        ID: "1 Month"
+        Slot: 21
+      OneYear:
+        Item: "PURPLE_WOOL"
+        Name: "&51 Year"
+        ID: "1 Year"
+        Slot: 23
+      Permanent:
+        Item: "BEDROCK"
+        Name: "&8Permanent"
+        ID: "Permanent"
+        Slot: 24
+    Lore:
+      - "&7&m----------------------------------"
+      - "&eThis grant will last for &6%time%&e."
+      - "&e "
+      - "&eClicking this option will set"
+      - "&ethis grant for %player%"
+      - "&eto expire in &6%time%&e."
+      - "&7&m----------------------------------"
+  ReasonMenu:
+    Items:
+      NoReason:
+        Item: "BEDROCK"
+        Name: "&8No Reason"
+        ID: "No Reason"
+        Slot: 10
+      Promoted:
+        Item: "LIME_WOOL"
+        Name: "&aPromoted"
+        ID: "Promoted"
+        Slot: 11
+      Demoted:
+        Item: "RED_WOOL"
+        Name: "&cDemoted"
+        ID: "Demoted"
+        Slot: 12
+      Famous:
+        Item: "PINK_WOOL"
+        Name: "&dFamous"
+        ID: "Famous"
+        Slot: 13
+      Whitelisted:
+        Item: "WHITE_WOOL"
+        Name: "&fWhitelisted"
+        ID: "Whitelisted"
+        Slot: 14
+      Testing:
+        Item: "CYAN_WOOL"
+        Name: "&3Testing"
+        ID: "Testing"
+        Slot: 15
+      Custom:
+        Item: "OAK_SIGN"
+        Name: "&2Custom Reason"
+        ID: "Custom Reason"
+        Slot: 16
+    Lore:
+      - "&7&m----------------------------------"
+      - "&eThis grant's reason is &6%reason%&e."
+      - "&e "
+      - "&eClicking this option will set"
+      - "&e%player%&e's grant's reason"
+      - "&eto &6%reason%&e."
+      - "&7&m----------------------------------"
+  ConfirmationMenu:
+    Lore:
+      - "&7&m----------------------------------"
+      - "&6&lDetails:"
+      - "&e "
+      - "&eTarget: &6%player%"
+      - "&eRank: &6%rank%"
+      - "&eDuration: &6%duration%"
+      - "&eReason: &6%reason%"
+      - "&7&m----------------------------------"
+  CancelledGrant: "&c&lGrant has been cancelled."
+  ConfirmedGrant: |-
+    &a&lGrant has been confirmed.
+    &eGranted User: %player%
+    &eGranted Rank: &6%rank%
+    &eGrant Duration: &6%duration%
+    &eGrant Reason: &6%reason%
+  CustomReasonChatMessage: "&ePlease type a &6custom &ereason in chat."
+
+# Everything below is regarding the /grants command and the /ungrant command:
+
+Grants:
+  Permission: "vnitrogen.grants"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /grants <player>"
+
+Ungrant:
+  Permission: "vnitrogen.grant"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /ungrant <player> <id>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  InvalidGrant: "%server_prefix% &cInvalid Grant!"
+  RevokedMessage: "&eSuccessfully revoked grant &6%id% &eof %player%&e."
 
 # Everything regarding the different staff chats:
 
