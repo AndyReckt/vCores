@@ -110,3 +110,11 @@ commands:
     description: Revoke the grant of a player.
     usage: /<command>
     aliases: [revokegrant, removegrant]
+  ClearHistory:
+    description: Clear a players punishments without having to enter the data file
+    usage: /<command>
+    aliases: [clearhist, ch]
+  Punish:
+    description: Punish a player through a handy GUI
+    usage: /<command>
+    aliases: [p, punishplayer, pp]
