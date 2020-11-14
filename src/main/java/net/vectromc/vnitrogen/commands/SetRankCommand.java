@@ -19,8 +19,8 @@ public class SetRankCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!sender.hasPermission("vnitrogen.setrank")) {
-            Utils.sendMessage(sender, plugin.getConfig().getString("NoPermission").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
+        if (sender instanceof Player) {
+            Utils.sendMessage(sender, plugin.getConfig().getString("MustBeConsole").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
         } else {
             if (args.length != 2) {
                 Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.IncorrectUsage").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
@@ -38,7 +38,7 @@ public class SetRankCommand implements CommandExecutor {
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
-                    plugin.data.saveData();
+                    plugin.pData.saveData();
                 } else {
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
                         plugin.setTargetColor(target);

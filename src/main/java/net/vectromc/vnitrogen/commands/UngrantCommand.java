@@ -19,84 +19,84 @@ public class UngrantCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            Utils.sendMessage(sender, plugin.getConfig().getString("YouMustBePlayer")
+        if (!sender.hasPermission(plugin.getConfig().getString("Ungrant.Permission"))) {
+            Utils.sendMessage(sender, plugin.getConfig().getString("NoPermission")
                     .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                     .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
         } else {
-            if (!sender.hasPermission(plugin.getConfig().getString("Ungrant.Permission"))) {
-                Utils.sendMessage(sender, plugin.getConfig().getString("NoPermission")
-                        .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
-                        .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
-            } else {
+            if (sender instanceof Player) {
                 Player player = (Player) sender;
                 if (args.length != 2) {
                     Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.IncorrectUsage")
                             .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                             .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                 } else {
-                    Player target = Bukkit.getPlayer(args[0]);
-                    if (target != null) {
+                    OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
+                    if (!plugin.gData.config.contains(target2.getUniqueId().toString())) {
+                        Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.InvalidPlayer")
+                                .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                                .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                    } else {
+                        String target2color = "";
+                        String target2name = target2.getName();
+                        for (String rank : plugin.ranks) {
+                            if (plugin.pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                target2color = plugin.getConfig().getString("Ranks." + rank + ".color");
+                            }
+                        }
+                        String target2display = target2color + target2name;
                         plugin.setPlayerColor(player);
-                        plugin.setTargetColor(target);
                         String id = args[1];
-                        if (plugin.gData.config.contains(target.getUniqueId().toString() + ".Grants." + "'" + args[1] + "'")) {
+                        if (plugin.gData.config.contains(target2.getUniqueId().toString() + ".Grants." + "'" + Integer.parseInt(args[1]) + "'")) {
                             Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.InvalidGrant")
                                     .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                                     .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                         } else {
-                            String prevRank = plugin.gData.config.getString(target.getUniqueId().toString() + ".Grants." + id + ".PrevRank");
-                            plugin.gData.config.set(target.getUniqueId().toString() + ".Grants." + id + ".Status", "Revoked");
-                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "setrank " + target.getName() + " " + prevRank);
+                            String prevRank = plugin.gData.config.getString(target2.getUniqueId().toString() + ".Grants." + id + ".PrevRank");
+                            plugin.gData.config.set(target2.getUniqueId().toString() + ".Grants." + id + ".Status", "Revoked");
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "setrank " + target2name + " " + prevRank);
                             Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.RevokedMessage")
                                     .replace("%id%", id)
-                                    .replace("%player%", target.getDisplayName()));
+                                    .replace("%player%", target2display));
                             plugin.gData.saveData();
                             plugin.gData.reloadData();
                         }
+                    }
+                }
+            } else {
+                if (args.length != 2) {
+                    Utils.sendMessage(sender, plugin.getConfig().getString("Ungrant.IncorrectUsage")
+                            .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                            .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                } else {
+                    OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
+                    if (!plugin.gData.config.contains(target2.getUniqueId().toString())) {
+                        Utils.sendMessage(sender, plugin.getConfig().getString("Ungrant.InvalidPlayer")
+                                .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                                .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                     } else {
-                        OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
-                        if (!plugin.gData.config.contains(target2.getUniqueId().toString())) {
-                            Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.InvalidPlayer")
+                        String target2color = "";
+                        String target2name = target2.getName();
+                        for (String rank : plugin.ranks) {
+                            if (plugin.pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                                target2color = plugin.getConfig().getString("Ranks." + rank + ".color");
+                            }
+                        }
+                        String target2display = target2color + target2name;
+                        int id = Integer.parseInt(args[1]);
+                        if (plugin.gData.config.contains(target2.getUniqueId().toString() + ".Grants." + id)) {
+                            Utils.sendMessage(sender, plugin.getConfig().getString("Ungrant.InvalidGrant")
                                     .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                                     .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                         } else {
-                            String target2color = "";
-                            String target2name = target2.getName();
-                            String dfColor = "";
-                            for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                                if (plugin.getConfig().getBoolean("Ranks." + rank.toUpperCase() + ".default")) {
-                                    dfColor = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
-                                }
-                            }
-                            if (!plugin.pData.config.contains(target2.getUniqueId().toString()) || !plugin.pData.config.contains(target2.getUniqueId().toString() + ".Rank")) {
-                                target2color = dfColor;
-                            } else {
-                                for (String rank : plugin.ranks) {
-                                    if (plugin.pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
-                                        target2color = plugin.getConfig().getString("Ranks." + rank.toUpperCase() + ".color");
-                                    } else {
-                                        target2color = dfColor;
-                                    }
-                                }
-                            }
-                            String target2display = target2color + target2name;
-                            plugin.setPlayerColor(player);
-                            String id = args[1];
-                            if (plugin.gData.config.contains(target2.getUniqueId().toString() + ".Grants." + args[1])) {
-                                Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.InvalidGrant")
-                                        .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
-                                        .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
-                            } else {
-                                String prevRank = plugin.gData.config.getString(target2.getUniqueId().toString() + ".Grants." + id + ".PrevRank");
-                                plugin.gData.config.set(target2.getUniqueId().toString() + ".Grants." + id + ".Status", "Revoked");
-                                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "setrank " + target2name + " " + prevRank);
-                                Utils.sendMessage(player, plugin.getConfig().getString("Ungrant.RevokedMessage")
-                                        .replace("%id%", id)
-                                        .replace("%player%", target2display));
-                                plugin.gData.saveData();
-                                plugin.gData.reloadData();
-                            }
+                            String prevRank = plugin.gData.config.getString(target2.getUniqueId().toString() + ".Grants." + id + ".PrevRank");
+                            plugin.gData.config.set(target2.getUniqueId().toString() + ".Grants." + id + ".Status", "Revoked");
+                            Bukkit.dispatchCommand(Bukkit.getConsoleSender(), "setrank " + target2name + " " + prevRank);
+                            Utils.sendMessage(sender, plugin.getConfig().getString("Ungrant.RevokedMessage")
+                                    .replace("%id%", "" + id)
+                                    .replace("%player%", target2display));
+                            plugin.gData.saveData();
+                            plugin.gData.reloadData();
                         }
                     }
                 }
