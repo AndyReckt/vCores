@@ -22,10 +22,12 @@ public class StaffLogEvents implements Listener {
         Player player = event.getPlayer();
         String world = player.getWorld().getName();
         if (player.hasPermission(plugin.getConfig().getString("StaffLogin.permission"))) {
-            plugin.setPlayerColor(player);
-            for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
-                if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffLogin.notifypermission"))) {
-                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffLogin.format").replaceAll("%world%", world).replaceAll("%player%", player.getDisplayName())));
+            if (!plugin.banned.contains(player.getUniqueId().toString()) && !plugin.blacklisted.contains(player.getAddress().getAddress().getHostAddress())) {
+                plugin.setPlayerColor(player);
+                for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
+                    if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffLogin.notifypermission"))) {
+                        onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffLogin.format").replaceAll("%world%", world).replaceAll("%player%", player.getDisplayName())));
+                    }
                 }
             }
         }
@@ -36,10 +38,12 @@ public class StaffLogEvents implements Listener {
         Player player = event.getPlayer();
         String world = player.getWorld().getName();
         if (player.hasPermission(plugin.getConfig().getString("StaffLogout.permission"))) {
-            plugin.setPlayerColor(player);
-            for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
-                if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffLogout.notifypermission"))) {
-                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffLogout.format").replaceAll("%world%", world).replaceAll("%player%", player.getDisplayName())));
+            if (!plugin.banned.contains(player.getUniqueId().toString()) && !plugin.blacklisted.contains(player.getAddress().getAddress().getHostAddress())) {
+                plugin.setPlayerColor(player);
+                for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
+                    if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffLogout.notifypermission"))) {
+                        onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffLogout.format").replaceAll("%world%", world).replaceAll("%player%", player.getDisplayName())));
+                    }
                 }
             }
         }

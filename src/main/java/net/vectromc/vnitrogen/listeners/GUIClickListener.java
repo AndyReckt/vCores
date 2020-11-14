@@ -9,7 +9,7 @@ public class GUIClickListener implements Listener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent event) {
-        if (event.getView().getTitle().contains(ChatColor.translateAlternateColorCodes('&', "&8History"))) {
+        if (event.getView().getTitle().contains(ChatColor.translateAlternateColorCodes('&', "&8History")) || event.getView().getTitle().contains(ChatColor.translateAlternateColorCodes('&', "&8Grants"))) {
             event.setCancelled(true);
         }
     }

@@ -1,6 +1,5 @@
 package net.vectromc.vnitrogen.listeners;
 
-import net.vectromc.vnitrogen.management.PlayerManagement;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
@@ -34,6 +33,7 @@ public class BlacklistJoinListener implements Listener {
             player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Blacklist.BlacklistMessage").replace("%reason%", reason)));
             plugin.data.config.getStringList(main + ".Blacklists." + id + ".LinkedAccounts").add(player.getName());
             plugin.data.saveData();
+            event.setJoinMessage("");
         }
     }
 }
