@@ -65,11 +65,18 @@ public final class vNitrogen extends JavaPlugin {
     public HashMap<Player, String> grantRank = new HashMap<>();
     public HashMap<Player, String> grantDuration = new HashMap<>();
     public HashMap<Player, String> grantReason = new HashMap<>();
+
+    public HashMap<Player, OfflinePlayer> punishPlayer = new HashMap<>();
+    public HashMap<Player, String> punishType = new HashMap<>();
+    public HashMap<Player, String> punishDuration = new HashMap<>();
+    public HashMap<Player, String> punishReason = new HashMap<>();
+    public HashMap<Player, String> punishSilent = new HashMap<>();
+
     public ArrayList<UUID> buildchat_toggle = new ArrayList<>();
     public ArrayList<UUID> staffchat_toggle = new ArrayList<>();
     public ArrayList<UUID> adminchat_toggle = new ArrayList<>();
     public ArrayList<UUID> managementchat_toggle = new ArrayList<>();
-    public ArrayList<UUID> grantCustomReason = new ArrayList<>();
+
     public ArrayList<String> ranks = new ArrayList<>();
     public ArrayList<String> muted = new ArrayList<>();
     public ArrayList<String> banned = new ArrayList<>();
@@ -92,6 +99,8 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("vNitrogen").setExecutor(new NitrogenCommand());
         getCommand("Setrank").setExecutor(new SetRankCommand());
         getCommand("Grant").setExecutor(new GrantCommand());
+        getCommand("Grants").setExecutor(new GrantsCommand());
+        getCommand("Ungrant").setExecutor(new UngrantCommand());
         // Chats
         getCommand("BuildChat").setExecutor(new BuildChatCommand());
         getCommand("StaffChat").setExecutor(new StaffChatCommand());
@@ -117,15 +126,14 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("ClearChat").setExecutor(new ClearChatCommand());
         getCommand("Blacklist").setExecutor(new BlacklistCommand());
         getCommand("Unblacklist").setExecutor(new UnblacklistCommand());
-        getCommand("Grants").setExecutor(new GrantsCommand());
-        getCommand("Ungrant").setExecutor(new UngrantCommand());
+        getCommand("ClearHistory").setExecutor(new ClearHistoryCommand());
+        getCommand("Punish").setExecutor(new PunishCommand());
     }
 
     private void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
         // Chat Formatting
         manager.registerEvents(new ChatFormat(), this);
-        manager.registerEvents(new GrantChatListener(), this);
         // Toggles
         manager.registerEvents(new BCToggleListener(), this);
         manager.registerEvents(new SCToggleListener(), this);
@@ -147,6 +155,7 @@ public final class vNitrogen extends JavaPlugin {
         // GUIs
         manager.registerEvents(new GUIClickListener(), this);
         manager.registerEvents(new GrantCommand(), this);
+        manager.registerEvents(new PunishCommand(), this);
     }
 
     private void runRunnables() {
