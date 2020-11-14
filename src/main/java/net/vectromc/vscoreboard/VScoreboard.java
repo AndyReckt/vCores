@@ -56,7 +56,8 @@ public final class VScoreboard extends JavaPlugin {
     }
 
     private void runRunnables() {
-        new ScoreboardRunnable().runTaskTimer(this, 0, 5);
+        int refreshTime = getConfig().getInt("Scoreboard.UpdateTime");
+        new ScoreboardRunnable().runTaskTimer(this, 0, refreshTime);
     }
 
     private void registerScoreboard() {
