@@ -15,6 +15,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class ModmodeCommand implements CommandExecutor {
 
@@ -89,6 +90,11 @@ public class ModmodeCommand implements CommandExecutor {
                         player.setFoodLevel(food);
                     } else {
                         nitrogen.setPlayerColor(player);
+                        new BukkitRunnable() {
+                            public void run() {
+                                player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                            }
+                        }.runTaskLater(plugin, 1);
                         plugin.modmode.add(player.getUniqueId());
                         Utils.sendMessage(player, plugin.getConfig().getString("ModmodeOnSelf"));
                         for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
@@ -147,6 +153,11 @@ public class ModmodeCommand implements CommandExecutor {
                         } else {
                             nitrogen.setPlayerColor(player);
                             nitrogen.setTargetColor(target);
+                            new BukkitRunnable() {
+                                public void run() {
+                                    target.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
+                                }
+                            }.runTaskLater(plugin, 1);
                             plugin.modmode.add(target.getUniqueId());
                             Utils.sendMessage(player, plugin.getConfig().getString("ModmodeOnOthers").replaceAll("%target%", target.getDisplayName()));
                             Utils.sendTargetMessage(target, plugin.getConfig().getString("ModmodeOnSelf"));
