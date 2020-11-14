@@ -27,22 +27,28 @@ These plugins need parts of the other plugins to have functionality.
   - /mct
   - /bct
   - /warn <player> <reason>
-  - /mute <player> [-s] <reason>
-  - /unmute <player> [-s]
-  - /ban <player> [-s] <reason>
-  - /unban <player> [-s]
-  - /kick <player> [-s] <reason>
-  - /tempmute <player> <time> [-] <reason>
-  - /tempban <player> <time> [-s] <reason>
-  - /blacklist <player> [-s] <reason>
+  - /mute <player> <-s> <reason>
+  - /unmute <player> <-s>
+  - /ban <player> <-s> <reason>
+  - /unban <player> <-s>
+  - /kick <player> <-s> <reason>
+  - /tempmute <player> <time> <-s> <reason>
+  - /tempban <player> <time> <-s> <reason>
+  - /blacklist <player> <-s> <reason>
   - /alts <player>
   - /history <player>
+  - /punish <player>
   
 ### Listeners:
   - A chat formatting listener, that formats the prefixes of the ranks (customizable in the config.yml) to be shown in chat.
   - Staff login/logout events, to notify the other online staff.
   - Staff world change events, to notify the other online staff.
   - Listeners for the toggles of all of the different chats, as well as listeners for the starter prefixes for these chats. E.x, to talk in staff chat, you can just type "# HeLlo", or for admin chat, "@ Hello".
+  - A join listener for banned players, that either expires or refreshes a temporary ban from it's time, as well as preventing banned players from joining.
+  - A blacklist join listener, that checks if the player who joined's IP address is the same as blacklisted player's IP address, and if it is, it links the joined player to that blacklist of the main account.
+  - GUI Click listeners that prevent moving items in the /grants and /history commands.
+  - A mute listener, that either expires or refhreses a temporary mute, as well as preventing muted players from talking.
+  - Player log events that update the player's rank upon join, and logs their IP address into the punishments.yml file, so that if they are an alt account of another player that has played the server, it notifies staff.
   
 ### API Features:
 While none of these plugins actually have an API, in vNitrogen I am using the setPlayerColor(), setTargetColor(), setPlayerPrefix() and setTargetPrefix() for setting the displaynames of players throughout the other 3 cores.
