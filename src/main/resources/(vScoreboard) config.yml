@@ -15,11 +15,48 @@ MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 
 # Scoreboard:
 
+# Refresh time of the scoreboard, in ticks. (5 recommended.)
+UpdateTime: 5
+
 Scoreboard:
   Enabled: true
   ToggleOffMessage: "&cYou have toggled off the scoreboard."
   ToggleOnMessage: "&aYou have toggled on the scoreboard."
+  Title: "&6&lVectroMC"
+  # Available Placeholders:
+  #
+  # %online% - amount of online players (non vanished)
+  # %rank% - player's rank
+  # %name% - player's name
+  # %displayname% - player's display name (non-prefix)
+  Format:
+    - "&7&m----------------------&r"
+    - "&6&lOnline:"
+    - "&f %online%"
+    - "&e "
+    - "&6&lRank:"
+    - "&f %rank%"
+    - "&6 "
+    - "&7play.vectromc.net"
+    - "&7&m----------------------"
 
 StaffScoreboard:
   Enabled: true
   Permission: "vscoreboard.staff"
+  Title: "&6&lVectroMC &7(ModMode&7)"
+  # Available Placeholders:
+  #
+  # %online% - amount of online players (non vanished)
+  # %onlinestaff% - amount of online staff members (including vanished)
+  # %vanish% - player's vanish status
+  # %world% - player's world
+  # %rank% - player's rank
+  # %name% - player's name
+  # %displayname% - player's display name (non-prefix)
+  Format:
+    - "&7&m----------------------&r"
+    - "&e * &fVanished&7: &6%vanish%"
+    - "&e * &fStaff Online&7: %onlinestaff%"
+    - "&e * &fPlayers Online&7: %online%"
+    - "&e * &fServer: &6%world%"
+    - "&7&m----------------------"
