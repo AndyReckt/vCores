@@ -22,22 +22,26 @@ public class PlayerLogEvents implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        if (plugin.getConfig().getBoolean("JoinMessage")) {
-            nitrogen.setPlayerColor(player);
-            event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("JoinMsg").replaceAll("%player%", player.getDisplayName())));
-        } else {
-            event.setJoinMessage("");
+        if (!nitrogen.banned.contains(player.getUniqueId().toString()) && !nitrogen.blacklisted.contains(player.getAddress().getAddress().getHostAddress())) {
+            if (plugin.getConfig().getBoolean("JoinMessage")) {
+                nitrogen.setPlayerColor(player);
+                event.setJoinMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("JoinMsg").replaceAll("%player%", player.getDisplayName())));
+            } else {
+                event.setJoinMessage("");
+            }
         }
     }
 
     @EventHandler
     public void onJoin(PlayerQuitEvent event) {
         Player player = event.getPlayer();
-        if (plugin.getConfig().getBoolean("LeaveMessage")) {
-            nitrogen.setPlayerColor(player);
-            event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("LeaveMsg").replaceAll("%player%", player.getDisplayName())));
-        } else {
-            event.setQuitMessage("");
+        if (!nitrogen.banned.contains(player.getUniqueId().toString()) && !nitrogen.blacklisted.contains(player.getAddress().getAddress().getHostAddress())) {
+            if (plugin.getConfig().getBoolean("LeaveMessage")) {
+                nitrogen.setPlayerColor(player);
+                event.setQuitMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("LeaveMsg").replaceAll("%player%", player.getDisplayName())));
+            } else {
+                event.setQuitMessage("");
+            }
         }
     }
 }
