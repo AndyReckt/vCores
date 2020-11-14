@@ -102,6 +102,7 @@ Ranks:
 # Config Messages:
 
 YouMustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
+MustBeConsole: "%plugin_prefix% &cOnly console can use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 CantFindPlayer: "%server_prefix% &cThat player was not found."
 ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml, and the playerdata.yml."
@@ -257,7 +258,6 @@ Grant:
     &eGranted Rank: &6%rank%
     &eGrant Duration: &6%duration%
     &eGrant Reason: &6%reason%
-  CustomReasonChatMessage: "&ePlease type a &6custom &ereason in chat."
 
 # Everything below is regarding the /grants command and the /ungrant command:
 
@@ -331,6 +331,11 @@ History:
   Permission: "vnitrogen.history"
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /c <player>"
   InvalidPlayer: "%server_prefix% &cInvalid Player"
+  Clear:
+    Permission: "vnitrogen.history.clear"
+    IncorrectUsage: "%server_prefix% &cIncorrect Usage! /clearhistory <player>"
+    InvalidPlayer: "%server_prefix% &cInvalid Player"
+    HistoryCleared: "&eYou have cleared %player%&e's punishment history."
 
 Warn:
   Permission: "vnitrogen.warn"
@@ -394,6 +399,7 @@ Ban:
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /ban <player> [-s] <reason>"
   InvalidPlayer: "%server_prefix% &cInvalid Player."
   GlobalMessage: "%executor% &ahas permanently banned %target%&a."
+  PlayerIsBanned: "%server_prefix% &cPlayer is already banned!"
   ExecutorResponse: "&aYou have permanently banned %player%&a for&f%reason%&a."
   BanMessage: |-
     &cYou have been &4banned &cfrom the server.
@@ -405,6 +411,7 @@ TempBan:
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /tempban <player> <time> [-s] <reason>"
   InvalidPlayer: "%server_prefix% &cInvalid Player."
   GlobalMessage: "%executor% &ahas temporarily banned %target%&a."
+  PlayerIsBanned: "%server_prefix% &cPlayer is already banned!"
   ExecutorResponse: "&aYou have temporarily banned %player%&a for&f%reason%&a."
   BanMessage: |-
     &cYou have been &4banned &cfrom the server.
@@ -461,3 +468,257 @@ ClearChat:
   NotifyPermission: "vnitrogen.clearchat.notify"
   GlobalMessage: "%player% &ahas cleared the &2server chat&a."
   StaffMessage: "&b[S] &3[%world%] %player% &3has &bcleared &3the server chat."
+
+Punish:
+  Permission: "vnitrogen.punish"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /punish <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  Types:
+    Blacklist:
+      Name: "&4Blacklist"
+      ID: "Blacklist"
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eClick this option to"
+        - "&4blacklist &ethe player"
+        - "%player%&e."
+        - "&e "
+        - "&eClicking this option will"
+        - "&emake the punishment type"
+        - "&ea &4blacklist&e."
+        - "&7&m-------------------------------"
+      Item: "REDSTONE_BLOCK"
+      Slot: 11
+      Permission: "vnitrogen.blacklist"
+    Ban:
+      Name: "&cBan"
+      ID: "Ban"
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eClick this option to"
+        - "&cban &ethe player"
+        - "%player%&e."
+        - "&e "
+        - "&eClicking this option will"
+        - "&emake the punishment type"
+        - "&ea &cban&e."
+        - "&7&m-------------------------------"
+      Item: "RED_WOOL"
+      Slot: 12
+      Permission: "vnitrogen.ban"
+    Mute:
+      Name: "&6Mute"
+      ID: "Mute"
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eClick this option to"
+        - "&6mute &ethe player"
+        - "%player%&e."
+        - "&e "
+        - "&eClicking this option will"
+        - "&emake the punishment type"
+        - "&ea &6mute&e."
+        - "&7&m-------------------------------"
+      Item: "ORANGE_WOOL"
+      Slot: 13
+      Permission: "vnitrogen.mute"
+    Kick:
+      Name: "&cKick"
+      ID: "Kick"
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eClick this option to"
+        - "&ckick &ethe player"
+        - "%player%&e."
+        - "&e "
+        - "&eClicking this option will"
+        - "&emake the punishment type"
+        - "&ea &ckick&e."
+        - "&7&m-------------------------------"
+      Item: "RED_WOOL"
+      Slot: 14
+      Permission: "vnitrogen.kick"
+    Warn:
+      Name: "&eWarn"
+      ID: "Warn"
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eClick this option to"
+        - "&ewarn &ethe player"
+        - "%player%&e."
+        - "&e "
+        - "&eClicking this option will"
+        - "&emake the punishment type"
+        - "&ea &ewarn&e."
+        - "&7&m-------------------------------"
+      Item: "YELLOW_WOOL"
+      Slot: 15
+      Permission: "vnitrogen.warn"
+  Durations:
+    Items:
+      TenSeconds:
+        Item: "WHITE_WOOL"
+        Name: "&f10 Seconds"
+        ID: "10 Seconds"
+        Slot: 10
+      OneMinute:
+        Item: "YELLOW_WOOL"
+        Name: "&e1 Minute"
+        ID: "1 Minute"
+        Slot: 11
+      FiveMinutes:
+        Item: "ORANGE_WOOL"
+        Name: "&65 Minutes"
+        ID: "5 Minutes"
+        Slot: 12
+      ThirtyMinutes:
+        Item: "RED_WOOL"
+        Name: "&c30 Minutes"
+        ID: "30 Minutes"
+        Slot: 13
+      OneHour:
+        Item: "GREEN_WOOL"
+        Name: "&21 Hour"
+        ID: "1 Hour"
+        Slot: 14
+      ThreeHours:
+        Item: "LIME_WOOL"
+        Name: "&a3 Hours"
+        ID: "3 Hours"
+        Slot: 15
+      OneDay:
+        Item: "BLUE_WOOL"
+        Name: "&91 Day"
+        ID: "1 Day"
+        Slot: 16
+      OneWeek:
+        Item: "CYAN_WOOL"
+        Name: "&31 Week"
+        ID: "1 Week"
+        Slot: 20
+      OneMonth:
+        Item: "LIGHT_BLUE_WOOL"
+        Name: "&b1 Month"
+        ID: "1 Month"
+        Slot: 21
+      OneYear:
+        Item: "PURPLE_WOOL"
+        Name: "&51 Year"
+        ID: "1 Year"
+        Slot: 23
+      Permanent:
+        Item: "BEDROCK"
+        Name: "&8Permanent"
+        ID: "Permanent"
+        Slot: 24
+    Lore:
+      - "&7&m-------------------------------"
+      - "&eThis punishment will last for &6%time%&e."
+      - "&e "
+      - "&eClicking this option will set"
+      - "&ethis punishment for %player%"
+      - "&eto expire in &6%time%&e."
+      - "&7&m-------------------------------"
+  Reasons:
+    Items:
+      Cheating:
+        Item: "DIAMOND_SWORD"
+        Name: "&4Cheating"
+        ID: "Cheating"
+        Slot: 9
+      Spam:
+        Item: "WRITABLE_BOOK"
+        Name: "&cSpam"
+        ID: "Spam"
+        Slot: 10
+      Toxicity:
+        Item: "COBWEB"
+        Name: "&6Toxicity"
+        ID: "Toxicity"
+        Slot: 11
+      RacismSexism:
+        Item: "RED_WOOL"
+        Name: "&eRacism/Sexism"
+        ID: "Racism/Sexism"
+        Slot: 12
+      ExploitAbuse:
+        Item: "LADDER"
+        Name: "&fExploit/Bug/Glitch Abuse"
+        ID: "Exploit/Bug/Glitch Abuse"
+        Slot: 13
+      Threats:
+        Item: "BEDROCK"
+        Name: "&aThreats"
+        ID: "Threats"
+        Slot: 14
+      Advertising:
+        Item: "BOOK"
+        Name: "&2Advertising"
+        ID: "Advertising"
+        Slot: 15
+      InnapSkinName:
+        Item: "WHITE_BANNER"
+        Name: "&9Inappropriate Skin/Name"
+        ID: "Inappropriate Skin/Name"
+        Slot: 16
+      Other:
+        Item: "OAK_SIGN"
+        Name: "&bOther"
+        ID: "Other"
+        Slot: 17
+    Lore:
+      - "&7&m-------------------------------"
+      - "&eThis punishment's reason will"
+      - "&ebe &6%reason%&e."
+      - "&e "
+      - "&eClicking this option will set"
+      - "&ethis punishment's"
+      - "&ereason to &6%reason%&e."
+      - "&7&m-------------------------------"
+  Silent:
+    Yes:
+      Item: "GREEN_TERRACOTTA"
+      Name: "&2Yes"
+      ID: "Yes"
+      Slot: 11
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eThis punishment's status &awill"
+        - "&ebe &6silent&e."
+        - "&e "
+        - "&eClicking this option will set"
+        - "&ethis punishment's &6silent"
+        - "&estatus to &atrue&e."
+        - "&7&m-------------------------------"
+    No:
+      Item: "RED_TERRACOTTA"
+      Name: "&cNo"
+      ID: "No"
+      Slot: 15
+      Lore:
+        - "&7&m-------------------------------"
+        - "&eThis punishment's status &cwill not"
+        - "&ebe &6silent&e."
+        - "&e "
+        - "&eClicking this option will set"
+        - "&ethis punishment's &6silent"
+        - "&estatus to &cfalse&e."
+        - "&7&m-------------------------------"
+  Confirmation:
+    Lore:
+      - "&7&m----------------------------------"
+      - "&6&lDetails:"
+      - "&e "
+      - "&eTarget: &6%player%"
+      - "&eType: &6%type%"
+      - "&eDuration: &6%duration%"
+      - "&eReason: &6%reason%"
+      - "&eSilent: &6%silent%"
+      - "&7&m----------------------------------"
+  CancelPunishment: "&c&lPunishment has been cancelled."
+  ConfirmPunishment: |-
+    &a&lPunishment has been confirmed.
+    &ePunished User: %player%
+    &ePunishment Type: &6%type%
+    &ePunishment Duration: &6%duration%
+    &ePunishment Reason: &6%reason%
