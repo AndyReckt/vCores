@@ -1,6 +1,6 @@
 package net.vectromc.vstaffutils.listeners;
 
-import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
+import net.vectromc.vnitrogen.vNitrogen;
 import net.vectromc.vstaffutils.utils.Utils;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
@@ -9,6 +9,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
@@ -16,9 +17,11 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class VanishUpdater implements Listener {
 
     private vStaffUtils plugin;
+    private vNitrogen nitrogen;
 
     public VanishUpdater() {
         plugin = vStaffUtils.getPlugin(vStaffUtils.class);
+        nitrogen = vNitrogen.getPlugin(vNitrogen.class);
     }
 
     @EventHandler
@@ -78,6 +81,17 @@ public class VanishUpdater implements Listener {
             plugin.vanish_logged.remove(player.getUniqueId());
             plugin.vanished.add(player.getUniqueId());
             Utils.sendMessage(player, plugin.getConfig().getString("VanishLogin"));
+        }
+    }
+
+    @EventHandler
+    public void onMobNotice(EntityTargetEvent event) {
+        Entity entity = event.getTarget();
+        if (entity instanceof Player) {
+            Player player = (Player) event.getTarget();
+            if (plugin.vanished.contains(player.getUniqueId())) {
+                event.setCancelled(true);
+            }
         }
     }
 }
