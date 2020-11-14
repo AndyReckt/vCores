@@ -9,6 +9,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
@@ -82,70 +83,109 @@ public class PlayerScoreboard implements Listener {
     }
 
     public void scoreboard(Player player) {
-        if (enabled.contains(player.getUniqueId())) {
-            return;
-        }
-        if (player.getScoreboard().equals(Bukkit.getServer().getScoreboardManager().getMainScoreboard())) {
-            player.setScoreboard(Bukkit.getServer().getScoreboardManager().getNewScoreboard());
-        }
-        Scoreboard score = player.getScoreboard();
-        final Objective objective = (score.getObjective(player.getName()) == null) ? score.registerNewObjective(player.getName(), "dummy") : score.getObjective(player.getName());
-        int online;
-        int staffonline;
-        String rank = "";
+        if (plugin.getConfig().getBoolean("Scoreboard.Enabled")) {
+            if (enabled.contains(player.getUniqueId())) {
+                return;
+            }
+            if (player.getScoreboard().equals(Bukkit.getServer().getScoreboardManager().getMainScoreboard())) {
+                player.setScoreboard(Bukkit.getServer().getScoreboardManager().getNewScoreboard());
+            }
+            Scoreboard score = player.getScoreboard();
+            final Objective objective = (score.getObjective(player.getName()) == null) ? score.registerNewObjective(player.getName(), "dummy") : score.getObjective(player.getName());
+            int online;
+            int staffonline;
+            String rank = "";
 
-        int vanished = staffUtils.vanished.size();
-        online = Bukkit.getOnlinePlayers().size() - vanished;
-        staffonline = 0;
-        for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
-            if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffScoreboard.Permission"))) {
-                staffonline++;
+            int vanished = staffUtils.vanished.size();
+            online = Bukkit.getOnlinePlayers().size() - vanished;
+            staffonline = 0;
+            for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
+                if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffScoreboard.Permission"))) {
+                    staffonline++;
+                }
             }
-        }
 
-        for (String rankLoop : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-            String permName = nitrogen.getConfig().getString("Ranks." + rankLoop + ".permission");
-            if (player.hasPermission(permName)) {
-                rank = nitrogen.getConfig().getString("Ranks." + rankLoop + ".display");
+            for (String rankLoop : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                String permName = nitrogen.getConfig().getString("Ranks." + rankLoop + ".permission");
+                if (player.hasPermission(permName)) {
+                    rank = nitrogen.getConfig().getString("Ranks." + rankLoop + ".display");
+                }
             }
-        }
 
-        if (staffUtils.modmode.contains(player.getUniqueId())) {
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectro &7| &7Mod-Mode"));
-            replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
-            if (staffUtils.vanished.contains(player.getUniqueId())) {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &aYes"));
-            } else {
-                replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&e * &f&lVanished: &cNo"));
-            }
-            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&e * &f&lStaff Online: &6" + staffonline));
-            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&e * &f&lPlayers Online: &6" + online));
-            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&e * &f&lServer: &6" + player.getWorld().getName()));
-            replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
-            replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
-            if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
-                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
-            }
-            player.setScoreboard(score);
-            return;
-        }
+            nitrogen.setPlayerColor(player);
 
-        if (!plugin.tsb.contains(player.getUniqueId())) {
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&6&lVectroMC"));
-            replaceScore(objective, 9, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------&r"));
-            replaceScore(objective, 8, ChatColor.translateAlternateColorCodes('&', "&6&lOnline:"));
-            replaceScore(objective, 7, ChatColor.translateAlternateColorCodes('&', "&f " + online));
-            replaceScore(objective, 6, ChatColor.translateAlternateColorCodes('&', "&7 "));
-            replaceScore(objective, 5, ChatColor.translateAlternateColorCodes('&', "&6&lRank:"));
-            replaceScore(objective, 4, ChatColor.translateAlternateColorCodes('&', "&f " + rank));
-            replaceScore(objective, 3, ChatColor.translateAlternateColorCodes('&', " "));
-            replaceScore(objective, 2, ChatColor.translateAlternateColorCodes('&', "&7play.vectromc.net"));
-            replaceScore(objective, 1, ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
-            if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
-                objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+            if (staffUtils.modmode.contains(player.getUniqueId())) {
+                if (plugin.getConfig().getBoolean("StaffScoreboard.Enabled")) {
+                    String title = plugin.getConfig().getString("StaffScoreboard.Title");
+                    String format;
+                    String vanish;
+                    if (staffUtils.vanished.contains(player.getUniqueId())) {
+                        vanish = "&aYes";
+                    } else {
+                        vanish = "&cNo";
+                    }
+                    objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', title));
+
+                    int row = plugin.getConfig().getStringList("StaffScoreboard.Format").size();
+                    for (String scores : plugin.getConfig().getStringList("StaffScoreboard.Format")) {
+                        row--;
+                        format = scores
+                                .replace("%online%", "" + online)
+                                .replace("%rank%", rank)
+                                .replace("%name%", player.getName())
+                                .replace("%displayname%", player.getDisplayName())
+                                .replace("%vanish%", vanish)
+                                .replace("%onlinestaff%", "" + staffonline)
+                                .replace("%world%", player.getWorld().getName());
+                        replaceScore(objective, row, ChatColor.translateAlternateColorCodes('&', format));
+                    }
+                    if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
+                        objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                    }
+                    player.setScoreboard(score);
+                    return;
+                } else {
+                    if (!plugin.tsb.contains(player.getUniqueId())) {
+                        String title = plugin.getConfig().getString("Scoreboard.Title");
+                        String format;
+                        objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', title));
+                        int row = plugin.getConfig().getStringList("Scoreboard.Format").size();
+                        for (String scores : plugin.getConfig().getStringList("Scoreboard.Format")) {
+                            row--;
+                            format = scores
+                                    .replace("%online%", "" + online)
+                                    .replace("%rank%", rank)
+                                    .replace("%name%", player.getName())
+                                    .replace("%displayname%", player.getDisplayName());
+                            replaceScore(objective, row, ChatColor.translateAlternateColorCodes('&', format));
+                        }
+                        if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
+                            objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                        }
+                        player.setScoreboard(score);
+                    }
+                }
             }
-            player.setScoreboard(score);
+
+            if (!plugin.tsb.contains(player.getUniqueId())) {
+                String title = plugin.getConfig().getString("Scoreboard.Title");
+                String format = "";
+                objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', title));
+                int row = plugin.getConfig().getStringList("Scoreboard.Format").size();
+                for (String scores : plugin.getConfig().getStringList("Scoreboard.Format")) {
+                    row--;
+                    format = scores
+                            .replace("%online%", "" + online)
+                            .replace("%rank%", rank)
+                            .replace("%name%", player.getName())
+                            .replace("%displayname%", player.getDisplayName());
+                    replaceScore(objective, row, ChatColor.translateAlternateColorCodes('&', format));
+                }
+                if (objective.getDisplaySlot() != DisplaySlot.SIDEBAR) {
+                    objective.setDisplaySlot(DisplaySlot.SIDEBAR);
+                }
+                player.setScoreboard(score);
+            }
         }
     }
 }
