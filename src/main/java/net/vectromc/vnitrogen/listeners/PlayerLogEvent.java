@@ -8,6 +8,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerLogEvent implements Listener {
 
@@ -20,10 +21,15 @@ public class PlayerLogEvent implements Listener {
     @EventHandler
     public void onJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        for (String rank : plugin.ranks) {
-            String permName = plugin.getConfig().getString("Ranks." + rank + ".permission");
-            if (player.hasPermission(permName)) {
-                plugin.pData.config.set(player.getUniqueId().toString() + ".Rank", rank);
+        String defaultRank = "";
+        for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+            if (!plugin.pData.config.contains(player.getUniqueId().toString()) || !plugin.pData.config.contains(player.getUniqueId().toString() + ".Rank")) {
+                if (plugin.getConfig().getBoolean("Ranks." + rank + ".default")) {
+                    defaultRank = rank;
+                    plugin.pData.config.set(player.getUniqueId().toString() + ".Rank", defaultRank);
+                }
+            } else {
+                plugin.pData.config.set(player.getUniqueId().toString() + ".Rank", plugin.pData.config.getString(player.getUniqueId().toString() + ".Rank"));
             }
         }
         plugin.pData.config.set(player.getUniqueId() + ".Name", player.getName());
