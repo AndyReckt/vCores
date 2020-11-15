@@ -105,10 +105,19 @@ public class PlayerScoreboard implements Listener {
                 }
             }
 
+            String defaultRank = "";
             for (String rankLoop : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-                String permName = nitrogen.getConfig().getString("Ranks." + rankLoop + ".permission");
-                if (player.hasPermission(permName)) {
-                    rank = nitrogen.getConfig().getString("Ranks." + rankLoop + ".display");
+                if (nitrogen.getConfig().getBoolean("Ranks." + rankLoop + ".default")) {
+                    defaultRank = rankLoop;
+                }
+            }
+            for (String rankLoop : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                if (!nitrogen.pData.config.contains(player.getUniqueId().toString()) || !nitrogen.pData.config.contains(player.getUniqueId().toString() + ".Rank")) {
+                    rank = nitrogen.getConfig().getString("Ranks." + defaultRank + ".display");
+                } else {
+                    if (nitrogen.pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rankLoop)) {
+                        rank = nitrogen.getConfig().getString("Ranks." + rankLoop + ".display");
+                    }
                 }
             }
 
