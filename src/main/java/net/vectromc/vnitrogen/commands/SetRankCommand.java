@@ -30,8 +30,10 @@ public class SetRankCommand implements CommandExecutor {
                     OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
                         String rankName = args[1];
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun")
+                                .replace("%player%", target2.getName())
+                                .replace("%rank%", rankName));
                         String target2display = plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".color") + target2.getName();
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun").replaceAll("%player%", target2.getName()).replaceAll("%rank%", rankName));
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.SenderSetRank").replaceAll("%target%", target2display).replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         plugin.pData.config.set(target2.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
                         plugin.pData.config.set(target2.getUniqueId().toString() + ".Name", target2.getName());
@@ -43,11 +45,14 @@ public class SetRankCommand implements CommandExecutor {
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
                         plugin.setTargetColor(target);
                         String rankName = args[1];
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun").replaceAll("%player%", target.getName()).replaceAll("%rank%", rankName));
+                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun")
+                                .replace("%player%", target.getName())
+                                .replace("%rank%", rankName));
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.SenderSetRank").replaceAll("%target%", target.getDisplayName()).replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         Utils.sendMessage(target, plugin.getConfig().getString("Setrank.TargetSetRank").replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         plugin.pData.config.set(target.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
                         plugin.pData.config.set(target.getUniqueId().toString() + ".Name", target.getName());
+
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
