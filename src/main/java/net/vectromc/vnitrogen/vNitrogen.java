@@ -52,7 +52,6 @@ public final class vNitrogen extends JavaPlugin {
         refreshBans();
         refreshMutes();
         startupAnnouncements();
-
     }
 
     @Override
@@ -175,54 +174,70 @@ public final class vNitrogen extends JavaPlugin {
 
     public void setPlayerPrefix(Player player) {
         for (String rank : this.ranks) {
-            if (player.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String prefix = getConfig().getString("Ranks." + rank + ".prefix");
-                player.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));
+            if (!pData.config.contains(player.getUniqueId().toString()) || pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
+                String prefix = getConfig().getString("Ranks.DEFAULT.prefix");
+                player.setDisplayName(prefix + player.getName());
+            } else {
+                if (pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                    String prefix = getConfig().getString("Ranks." + rank + ".prefix");
+                    player.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + player.getName()));
+                }
             }
         }
     }
 
     public void setPlayerColor(Player player) {
         for (String rank : this.ranks) {
-            if (player.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String color = getConfig().getString("Ranks." + rank + ".color");
-                player.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + player.getName()));
+            if (!pData.config.contains(player.getUniqueId().toString()) || pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
+                String color = getConfig().getString("Ranks.DEFAULT.color");
+                player.setDisplayName(color + player.getName());
+            } else {
+                if (pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                    String color = getConfig().getString("Ranks." + rank + ".color");
+                    player.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + player.getName()));
+                }
             }
         }
     }
 
     public void setTargetPrefix(Player target) {
         for (String rank : this.ranks) {
-            if (target.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String prefix = getConfig().getString("Ranks." + rank + ".prefix");
-                target.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + target.getName()));
+            if (!pData.config.contains(target.getUniqueId().toString()) || pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
+                String prefix = getConfig().getString("Ranks.DEFAULT.prefix");
+                target.setDisplayName(prefix + target.getName());
+            } else {
+                if (pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                    String prefix = getConfig().getString("Ranks." + rank + ".prefix");
+                    target.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + target.getName()));
+                }
             }
         }
     }
 
     public void setTargetColor(Player target) {
         for (String rank : this.ranks) {
-            if (target.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String color = getConfig().getString("Ranks." + rank + ".color");
-                target.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target.getName()));
-            }
-        }
-    }
-
-    public void setTarget2Prefix(Player target2) {
-        for (String rank : this.ranks) {
-            if (target2.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String prefix = getConfig().getString("Ranks." + rank + ".prefix");
-                target2.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + target2.getName()));
+            if (!pData.config.contains(target.getUniqueId().toString()) || pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
+                String color = getConfig().getString("Ranks.DEFAULT.color");
+                target.setDisplayName(color + target.getName());
+            } else {
+                if (pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                    String color = getConfig().getString("Ranks." + rank + ".color");
+                    target.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target.getName()));
+                }
             }
         }
     }
 
     public void setTarget2Color(Player target2) {
         for (String rank : this.ranks) {
-            if (target2.hasPermission(getConfig().getString("Ranks." + rank + ".permission"))) {
-                String color = getConfig().getString("Ranks." + rank + ".color");
-                target2.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target2.getName()));
+            if (!pData.config.contains(target2.getUniqueId().toString()) || pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
+                String color = getConfig().getString("Ranks.DEFAULT.color");
+                target2.setDisplayName(color + target2.getName());
+            } else {
+                if (pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
+                    String color = getConfig().getString("Ranks." + rank + ".color");
+                    target2.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target2.getName()));
+                }
             }
         }
     }
