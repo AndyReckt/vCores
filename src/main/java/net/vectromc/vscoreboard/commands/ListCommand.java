@@ -10,6 +10,9 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ListCommand implements CommandExecutor {
 
     private VScoreboard plugin;
@@ -25,50 +28,38 @@ public class ListCommand implements CommandExecutor {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (cmd.getName().equalsIgnoreCase("Onlineplayers")) {
-            if (!(sender instanceof Player)) {
-                Utils.sendMessage(sender, plugin.getConfig().getString("MustBePlayer").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
-            } else {
-                Player player = (Player) sender;
-                int vanished = staffUtils.vanished.size();
-                int online;
-                online = Bukkit.getOnlinePlayers().size() - vanished;
-                Utils.liner(player);
-                Utils.sendMessage(player, "&eOnline Players&7: &6&l" + online);
-                Utils.spacer(player);
-                for (Player target : Bukkit.getOnlinePlayers()) {
-                    if (!staffUtils.vanished.contains(target.getUniqueId())) {
-                        if (target.hasPermission("vnitrogen.groups.owner")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.developer")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.manager")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.admin")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.seniormod")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.mod")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.trialmod")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else if (target.hasPermission("vnitrogen.groups.builder")) {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        } else {
-                            nitrogen.setTargetColor(target);
-                            Utils.sendMessage(player, "&7 - " + target.getDisplayName());
-                        }
-                    }
-                }
-                Utils.liner(player);
+            Player player = (Player) sender;
+            int vanished = staffUtils.vanished.size();
+            int online;
+            online = Bukkit.getOnlinePlayers().size() - vanished;
+            List<String> ranks = new ArrayList<>();
+            for (String rank : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                String rankName = nitrogen.getConfig().getString("Ranks." + rank + ".display");
+                ranks.add(rankName);
             }
+            String rankMessage = "";
+            for (String rankList : ranks) {
+                if (rankMessage.length() == 0) {
+                    rankMessage = rankList;
+                } else {
+                    rankMessage = rankMessage + "&f, " + rankList;
+                }
+            }
+            Utils.sendMessage(player, rankMessage);
+            List<String> players = new ArrayList<>();
+            for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                nitrogen.setPlayerColor(onlinePlayers);
+                players.add(onlinePlayers.getDisplayName());
+            }
+            String playerMessage = "";
+            for (String playerList : players) {
+                if (playerMessage.length() == 0) {
+                    playerMessage = playerList;
+                } else {
+                    playerMessage = playerMessage + "&f, " + playerList;
+                }
+            }
+            Utils.sendMessage(player, "&7(&f" + online + "&7/" + plugin.getServer().getMaxPlayers() + "&7) " + playerMessage);
         }
         return true;
     }
