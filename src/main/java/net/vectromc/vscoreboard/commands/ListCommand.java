@@ -48,8 +48,10 @@ public class ListCommand implements CommandExecutor {
             Utils.sendMessage(player, rankMessage);
             List<String> players = new ArrayList<>();
             for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                nitrogen.setPlayerColor(onlinePlayers);
-                players.add(onlinePlayers.getDisplayName());
+                if (!staffUtils.vanished.contains(onlinePlayers.getUniqueId())) {
+                    nitrogen.setPlayerColor(onlinePlayers);
+                    players.add(onlinePlayers.getDisplayName());
+                }
             }
             String playerMessage = "";
             for (String playerList : players) {
