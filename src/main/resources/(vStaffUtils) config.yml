@@ -1,4 +1,4 @@
-# vStaffUtils v1.0 by Yochran
+# vBasic v1.0 by Yochran
 # https://github.com/Yochran
 
 # One of the server cores for VectroMC
@@ -7,22 +7,25 @@
 # Prefixes:
 
 PluginPrefix: "&7[&6&lvStaffUtils&7]"
-ServerPrefix: "&7[&6&lVectroMC&7]"
+ServerPrefix: "&7[&6&lvStaffUtils&7]"
+
+# Join Messages:
+
+JoinMessage: true
+LeaveMessage: true
+
+JoinFormat: "&7(&a&l+&7) &a%player%"
+LeaveFormat: "&7(&4&l-&7) &4%player%"
 
 # Permissions:
 
 VanishPermission: "vstaffutils.vanish"
 VanishOthersPermission: "vstaffutils.vanish.others"
-
 ModmodePermission: "vstaffutils.modmode"
 ModmodeOthersPermission: "vstaffutils.modmode.others"
-
 BuildModePermission: "vstaffutils.buildmode"
-
 FreezePermission: "vstaffutils.freeze"
-
 ReportNotifyPermission: "vstaffutils.reports.notify"
-
 OnlineStaffPermission: "vstaffutils.staff"
 
 # Config Messages:
@@ -30,6 +33,8 @@ OnlineStaffPermission: "vstaffutils.staff"
 MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
+
+ReloadPermission: "vstaffutils.reload"
 
 # Below is everything regarding Vanish:
 
@@ -88,6 +93,12 @@ ReportInvalidPlayer: "%server_prefix% &cInvalid Player!"
 ReportFormat:
   PlayerFormat: "&eYou have reported %target% &efor &f%reason%&e."
   StaffFormat: "&b[S] &3[%world%] %player% &3has reported %target% &3for &b%reason%"
+
+# Below is everything regarding invsee:
+
+InvseePermission: "vstaffutils.invsee"
+InvseeIncorrectUsage: "%server_prefix% &cIncorrect Usage! /invsee <player>"
+InvseeInvalidPlayer: "%server_prefix% &cInvalid Player"
 
 # Below is everything regarding staff alerts:
 
