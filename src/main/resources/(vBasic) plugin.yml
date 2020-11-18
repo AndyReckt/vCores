@@ -87,3 +87,14 @@ commands:
   Back:
     description: Return to a previous location after teleporting.
     usage: /<command>
+  Fly:
+    description: Toggle your or another players fly mode.
+    usage: /<command>
+    aliases: [flymode, flight, togglefly, toggleflight]
+  Speed:
+    description: Set your or another players speed.
+    usage: /<command>
+  Seen:
+    description: Get a users information.
+    usage: /<command>
+    aliases: [playerinfo, userinfo, info]
