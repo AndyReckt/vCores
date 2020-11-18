@@ -12,11 +12,11 @@ PluginPrefix: "&7[&6&lvScoreboard&7]"
 # Config Messages:
 
 MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
+NoPermission: "%server_prefix% &cYou do not have permission to use that command."
+ReloadMessage: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
+ReloadPermission: "vscoreboard.reload"
 
 # Scoreboard:
-
-# Refresh time of the scoreboard, in ticks. (5 recommended.)
-UpdateTime: 5
 
 Scoreboard:
   Enabled: true
@@ -43,20 +43,22 @@ Scoreboard:
 StaffScoreboard:
   Enabled: true
   Permission: "vscoreboard.staff"
-  Title: "&6&lVectroMC &7(ModMode&7)"
+  Title: "&6&lVectroMC"
   # Available Placeholders:
   #
-  # %online% - amount of online players (non vanished)
-  # %onlinestaff% - amount of online staff members (including vanished)
   # %vanish% - player's vanish status
-  # %world% - player's world
+  # %onlinestaff% - all online staff
+  # %online% - amount of online players (non vanished)
   # %rank% - player's rank
   # %name% - player's name
+  # %world% - player's server
   # %displayname% - player's display name (non-prefix)
   Format:
     - "&7&m----------------------&r"
-    - "&e * &fVanished&7: &6%vanish%"
-    - "&e * &fStaff Online&7: %onlinestaff%"
-    - "&e * &fPlayers Online&7: %online%"
+    - "&e * &fVanish: %vanish%"
+    - "&e * &fStaff Online: &6%onlinestaff%"
+    - "&e * &fPlayers Online: &6%online%"
     - "&e * &fServer: &6%world%"
+    - "&6 "
+    - "&7play.vectromc.net"
     - "&7&m----------------------"
