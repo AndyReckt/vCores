@@ -7,7 +7,7 @@
 # Prefixes:
 
 PluginPrefix: "&7[&6&lvNitrogen&7]"
-ServerPrefix: "&7[&6&lVectroMC&7]"
+ServerPrefix: "&7[&6&lvNitrogen&7]"
 
 # Ranks:
 
@@ -24,7 +24,6 @@ Ranks:
     color: "&4"
     display: "&4Owner"
     grantItem: "RED_WOOL"
-    permission: "vnitrogen.groups.owner"
     grantPermission: "vnitrogen.grants.owner"
   DEVELOPER:
     default: false
@@ -33,7 +32,6 @@ Ranks:
     color: "&6&o"
     display: "&6&oDeveloper"
     grantItem: "ORANGE_WOOL"
-    permission: "vnitrogen.groups.developer"
     grantPermission: "vnitrogen.grants.developer"
   MANAGER:
     default: false
@@ -42,7 +40,6 @@ Ranks:
     color: "&9"
     display: "&9Manager"
     grantItem: "BLUE_WOOL"
-    permission: "vnitrogen.groups.manager"
     grantPermission: "vnitrogen.grants.manager"
   ADMIN:
     default: false
@@ -51,7 +48,6 @@ Ranks:
     color: "&c"
     display: "&cAdmin"
     grantItem: "RED_WOOL"
-    permission: "vnitrogen.groups.admin"
     grantPermission: "vnitrogen.grants.admin"
   SENIOR-MOD:
     default: false
@@ -60,7 +56,6 @@ Ranks:
     color: "&5&o"
     display: "&5&oSenior-Mod"
     grantItem: "PURPLE_WOOL"
-    permission: "vnitrogen.groups.seniormod"
     grantPermission: "vnitrogen.grants.seniormod"
   MOD:
     default: false
@@ -69,7 +64,6 @@ Ranks:
     color: "&5"
     display: "&5Mod"
     grantItem: "PURPLE_WOOL"
-    permission: "vnitrogen.groups.mod"
     grantPermission: "vnitrogen.grants.mod"
   TRIAL-MOD:
     default: false
@@ -78,7 +72,6 @@ Ranks:
     color: "&e"
     display: "&eTrial-Mod"
     grantItem: "YELLOW_WOOL"
-    permission: "vnitrogen.groups.trialmod"
     grantPermission: "vnitrogen.grants.trialmod"
   BUILDER:
     default: false
@@ -87,7 +80,6 @@ Ranks:
     color: "&2"
     display: "&2Builder"
     grantItem: "GREEN_WOOL"
-    permission: "vnitrogen.groups.builder"
     grantPermission: "vnitrogen.grants.builder"
   DEFAULT:
     default: true
@@ -96,7 +88,6 @@ Ranks:
     color: "&7"
     display: "&7Default"
     grantItem: "GRAY_WOOL"
-    permission: "vnitrogen.groups.default"
     grantPermission: "vnitrogen.grants.default"
 
 # Config Messages:
@@ -105,7 +96,9 @@ YouMustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 MustBeConsole: "%plugin_prefix% &cOnly console can use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 CantFindPlayer: "%server_prefix% &cThat player was not found."
-ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml, and the playerdata.yml."
+ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded all config and data files."
+
+ReloadPermission: "vnitrogen.reload"
 
 # Everything regarding to the /setrank command:
 
@@ -115,6 +108,41 @@ Setrank:
   InvalidRank: "%server_prefix% &cInvalid Rank!"
   SenderSetRank: "&aYou have set %target%&a's rank to %rank%&a."
   TargetSetRank: "&aYour rank has been set to %rank%&a."
+
+# User Command
+
+UserCommand:
+  Permission: "vnitrogen.commands.user"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /user <player> <add/remove> <permission>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  AddPlayerPermission: "&eYou have added the &6%permission% &epermission to %player%&e."
+  RemovePlayerPermission: "&eYou have removed the &6%permission% &epermission from %player%&e."
+  ListUserPermissions: |-
+    &7&m-------------------------
+    %player%&6's Permissions:
+    &7 -
+    &e%permissions%
+    &7&m-------------------------
+
+# Rank Command
+
+RankCommand:
+  Permission: "vnitrogen.commands.rank"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /rank <rank> <add/remove> <permission>"
+  InvalidRank: "%server_prefix% &cInvalid Rank!"
+  AddRankPermission: "&eYou have added the &6%permission% &epermission to %rank%&e."
+  RemoveRankPermission: "&eYou have removed the &6%permission% &epermission from %rank%&e."
+  ListRankPermissions: |-
+    &7&m-------------------------
+    %rank%&6's Permissions:
+    &7 -
+    &e%permissions%
+    &7&m-------------------------
+
+# Colored Chat:
+
+ColorChat:
+  Permission: "vnitrogen.chat.color"
 
 # Everything regarding to the /grant command:
 
