@@ -23,29 +23,47 @@ public class StaffUtilsCommand implements CommandExecutor {
             Player player = (Player) sender;
             if (args.length == 0) {
                 Utils.liner(player);
-                Utils.sendMessage(player, "&a&lvStaffUtils:");
+                Utils.sendMessage(player, "&7[&6&lvStaffUtils&7]:");
                 Utils.spacer(player);
-                Utils.sendMessage(player, "&2Plugin By: &b&oYochran");
-                Utils.sendMessage(player, "&2Plugin Version: &a1.0");
+                Utils.sendMessage(player, "&ePlugin By: &6&oYochran");
+                Utils.sendMessage(player, "&ePlugin Version: &61.0");
+                Utils.sendMessage(player, "&6/vstaffutils help");
                 Utils.liner(player);
             } else if (args.length == 1) {
                 if (args[0].equalsIgnoreCase("reload")) {
-                    plugin.reloadConfig();
-                    Utils.sendMessage(player, plugin.getConfig().getString("ReloadConfig").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                    if (sender.hasPermission(plugin.getConfig().getString("ReloadPermission"))) {
+                        plugin.reloadConfig();
+                        Utils.sendMessage(player, plugin.getConfig().getString("ReloadConfig")
+                                .replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                                .replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                    } else {
+                        Utils.sendMessage(player, plugin.getConfig().getString("NoPermission")
+                                .replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                                .replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                    }
+                } else if (args[0].equalsIgnoreCase("help")) {
+                    net.vectromc.vnitrogen.utils.Utils.liner(sender);
+                    net.vectromc.vnitrogen.utils.Utils.sendMessage(sender, "&7[&6&lvStaffUtils&7]: &eHelp:");
+                    net.vectromc.vnitrogen.utils.Utils.sendMessage(sender, "&e ");
+                    net.vectromc.vnitrogen.utils.Utils.sendMessage(sender, "&6&lPunishments:");
+                    net.vectromc.vnitrogen.utils.Utils.sendMessage(sender, "&e/build, /freeze, /invsee, /modmode, /vanish, /report.");
+                    net.vectromc.vnitrogen.utils.Utils.liner(sender);
                 } else {
                     Utils.liner(player);
-                    Utils.sendMessage(player, "&a&lvStaffUtils:");
+                    Utils.sendMessage(player, "&7[&6&lvStaffUtils&7]:");
                     Utils.spacer(player);
-                    Utils.sendMessage(player, "&2Plugin By: &b&oYochran");
-                    Utils.sendMessage(player, "&2Plugin Version: &a1.0");
+                    Utils.sendMessage(player, "&ePlugin By: &6&oYochran");
+                    Utils.sendMessage(player, "&ePlugin Version: &61.0");
+                    Utils.sendMessage(player, "&6/vstaffutils help");
                     Utils.liner(player);
                 }
             } else {
                 Utils.liner(player);
-                Utils.sendMessage(player, "&a&lvStaffUtils:");
+                Utils.sendMessage(player, "&7[&6&lvStaffUtils&7]:");
                 Utils.spacer(player);
-                Utils.sendMessage(player, "&2Plugin By: &b&oYochran");
-                Utils.sendMessage(player, "&2Plugin Version: &a1.0");
+                Utils.sendMessage(player, "&ePlugin By: &6&oYochran");
+                Utils.sendMessage(player, "&ePlugin Version: &61.0");
+                Utils.sendMessage(player, "&6/vstaffutils help");
                 Utils.liner(player);
             }
         }
