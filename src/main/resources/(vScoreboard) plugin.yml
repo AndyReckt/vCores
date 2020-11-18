@@ -12,3 +12,6 @@ commands:
   ToggleScoreboard:
     description: Toggle on or off the scoreboard
     aliases: [tsb]
+  VScoreboard:
+    description: Get the plugin information and help.
+    usage: /<command>
