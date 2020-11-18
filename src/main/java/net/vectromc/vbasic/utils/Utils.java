@@ -1,9 +1,15 @@
 package net.vectromc.vbasic.utils;
 
 import net.vectromc.vbasic.vBasic;
+import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Utils {
 
@@ -40,4 +46,7 @@ public class Utils {
     public static void spacer(CommandSender sender) {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7 "));
     }
+
+    public static SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yy HH:mm:ss z");
+
 }
