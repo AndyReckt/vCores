@@ -1,6 +1,8 @@
 package net.vectromc.vscoreboard;
 
+import net.vectromc.vnitrogen.vNitrogen;
 import net.vectromc.vscoreboard.commands.ListCommand;
+import net.vectromc.vscoreboard.commands.ScoreboardCommand;
 import net.vectromc.vscoreboard.commands.ToggleScoreboardCommand;
 import net.vectromc.vscoreboard.listeners.CommandListener;
 import net.vectromc.vscoreboard.utils.ScoreboardRunnable;
@@ -13,6 +15,11 @@ import java.util.UUID;
 public final class VScoreboard extends JavaPlugin {
 
     public PlayerScoreboard scoreboard;
+    private vNitrogen nitrogen;
+
+    public VScoreboard() {
+        nitrogen = vNitrogen.getPlugin(vNitrogen.class);
+    }
 
     @Override
     public void onEnable() {
@@ -53,11 +60,11 @@ public final class VScoreboard extends JavaPlugin {
     private void registerCommands() {
         getCommand("Onlineplayers").setExecutor(new ListCommand());
         getCommand("ToggleScoreboard").setExecutor(new ToggleScoreboardCommand());
+        getCommand("vScoreboard").setExecutor(new ScoreboardCommand());
     }
 
     private void runRunnables() {
-        int refreshTime = getConfig().getInt("Scoreboard.UpdateTime");
-        new ScoreboardRunnable().runTaskTimer(this, 0, refreshTime);
+        new ScoreboardRunnable().runTaskTimer(this, 0, 5);
     }
 
     private void registerScoreboard() {
