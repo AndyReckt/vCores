@@ -7,7 +7,7 @@
 # Prefixes:
 
 PluginPrefix: "&7[&6&lvBasic&7]"
-ServerPrefix: "&7[&6&lVectroMC&7]"
+ServerPrefix: "&7[&6&lvBasic&7]"
 
 # Permissions:
 
@@ -20,13 +20,8 @@ MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 InvalidPlayer: "%server_prefix% &cInvalid Player!"
 
-JoinMessage: true
-LeaveMessage: true
-
-JoinMsg: "&7(&a&l+&7) %player%"
-LeaveMsg: "&7(&c&l-&7) %player%"
-
 ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
+ReloadPermission: "vbasic.reload"
 
 # Everything regarding /teleport is below:
 
@@ -112,6 +107,41 @@ Spawn:
   World: world
   Pitch: 0.0
   Yaw: 0.1
+
+# Everything relating to /fly is below:
+
+FlyPermission: "vbasic.fly"
+FlyIncorrectUsage: "%server_prefix% &cIncorrect Usage! /fly [player]"
+FlyInvalidPlayer: "%server_prefix% &cInvalid Player!"
+FlyTargetOn: "&eYour fly mode has been &6enabled&e."
+FlyTargetOff: "&eYour fly mode has been &6disabled&e."
+FlyPlayerOn: "&eYou have set %player%&e's fly mode to &6true&e."
+FlyPlayerOff: "&eYou have set %player%&e's fly mode to &6false&e."
+
+# Everything relating to /speed is below:
+
+SpeedPermission: "vbasic.speed"
+SpeedInvalidSpeed: "%server_prefix% &cInvalid Speed! Speed must be between -1 and 1."
+SpeedIncorrectUsage: "%server_prefix% &cIncorrect Usage! /speed <amount> [player]"
+SpeedInvalidPlayer: "%server_prefix% &cInvalid Player!"
+SpeedPlayerSet: "&eYou have set %player%&e's speed to &6%speed%&e."
+SpeedTargetSet: "&eYour speed has been set to &6%speed%&e."
+
+# Everything relating to /seen is below:
+
+SeenPermission: "vbasic.seen"
+SeenIPViewPermission: "vbasic.seen.ip"
+SeenIncorrectUsage: "%server_prefix% &cIncorrect Usage! /seen <player>"
+SeenInvalidPlayer: "%server_prefix% &cInvalid Player!"
+SeenHiddenIP: "&6(IP Hidden)"
+SeenFormat: |-
+  &7&m------------------------
+  %player%&6's user-info:
+  &e -
+  &eFirst Joined: &6%firstjoin%
+  &eIP: &6%ip%
+  &eRank: %rank%
+  &7&m------------------------
 
 # Staff Alerts for everything are below:
 
