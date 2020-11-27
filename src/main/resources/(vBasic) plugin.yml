@@ -98,3 +98,6 @@ commands:
     description: Get a users information.
     usage: /<command>
     aliases: [playerinfo, userinfo, info]
+  Hat:
+    description: Set your hat.
+    usage: /<command>
