@@ -143,6 +143,13 @@ SeenFormat: |-
   &eRank: %rank%
   &7&m------------------------
 
+# Everything below is for the fun commands.
+
+Hat:
+  Permission: "vbasic.hat"
+  InvalidItem: "%server_prefix% &cInvalid Item!"
+  Message: "&eYou have set your hat."
+
 # Staff Alerts for everything are below:
 
 StaffAlerts:
