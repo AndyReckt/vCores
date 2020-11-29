@@ -214,34 +214,6 @@ public final class vNitrogen extends JavaPlugin {
         }
     }
 
-    public void setTargetColor(Player target) {
-        for (String rank : this.ranks) {
-            if (!pData.config.contains(target.getUniqueId().toString()) || pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
-                String color = getConfig().getString("Ranks.DEFAULT.color");
-                target.setDisplayName(color + target.getName());
-            } else {
-                if (pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
-                    String color = getConfig().getString("Ranks." + rank + ".color");
-                    target.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target.getName()));
-                }
-            }
-        }
-    }
-
-    public void setTarget2Color(Player target2) {
-        for (String rank : this.ranks) {
-            if (!pData.config.contains(target2.getUniqueId().toString()) || pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
-                String color = getConfig().getString("Ranks.DEFAULT.color");
-                target2.setDisplayName(color + target2.getName());
-            } else {
-                if (pData.config.getString(target2.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
-                    String color = getConfig().getString("Ranks." + rank + ".color");
-                    target2.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + target2.getName()));
-                }
-            }
-        }
-    }
-
     private void registerData() {
         data = new PunishmentData();
         data.setupData();
