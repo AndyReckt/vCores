@@ -1,9 +1,6 @@
 package me.yochran.vbungee;
 
-import me.yochran.vbungee.commands.FindCommand;
-import me.yochran.vbungee.commands.GListCommand;
-import me.yochran.vbungee.commands.SendCommand;
-import me.yochran.vbungee.commands.ServerCommand;
+import me.yochran.vbungee.commands.*;
 import me.yochran.vbungee.listeners.ChatListener;
 import me.yochran.vbungee.listeners.PlayerLogListeners;
 import me.yochran.vbungee.runnables.PlayerSeparatorRunnable;
@@ -43,6 +40,8 @@ public final class vbungee extends JavaPlugin {
         getCommand("GList").setExecutor(new GListCommand());
         getCommand("Send").setExecutor(new SendCommand());
         getCommand("Server").setExecutor(new ServerCommand());
+        getCommand("Hub").setExecutor(new HubCommand());
+        getCommand("vBungee").setExecutor(new BungeeCommand());
     }
 
     private void registerListeners() {
