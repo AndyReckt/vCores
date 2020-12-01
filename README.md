@@ -102,6 +102,32 @@ This is an important feature. For commands in vBasic such as /heal, /feed, /tele
   
 # vScoreboard:
 
-I don't think I need a description for this, it's just a scoreboard plugin that hooks into the other cores.
+### Commands:
+  - /list
+  - /togglescoreboard
+  
+### Listeners:
+  - Player join listener that sets the scoreboard initially.
+  
+### Runnables:
+  - The scoreboard runnable that refreshes the scoreboard.
+  
+# vBungee:
+
+### About:
+Since vBungee is a bit of a wildcard among the mix, I should explain it properly here. Back when VoleMC originally released, i had a skript "bungeecord" type plugin that separated the worlds. This produced an identical effect to what a bungeecord proxy does, except only one one server, not on multiple, and without a proxy. It was actually very bad when I made it in skript, so I remade this in Java, and will be using this on VectroMC, and VoleMC if this ever starts up again.
+
+### Commands:
+  - /server [server]
+  - /send <player> <server>
+  - /find <player>
+  - /glist [showall/current]
+  
+### Listeners:
+  - Player log listener that sends the user to the hub
+  - Chat listener that separates the chats by world, producing a similar effect to bungeecord chat if enabled in the config.yml.
+  
+### Runnables:
+  - Player hider runnable. This is what actually hides the players if they are in a different world, which produces an effet extremely similar to bungeecord.
 
 
