@@ -24,7 +24,7 @@ public class PlayerSeparatorRunnable extends BukkitRunnable {
                     if (playerone.getWorld() != playertwo.getWorld()) {
                         playerone.hidePlayer(playertwo);
                     } else {
-                        if (!staffUtils.vanished.contains(playertwo.getUniqueId())) {
+                        if (!staffUtils.vanished.contains(playertwo.getUniqueId()) && !staffUtils.vanish_logged.contains(playertwo.getUniqueId())) {
                             playerone.showPlayer(playertwo);
                         }
                     }

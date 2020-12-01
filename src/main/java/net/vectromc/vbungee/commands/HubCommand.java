@@ -32,11 +32,11 @@ public class HubCommand implements CommandExecutor {
             } else {
                 Player player = (Player) sender;
                 World world = Bukkit.getWorld(plugin.getConfig().getString("Hub.World"));
-                int X = plugin.getConfig().getInt("Hub.Spawn.X");
-                int Y = plugin.getConfig().getInt("Hub.Spawn.Y");
-                int Z = plugin.getConfig().getInt("Hub.Spawn.Z");
-                int Pitch = plugin.getConfig().getInt("Hub.Spawn.Pitch");
-                int Yaw = plugin.getConfig().getInt("Hub.Spawn.Yaw");
+                double X = plugin.getConfig().getDouble("Hub.Spawn.X");
+                double Y = plugin.getConfig().getDouble("Hub.Spawn.Y");
+                double Z = plugin.getConfig().getDouble("Hub.Spawn.Z");
+                double Pitch = plugin.getConfig().getDouble("Hub.Spawn.Pitch");
+                double Yaw = plugin.getConfig().getDouble("Hub.Spawn.Yaw");
                 Location tpLoc = new Location(world, X, Y, Z, (float) Pitch, (float) Yaw);
                 player.teleport(tpLoc);
             }
