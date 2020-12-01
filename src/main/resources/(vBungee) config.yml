@@ -14,9 +14,14 @@ ServerPrefix: "&7[&6&lvBungee&7]"
 MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
 NoPermission: "%server_prefix% &cYou do not have permission to use that command."
 
+ReloadPermission: "vbungee.reload"
+ReloadConfig: "%server_prefix% &aYou have successfully reloaded the config.yml."
+
 # Plugin Configuration:
 
 Hub:
+  CommandEnabled: true
+  CommandNotEnabled: "%server_prefix% &cHub command is not enabled."
   HubEveryJoin: true
   World: "world"
   Spawn:
