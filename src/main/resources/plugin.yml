@@ -1,0 +1,22 @@
+name: vbungee
+version: ${project.version}
+main: me.yochran.vbungee.vbungee
+api-version: 1.16
+authors: [Yochran]
+description: A world separating plugin that produces a similar effect to a BungeeCord proxy.
+commands:
+  Find:
+    description: Find a player online the server, and get their world.
+    usage: /<command>
+    aliases: findplayer
+  GList:
+    description: Get the information on all servers.
+    usage: /<command>
+    aliases: serverlist
+  Send:
+    description: Send a player to a server
+    usage: /<command>
+    aliases: [sendplayer, setserver]
+  Server:
+    description: Send yourself to any server.
+    usage: /<command>

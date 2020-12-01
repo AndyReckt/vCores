@@ -1,0 +1,70 @@
+# vBungee v1.1 by Yochran
+# https://github.com/Yochran
+
+# One of the server cores for VectroMC
+# https://vectromc.net
+
+# Prefixes:
+
+PluginPrefix: "&7[&6&lvBungee&7]"
+ServerPrefix: "&7[&6&lvBungee&7]"
+
+# Config messages:
+
+MustBePlayer: "%plugin_prefix% &cYou must be a player to use that command."
+NoPermission: "%server_prefix% &cYou do not have permission to use that command."
+
+# Plugin Configuration:
+
+Hub:
+  HubEveryJoin: true
+  World: "world"
+  Spawn:
+    X: 0.5
+    Y: 65
+    Z: 0.5
+    Pitch: 0.5
+    Yaw: 0.5
+
+WorldSeparation: true
+ChatSeparation: true
+
+# Commands:
+
+Find:
+  Permission: "vbungee.find"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /find <player>"
+  PlayerNotFound: "%server_prefix% &cPlayer not found."
+  Format: "%player% &eis online at &6%server%&e."
+
+GList:
+  Permission: "vbungee.glist"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /glist [showall/current]"
+  RegularFormat: |-
+    &eThere are currently &6%online% &eplayers online.
+    &eType &6/glist showall &eto get more detailed information.
+  CurrentFormat: |-
+    &7&m------&7[&6&l%server%&7]&7&m------
+    &eOnline Players: &6%server_online%&e.
+    &6-
+    %list%
+    &7&m----------------------------------
+  ShowallFormat: |-
+    &7&m------&7[&6&lAll Servers&7]&7&m------
+    %servers%
+    &7&m-------------------------------------
+
+Send:
+  Permission: "vbungee.send"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /send <player> <server>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  InvalidServer: "%server_prefix% &cInvalid server!"
+  FormatSender: "&eYou have sent %player% &eto &6%server%&e."
+  FormatTarget: "&eYou have been summoned to &6%server%&e."
+
+Server:
+  Permission: "vbungee.server"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /server [server]"
+  InvalidServer: "%server_prefix% &cInvalid Server!"
+  FormatNoArgs: "&eYou are currently connected to &6%server%&e."
+  FormatSent: "&eYou have connected to &6%server%&e."
