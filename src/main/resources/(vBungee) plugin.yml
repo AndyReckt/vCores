@@ -20,3 +20,11 @@ commands:
   Server:
     description: Send yourself to any server.
     usage: /<command>
+  Hub:
+    description: Send yourself to the hub.
+    usage: /<command>
+    aliases: lobby
+  vBungee:
+    description: Get the plugin information.
+    usage: /<command<
+    aliases: [bungee, bungeecord, cord, proxy]
