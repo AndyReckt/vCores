@@ -26,5 +26,8 @@ commands:
     aliases: lobby
   vBungee:
     description: Get the plugin information.
-    usage: /<command<
+    usage: /<command>
     aliases: [bungee, bungeecord, cord, proxy]
+  Spawn:
+    description: Teleport to the spawn of a server.
+    usage: /<command>
