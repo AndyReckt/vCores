@@ -55,7 +55,7 @@ GList:
     %list%
     &7&m-------------------
   ShowallServerColor: "&6&l"
-  ShowallOnlineCount: "&7(%online%)&e:"
+  ShowallOnlineCount: "&7 (%online%)&e:"
   ShowallFormat: |-
     &7&m------&7[&6&lAll Servers&7]&7&m------
     %servers%
@@ -75,6 +75,13 @@ Server:
   InvalidServer: "%server_prefix% &cInvalid Server!"
   FormatNoArgs: "&eYou are currently connected to &6%server%&e."
   FormatSent: "&eYou have connected to &6%server%&e."
+
+Spawn:
+  Permission: "vbungee.spawn"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /spawn [player]"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  FormatSender: "&eYou have sent %player% &eto &6spawn&e."
+  FormatTarget: "&eYou have been sent to &6spawn&e."
 
 # Command Setup:
 
