@@ -150,6 +150,14 @@ Hat:
   InvalidItem: "%server_prefix% &cInvalid Item!"
   Message: "&eYou have set your hat."
 
+# Everything below is for sudo command.
+
+Sudo:
+  Permission: "vbasic.sudo"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /sudo <player> <command/message>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  Format: "&eYou have sudod %player% &eto run &6%sudo%&e."
+
 # Staff Alerts for everything are below:
 
 StaffAlerts:
@@ -166,3 +174,4 @@ StaffAlerts:
   FeedSelf: "&7&o[%player% &7&ohas fed themselves&7&o]"
   FeedOther: "&7&o[%player% &7&ohas fed %target%&7&o]"
   Back: "&7&o[%player% &7&ohas teleported to their previous location]"
+  Sudo: "&7&o[%player% &7&ohas sudod %target% &7&oto run: &e&o%sudo%&7&o]"
