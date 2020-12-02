@@ -53,11 +53,13 @@ GList:
     &eOnline Players: &6%server_online%&e.
     &6-
     %list%
-    &7&m----------------------------------
+    &7&m-------------------
+  ShowallServerColor: "&6&l"
+  ShowallOnlineCount: "&7(%online%)&e:"
   ShowallFormat: |-
     &7&m------&7[&6&lAll Servers&7]&7&m------
     %servers%
-    &7&m-------------------------------------
+    &7&m-----------------------
 
 Send:
   Permission: "vbungee.send"
@@ -73,3 +75,16 @@ Server:
   InvalidServer: "%server_prefix% &cInvalid Server!"
   FormatNoArgs: "&eYou are currently connected to &6%server%&e."
   FormatSent: "&eYou have connected to &6%server%&e."
+
+# Command Setup:
+
+BungeeCommands:
+  # Command names must be lowercase!!!
+  Message: "%server_prefix% &cYou cannot use that command here."
+  Commands:
+    kit:
+      EnabledWorlds:
+        - kitpvp
+    refill:
+      EnabledWorlds:
+        - soup
