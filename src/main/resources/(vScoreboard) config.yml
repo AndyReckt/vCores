@@ -6,7 +6,7 @@
 
 # Prefixes:
 
-ServerPrefix: "&7[&6&lVectroMC&7]"
+ServerPrefix: "&7[&6&lvScoreboard&7]"
 PluginPrefix: "&7[&6&lvScoreboard&7]"
 
 # Config Messages:
@@ -18,33 +18,7 @@ ReloadPermission: "vscoreboard.reload"
 
 # Scoreboard:
 
-Scoreboard:
-  Enabled: true
-  ToggleOffMessage: "&cYou have toggled off the scoreboard."
-  ToggleOnMessage: "&aYou have toggled on the scoreboard."
-  Title: "&6&lVectroMC"
-  # Available Placeholders:
-  #
-  # %online% - amount of online players (non vanished)
-  # %rank% - player's rank
-  # %name% - player's name
-  # %displayname% - player's display name (non-prefix)
-  Format:
-    - "&7&m----------------------&r"
-    - "&6&lOnline:"
-    - "&f %online%"
-    - "&e "
-    - "&6&lRank:"
-    - "&f %rank%"
-    - "&6 "
-    - "&7play.vectromc.net"
-    - "&7&m----------------------"
-
-StaffScoreboard:
-  Enabled: true
-  Permission: "vscoreboard.staff"
-  Title: "&6&lVectroMC"
-  # Available Placeholders:
+  # Available Placeholders for the Scoreboard Format:
   #
   # %vanish% - player's vanish status
   # %onlinestaff% - all online staff
@@ -52,7 +26,81 @@ StaffScoreboard:
   # %rank% - player's rank
   # %name% - player's name
   # %world% - player's server
-  # %displayname% - player's display name (non-prefix)
+# %displayname% - player's display name (non-prefix)
+
+Scoreboard:
+  Enabled: true
+  ToggleOffMessage: "&cYou have toggled off the scoreboard."
+  ToggleOnMessage: "&aYou have toggled on the scoreboard."
+  Global:
+    Enabled: false
+    Title: "&6&lvScoreboard"
+    Format:
+      - "&7&m----------------------&r"
+      - "&6&lOnline:"
+      - "&f %online%"
+      - "&e "
+      - "&6&lRank:"
+      - "&f %rank%"
+      - "&6 "
+      - "&7vScoreboard v1.0"
+      - "&7&m----------------------"
+  Servers:
+    hub-1:
+      Enabled: true
+      Title: "&6&lvScoreboard &7| Hub"
+      Format:
+        - "&7&m----------------------&r"
+        - "&6&lOnline:"
+        - "&f %online%"
+        - "&e "
+        - "&6&lRank:"
+        - "&f %rank%"
+        - "&6 "
+        - "&7vScoreboard v1.0"
+        - "&7&m----------------------"
+    kitpvp:
+      Enabled: true
+      Title: "&6&lvScoreboard &7| KitPvP"
+      Format:
+        - "&7&m----------------------&r"
+        - "&e * &f&lKills: &6N/A"
+        - "&e * &f&lDeaths: &6N/A"
+        - "&e * &f&lKDR: &6N/A"
+        - "&e * &f&lMoney: &6N/A"
+        - "&e * &f&lStreak: &6N/A &7(N/A)"
+        - "&6 "
+        - "&7vScoreboard v1.0"
+        - "&7&m----------------------"
+    soup:
+      Enabled: true
+      Title: "&6&lvScoreboard &7| Soup"
+      Format:
+        - "&7&m----------------------&r"
+        - "&e * &f&lKills: &6N/A"
+        - "&e * &f&lDeaths: &6N/A"
+        - "&e * &f&lKDR: &6N/A"
+        - "&e * &f&lMoney: &6N/A"
+        - "&e * &f&lStreak: &6N/A &7(N/A)"
+        - "&6 "
+        - "&7vScoreboard v1.0"
+        - "&7&m----------------------"
+    survival:
+      Enabled: true
+      Title: "&6&lvScoreboard &7| Survival"
+      Format:
+        - "&7&m----------------------&r"
+        - "&e * &f&lDeaths: &6N/A"
+        - "&e * &f&lMoney: &6N/A"
+        - "&e * &f&lRank: &6%rank%"
+        - "&6 "
+        - "&7vScoreboard v1.0"
+        - "&7&m----------------------"
+
+StaffScoreboard:
+  Enabled: true
+  Permission: "vscoreboard.staff"
+  Title: "&6&lvScoreboard &7| ModMode"
   Format:
     - "&7&m----------------------&r"
     - "&e * &fVanish: %vanish%"
@@ -60,5 +108,5 @@ StaffScoreboard:
     - "&e * &fPlayers Online: &6%online%"
     - "&e * &fServer: &6%world%"
     - "&6 "
-    - "&7play.vectromc.net"
+    - "&7vScoreboard v1.0"
     - "&7&m----------------------"
