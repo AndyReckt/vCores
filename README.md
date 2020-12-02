@@ -122,6 +122,7 @@ Since vBungee is a bit of a wildcard among the mix, I should explain it properly
   - /send <player> <server>
   - /find <player>
   - /glist [showall/current]
+  - /hub
   
 ### Listeners:
   - Player log listener that sends the user to the hub
