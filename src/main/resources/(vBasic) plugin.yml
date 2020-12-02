@@ -101,3 +101,6 @@ commands:
   Hat:
     description: Set your hat.
     usage: /<command>
+  Sudo:
+    description: Sudo a user to say or run something.
+    usage: /<command>
