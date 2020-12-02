@@ -91,6 +91,9 @@ While none of these plugins actually have an API, in vNitrogen I am using the se
   - /togglemessagesounds
   - /toggleglobalchat
   - /settings
+  - /fly [player]
+  - /speed <amount> [player]
+  - /sudo <player> <message/command>
   
 ### Listeners:
   - Player log listeners, where you can set custom join messages through the config.yml.
