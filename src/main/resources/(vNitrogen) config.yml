@@ -20,31 +20,31 @@ Ranks:
   OWNER:
     default: false
     name: "Owner"
-    prefix: "&7(&4Owner&7) &4"
+    prefix: "&7[&4Owner&7[ &4"
     color: "&4"
     display: "&4Owner"
-    grantItem: "RED_WOOL"
+    grantItem: "REDSTONE_BLOCK"
     grantPermission: "vnitrogen.grants.owner"
   DEVELOPER:
     default: false
     name: "Developer"
-    prefix: "&7(&6&oDeveloper&7) &6&o"
-    color: "&6&o"
-    display: "&6&oDeveloper"
-    grantItem: "ORANGE_WOOL"
+    prefix: "&7[&5&lDeveloper&7] &5&l"
+    color: "&5&l"
+    display: "&5&lDeveloper"
+    grantItem: "PURPLE_WOOL"
     grantPermission: "vnitrogen.grants.developer"
   MANAGER:
     default: false
     name: "Manager"
-    prefix: "&7(&9Manager&7) &9"
-    color: "&9"
-    display: "&9Manager"
-    grantItem: "BLUE_WOOL"
+    prefix: "&7[&c&lManager&7] &c&l"
+    color: "&c&l"
+    display: "&c&lManager"
+    grantItem: "RED_WOOL"
     grantPermission: "vnitrogen.grants.manager"
   ADMIN:
     default: false
     name: "Admin"
-    prefix: "&7(&cAdmin&7) &c"
+    prefix: "&7[&cAdmin&7] &c"
     color: "&c"
     display: "&cAdmin"
     grantItem: "RED_WOOL"
@@ -52,23 +52,23 @@ Ranks:
   SENIOR-MOD:
     default: false
     name: "Senior-Mod"
-    prefix: "&7(&5&oSenior-Mod&7) &5&o"
-    color: "&5&o"
-    display: "&5&oSenior-Mod"
-    grantItem: "PURPLE_WOOL"
+    prefix: "&7[&6&oSenior-Mod&7] &6&o"
+    color: "&6&o"
+    display: "&6&oSenior-Mod"
+    grantItem: "ORANGE_WOOL"
     grantPermission: "vnitrogen.grants.seniormod"
   MOD:
     default: false
     name: "Mod"
-    prefix: "&7(&5Mod&7) &5"
-    color: "&5"
-    display: "&5Mod"
-    grantItem: "PURPLE_WOOL"
+    prefix: "&7[&6Mod&7] &6"
+    color: "&6"
+    display: "&6Mod"
+    grantItem: "ORANGE_WOOL"
     grantPermission: "vnitrogen.grants.mod"
   TRIAL-MOD:
     default: false
     name: "Trial-Mod"
-    prefix: "&7(&eTrial-Mod&7) &e"
+    prefix: "&7[&eTrial-Mod&7] &e"
     color: "&e"
     display: "&eTrial-Mod"
     grantItem: "YELLOW_WOOL"
@@ -76,10 +76,10 @@ Ranks:
   BUILDER:
     default: false
     name: "Builder"
-    prefix: "&7(&2Builder&7) &2"
-    color: "&2"
-    display: "&2Builder"
-    grantItem: "GREEN_WOOL"
+    prefix: "&7[&9Builder&7] &9"
+    color: "&9"
+    display: "&9Builder"
+    grantItem: "BLUE_WOOL"
     grantPermission: "vnitrogen.grants.builder"
   DEFAULT:
     default: true
