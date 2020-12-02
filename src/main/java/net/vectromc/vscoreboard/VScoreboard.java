@@ -5,6 +5,7 @@ import net.vectromc.vscoreboard.commands.ListCommand;
 import net.vectromc.vscoreboard.commands.ScoreboardCommand;
 import net.vectromc.vscoreboard.commands.ToggleScoreboardCommand;
 import net.vectromc.vscoreboard.listeners.CommandListener;
+import net.vectromc.vscoreboard.listeners.WorldChangeListener;
 import net.vectromc.vscoreboard.utils.ScoreboardRunnable;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -55,6 +56,7 @@ public final class VScoreboard extends JavaPlugin {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new PlayerScoreboard(), this);
         manager.registerEvents(new CommandListener(), this);
+        manager.registerEvents(new WorldChangeListener(), this);
     }
 
     private void registerCommands() {
