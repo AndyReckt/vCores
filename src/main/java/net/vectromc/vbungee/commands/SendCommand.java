@@ -41,8 +41,12 @@ public class SendCommand implements CommandExecutor {
                     nitrogen.setPlayerColor(target);
                     String server = args[1];
                     List<String> servers = new ArrayList<>();
-                    for (World worlds : Bukkit.getServer().getWorlds()) {
-                        servers.add(worlds.getName());
+                    for (String serverList : plugin.data.config.getConfigurationSection("Servers").getKeys(false)) {
+                        if (plugin.data.config.getBoolean("Servers." + serverList + ".Enabled")) {
+                            if (Bukkit.getWorld(plugin.data.config.getString("Servers." + serverList + ".WorldName")) != null) {
+                                servers.add(plugin.data.config.getString("Servers." + serverList + ".WorldName"));
+                            }
+                        }
                     }
                     if (!servers.contains(server)) {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Send.InvalidServer")

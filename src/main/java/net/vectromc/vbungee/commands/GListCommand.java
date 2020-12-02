@@ -76,27 +76,31 @@ public class GListCommand implements CommandExecutor {
                         String finalMsg = "";
                         List<String> serverList = new ArrayList<>();
                         List<String> servers = new ArrayList<>();
-                        for (World world : Bukkit.getServer().getWorlds()) {
-                            servers.add(world.getName());
+                        for (String server : plugin.data.config.getConfigurationSection("Servers").getKeys(false)) {
+                            if (plugin.data.config.getBoolean("Servers." + server + ".Enabled")) {
+                                servers.add(plugin.data.config.getString("Servers." + server + ".WorldName"));
+                            }
                         }
                         for (String world : servers) {
-                            List<String> worldPlayers = new ArrayList<>();
-                            for (Player player : Bukkit.getWorld(world).getPlayers()) {
-                                nitrogen.setPlayerColor(player);
-                                worldPlayers.add(player.getDisplayName());
-                            }
-                            int onlinecount = Bukkit.getServer().getWorld(world).getPlayers().size();
-                            String serverMsg = "&6&l" + world + "&7 (" + onlinecount + ")&e:\n";
-                            String playerMsg = "";
-                            for (String loopPlayers : worldPlayers) {
-                                if (playerMsg.length() == 0) {
-                                    playerMsg = loopPlayers;
-                                } else {
-                                    playerMsg = playerMsg + "&f, " + loopPlayers;
+                            if (Bukkit.getWorld(world) != null) {
+                                List<String> worldPlayers = new ArrayList<>();
+                                for (Player player : Bukkit.getWorld(world).getPlayers()) {
+                                    nitrogen.setPlayerColor(player);
+                                    worldPlayers.add(player.getDisplayName());
                                 }
+                                int onlinecount = Bukkit.getServer().getWorld(world).getPlayers().size();
+                                String serverMsg = plugin.getConfig().getString("GList.ShowallServerColor") + world + plugin.getConfig().getString("GList.ShowallOnlineCount").replace("%online%", "" + onlinecount) + "\n";
+                                String playerMsg = "";
+                                for (String loopPlayers : worldPlayers) {
+                                    if (playerMsg.length() == 0) {
+                                        playerMsg = loopPlayers;
+                                    } else {
+                                        playerMsg = playerMsg + "&f, " + loopPlayers;
+                                    }
+                                }
+                                serverMsg = serverMsg + playerMsg + "\n\n";
+                                serverList.add(serverMsg + "\n\n");
                             }
-                            serverMsg = serverMsg + playerMsg + "\n\n";
-                            serverList.add(serverMsg + "\n\n");
                         }
                         int loopnumber = 0;
                         for (String finalLoop : serverList) {
