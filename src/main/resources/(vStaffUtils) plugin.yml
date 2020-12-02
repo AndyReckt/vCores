@@ -29,3 +29,11 @@ commands:
     description: Report a player for breaking the rules.
     usage: /<command>
     aliases: rpt
+  Invsee:
+    description: Open the inventory of another player on the server.
+    usage: /<command>
+    aliases: [openinv, openinventory, inventorysee]
+  OnlineStaff:
+    description: Get all staff members in a GUI.
+    usage: /<command>
+    aliases: liststaff
