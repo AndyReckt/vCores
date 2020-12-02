@@ -5,6 +5,7 @@ import me.yochran.vbungee.data.ServerData;
 import me.yochran.vbungee.listeners.ChatListener;
 import me.yochran.vbungee.listeners.CommandListener;
 import me.yochran.vbungee.listeners.PlayerLogListeners;
+import me.yochran.vbungee.listeners.WorldChangeListener;
 import me.yochran.vbungee.runnables.PlayerSeparatorRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -49,6 +50,7 @@ public final class vbungee extends JavaPlugin {
         getCommand("Server").setExecutor(new ServerCommand());
         getCommand("Hub").setExecutor(new HubCommand());
         getCommand("vBungee").setExecutor(new BungeeCommand());
+        getCommand("Spawn").setExecutor(new SpawnCommand());
     }
 
     private void registerListeners() {
@@ -56,6 +58,7 @@ public final class vbungee extends JavaPlugin {
         manager.registerEvents(new PlayerLogListeners(), this);
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new CommandListener(), this);
+        manager.registerEvents(new WorldChangeListener(), this);
     }
 
     private void runRunnables() {
@@ -72,6 +75,11 @@ public final class vbungee extends JavaPlugin {
             if (!data.config.contains("Servers." + world.getName())) {
                 data.config.set("Servers." + world.getName() + ".WorldName", world.getName());
                 data.config.set("Servers." + world.getName() + ".Enabled", true);
+                data.config.set("Servers." + world.getName() + ".Spawn.X", 0.5);
+                data.config.set("Servers." + world.getName() + ".Spawn.Y", 60);
+                data.config.set("Servers." + world.getName() + ".Spawn.Z", 0.5);
+                data.config.set("Servers." + world.getName() + ".Spawn.Pitch", 0.5);
+                data.config.set("Servers." + world.getName() + ".Spawn.Yaw", 0.5);
             }
         }
         data.saveData();
