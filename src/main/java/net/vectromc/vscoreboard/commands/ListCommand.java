@@ -46,22 +46,28 @@ public class ListCommand implements CommandExecutor {
                 }
             }
             Utils.sendMessage(player, rankMessage);
-            List<String> players = new ArrayList<>();
-            for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                if (!staffUtils.vanished.contains(onlinePlayers.getUniqueId())) {
-                    nitrogen.setPlayerColor(onlinePlayers);
-                    players.add(onlinePlayers.getDisplayName());
-                }
-            }
+            String finalMsg = "";
             String playerMessage = "";
-            for (String playerList : players) {
-                if (playerMessage.length() == 0) {
-                    playerMessage = playerList;
-                } else {
-                    playerMessage = playerMessage + "&f, " + playerList;
+            for (String rank : nitrogen.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
+                List<String> players = new ArrayList<>();
+                for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
+                    if (nitrogen.pData.config.getString(onlinePlayers.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank)) {
+                        if (!staffUtils.vanished.contains(onlinePlayers.getUniqueId())) {
+                            nitrogen.setPlayerColor(onlinePlayers);
+                            players.add(onlinePlayers.getDisplayName());
+                        }
+                    }
+                }
+                for (String playerList : players) {
+                    if (playerMessage.length() == 0) {
+                        playerMessage = playerList;
+                    } else {
+                        playerMessage = playerMessage + "&f, " + playerList;
+                    }
                 }
             }
-            Utils.sendMessage(player, "&7(&f" + online + "&7/" + plugin.getServer().getMaxPlayers() + "&7) " + playerMessage);
+            finalMsg = playerMessage;
+            Utils.sendMessage(player, "&7(&f" + online + "&7/" + plugin.getServer().getMaxPlayers() + "&7) " + finalMsg);
         }
         return true;
     }
