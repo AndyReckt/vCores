@@ -1,11 +1,13 @@
 package net.vectromc.vbasic;
 
 import net.vectromc.vbasic.commands.*;
+import net.vectromc.vbasic.commands.staff.*;
 import net.vectromc.vbasic.listeners.ChatListener;
-import net.vectromc.vbasic.listeners.PlayerLogEvents;
 import net.vectromc.vbasic.listeners.SettingsClickListeners;
+import net.vectromc.vbasic.listeners.SpawnListeners;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -22,7 +24,6 @@ public final class vBasic extends JavaPlugin {
         registerCommands();
         registerEvents();
         startupAnnouncements();
-
     }
 
     @Override
@@ -35,6 +36,8 @@ public final class vBasic extends JavaPlugin {
     public ArrayList<UUID> tpm = new ArrayList<>();
     public ArrayList<UUID> tms = new ArrayList<>();
     public ArrayList<UUID> tgc = new ArrayList<>();
+    public ArrayList<UUID> fly = new ArrayList<>();
+    public HashMap<UUID, ItemStack> hat = new HashMap<>();
     public HashMap<String, String> reply = new HashMap<>();
     public HashMap<Player, Location> back = new HashMap<>();
 
@@ -69,12 +72,17 @@ public final class vBasic extends JavaPlugin {
         getCommand("togglemessages").setExecutor(new ToggleMessages());
         getCommand("settings").setExecutor(new SettingsCommand());
         getCommand("Back").setExecutor(new BackCommand());
+        getCommand("Fly").setExecutor(new FlyCommand());
+        getCommand("speed").setExecutor(new SpeedCommand());
+        getCommand("seen").setExecutor(new SeenCommand());
+        getCommand("hat").setExecutor(new HatCommand());
+        getCommand("Sudo").setExecutor(new SudoCommand());
     }
 
     private void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
-        manager.registerEvents(new PlayerLogEvents(), this);
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new SettingsClickListeners(), this);
+        manager.registerEvents(new SpawnListeners(), this);
     }
 }

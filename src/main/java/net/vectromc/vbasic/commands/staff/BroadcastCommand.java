@@ -23,22 +23,31 @@ public class BroadcastCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!sender.hasPermission("yosmpcore.admin")) {
+        if (!sender.hasPermission("vbasic.broadcast")) {
             Utils.sendMessage(sender, plugin.getConfig().getString("NoPermission").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
         } else {
-            Player player = (Player) sender;
             if (args.length == 0) {
                 Utils.sendMessage(sender, plugin.getConfig().getString("BroadcastIncorrectUsage").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
             } else {
                 if (args.length >= 1) {
-                    nitrogen.setPlayerColor(player);
-                    final String message = Joiner.on(" ").join((Object[])args);
+                    String message = Joiner.on(" ").join(args);
                     for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
                         onlinePlayers.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("BroadcastFormat").replaceAll("%message%", message)));
                     }
-                    for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
-                        if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
-                            onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.Broadcast").replaceAll("%player%", player.getDisplayName()).replaceAll("%message%", message)));
+                    if (sender instanceof Player) {
+                        Player player = (Player) sender;
+                        nitrogen.setPlayerColor(player);
+                        for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
+                            if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
+                                onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.Broadcast").replaceAll("%player%", player.getDisplayName()).replaceAll("%message%", message)));
+                            }
+                        }
+                    } else {
+                        String consoleName = nitrogen.getConfig().getString("Console.name");
+                        for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
+                            if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
+                                onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.Broadcast").replaceAll("%player%", consoleName).replaceAll("%message%", message)));
+                            }
                         }
                     }
                 }
