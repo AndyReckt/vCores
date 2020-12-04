@@ -1,6 +1,11 @@
 package net.vectromc.vbasic;
 
 import net.vectromc.vbasic.commands.*;
+import net.vectromc.vbasic.commands.economy.BalanceCommand;
+import net.vectromc.vbasic.commands.economy.BountyCommand;
+import net.vectromc.vbasic.commands.economy.PayCommand;
+import net.vectromc.vbasic.commands.economy.staff.EconomyCommand;
+import net.vectromc.vbasic.commands.economy.staff.UnbountyCommand;
 import net.vectromc.vbasic.commands.staff.*;
 import net.vectromc.vbasic.commands.staff.BroadcastCommand;
 import net.vectromc.vbasic.commands.staff.FeedCommand;
@@ -8,8 +13,18 @@ import net.vectromc.vbasic.commands.staff.GamemodeCommands;
 import net.vectromc.vbasic.commands.staff.HealCommand;
 import net.vectromc.vbasic.commands.staff.TeleportCommands;
 import net.vectromc.vbasic.commands.staff.ToggleStaffAlertsCommand;
+import net.vectromc.vbasic.commands.stats.StatsCommand;
+import net.vectromc.vbasic.commands.stats.staff.ResetStatsCommand;
+import net.vectromc.vbasic.data.EconomyData;
+import net.vectromc.vbasic.data.StatData;
 import net.vectromc.vbasic.listeners.ChatListener;
+import net.vectromc.vbasic.listeners.PlayerJoinListener;
 import net.vectromc.vbasic.listeners.SettingsClickListeners;
+import net.vectromc.vbasic.listeners.WorldChangeListener;
+import net.vectromc.vbasic.listeners.economy.PlayerKillListener;
+import net.vectromc.vbasic.listeners.stats.PlayerDeathListener;
+import net.vectromc.vbasic.management.EconomyManagement;
+import net.vectromc.vbasic.management.StatManagement;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -22,10 +37,17 @@ import java.util.UUID;
 
 public class vBasic extends JavaPlugin {
 
+    public EconomyData economy;
+    public StatData stats;
+
+    public StatManagement statManagement = new StatManagement();
+    public EconomyManagement economyManagement = new EconomyManagement();
+
     @Override
     public void onEnable() {
         // Plugin startup logic
         saveDefaultConfig();
+        registerData();
         registerCommands();
         registerEvents();
         startupAnnouncements();
@@ -82,11 +104,34 @@ public class vBasic extends JavaPlugin {
         getCommand("seen").setExecutor(new SeenCommand());
         getCommand("hat").setExecutor(new HatCommand());
         getCommand("Sudo").setExecutor(new SudoCommand());
+        getCommand("Balance").setExecutor(new BalanceCommand());
+        getCommand("Pay").setExecutor(new PayCommand());
+        getCommand("Economy").setExecutor(new EconomyCommand());
+        getCommand("Bounty").setExecutor(new BountyCommand());
+        getCommand("Unbounty").setExecutor(new UnbountyCommand());
+        getCommand("Stats").setExecutor(new StatsCommand());
+        getCommand("ResetStats").setExecutor(new ResetStatsCommand());
     }
 
     private void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new SettingsClickListeners(), this);
+        manager.registerEvents(new PlayerJoinListener(), this);
+        manager.registerEvents(new WorldChangeListener(), this);
+        manager.registerEvents(new PlayerKillListener(), this);
+        manager.registerEvents(new PlayerDeathListener(), this);
+    }
+
+    private void registerData() {
+        economy = new EconomyData();
+        economy.setupData();
+        economy.saveData();
+        economy.reloadData();
+
+        stats = new StatData();
+        stats.setupData();
+        stats.saveData();
+        stats.reloadData();
     }
 }
