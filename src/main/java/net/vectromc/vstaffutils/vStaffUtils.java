@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class vStaffUtils extends JavaPlugin {
+public class vStaffUtils extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -43,7 +43,6 @@ public final class vStaffUtils extends JavaPlugin {
     public ArrayList<UUID> custom_reason = new ArrayList<>();
     public ArrayList<UUID> vanish_logged = new ArrayList<>();
     public ArrayList<Player> player_list = new ArrayList<>();
-    public ArrayList<Player> staff_list = new ArrayList<>();
     public HashMap<UUID, Player> report_set = new HashMap<>();
     public HashMap<UUID, ItemStack[]> staff_inventory = new HashMap<>();
     public HashMap<UUID, ItemStack[]> staff_armor = new HashMap<>();
@@ -70,6 +69,8 @@ public final class vStaffUtils extends JavaPlugin {
         getCommand("Modmode").setExecutor(new ModmodeCommand());
         getCommand("Freeze").setExecutor(new FreezeCommand());
         getCommand("report").setExecutor(new ReportCommand());
+        getCommand("Invsee").setExecutor(new InvseeCommand());
+        getCommand("OnlineStaff").setExecutor(new OnlineStaffCommand());
     }
 
     private void registerEvents() {
@@ -81,6 +82,8 @@ public final class vStaffUtils extends JavaPlugin {
         manager.registerEvents(new FreezeListener(), this);
         manager.registerEvents(new ReportGuiClickListener(), this);
         manager.registerEvents(new ReportCustomChatReason(), this);
+        manager.registerEvents(new PlayerLogEvents(), this);
+        manager.registerEvents(new WorldChangeListener(), this);
     }
 
     private void runRunnables() {

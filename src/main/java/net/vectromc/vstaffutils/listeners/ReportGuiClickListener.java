@@ -34,7 +34,7 @@ public class ReportGuiClickListener implements Listener {
                     String reason;
                     if (event.getCurrentItem().getType() == XMaterial.DIAMOND_SWORD.parseMaterial()) {
                         nitrogen.setPlayerColor(player);
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         reason = "Hacking";
                         player.closeInventory();
                         Utils.sendMessage(player, plugin.getConfig().getString("ReportFormat.PlayerFormat").replaceAll("%target%", target.getDisplayName()).replaceAll("%reason%", reason));

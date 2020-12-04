@@ -7,28 +7,19 @@ import net.vectromc.vstaffutils.utils.XMaterial;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Location;
-import org.bukkit.Material;
-import org.bukkit.block.Skull;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
-import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
-import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
-import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-
-import static org.bukkit.ChatColor.*;
 
 public class ModmodeItemListeners implements Listener {
 
@@ -68,20 +59,19 @@ public class ModmodeItemListeners implements Listener {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR) {
                     plugin.player_list.clear();
                     plugin.player_list.addAll(Bukkit.getOnlinePlayers());
-                    Inventory onlinePlayers = Bukkit.createInventory(player, 36, ChatColor.YELLOW + "Online Players");
+                    Inventory onlinePlayers = Bukkit.createInventory(player, 54, ChatColor.YELLOW + "Online Players");
                     for (int i = 0; i < plugin.player_list.size(); i++) {
                         Player target = plugin.player_list.get(i);
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         ItemStack skull = XMaterial.PLAYER_HEAD.parseItem();
                         ItemMeta skullMeta = skull.getItemMeta();
                         skullMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', target.getDisplayName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------------"));
-                        nitrogen.setTargetPrefix(target);
+                        nitrogen.setPlayerPrefix(target);
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&eDisplay: " + target.getDisplayName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&eServer: &6" + target.getWorld().getName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------------"));
-                        nitrogen.setTargetColor(target);
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         skullMeta.setLore(player_lore);
                         skull.setItemMeta(skullMeta);
                         onlinePlayers.addItem(skull);
@@ -113,13 +103,10 @@ public class ModmodeItemListeners implements Listener {
         if (plugin.modmode.contains(player.getUniqueId())) {
             if (player.getInventory().getItemInHand().getType() == XMaterial.PAPER.parseMaterial()) {
                 if (event.getAction() == Action.RIGHT_CLICK_AIR) {
-                    plugin.staff_list.clear();
-                    plugin.staff_list.addAll(Bukkit.getOnlinePlayers());
-                    Inventory onlinePlayers = Bukkit.createInventory(player, 36, ChatColor.YELLOW + "Online Staff");
-                    for (int i = 0; i < plugin.staff_list.size(); i++) {
-                        Player target = plugin.staff_list.get(i);
+                    Inventory onlinePlayers = Bukkit.createInventory(player, 54, ChatColor.YELLOW + "Online Staff");
+                    for (Player target : Bukkit.getOnlinePlayers()) {
                         if (target.hasPermission(plugin.getConfig().getString("OnlineStaffPermission"))) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             ItemStack skull = XMaterial.PLAYER_HEAD.parseItem();
                             ItemMeta skullMeta = skull.getItemMeta();
                             skullMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', target.getDisplayName()));
@@ -135,15 +122,14 @@ public class ModmodeItemListeners implements Listener {
                                 staff_lore.add(ChatColor.translateAlternateColorCodes('&', "&eModmoded: &cNo"));
                             }
                             staff_lore.add(ChatColor.translateAlternateColorCodes('&', "&7 "));
-                            nitrogen.setTargetPrefix(target);
+                            nitrogen.setPlayerPrefix(target);
                             staff_lore.add(ChatColor.translateAlternateColorCodes('&', "&eDisplay: " + target.getDisplayName()));
                             staff_lore.add(ChatColor.translateAlternateColorCodes('&', "&eServer: &6" + target.getWorld().getName()));
                             staff_lore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------------"));
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             skullMeta.setLore(staff_lore);
                             skull.setItemMeta(skullMeta);
                             onlinePlayers.addItem(skull);
-                            onlinePlayers.setItem(i, skull);
                             staff_lore.clear();
                         }
                     }
@@ -250,14 +236,6 @@ public class ModmodeItemListeners implements Listener {
             if (player.getInventory().getItemInHand().getType() == XMaterial.PACKED_ICE.parseMaterial()) {
                 player.performCommand("freeze " + target.getName());
             }
-        }
-    }
-
-    @EventHandler
-    public void onClickFiller(PlayerInteractEvent event) {
-        Player player = event.getPlayer();
-        if (player.getInventory().getItemInHand().getType() == XMaterial.GLASS_PANE.parseMaterial()) {
-            event.setCancelled(true);
         }
     }
 }

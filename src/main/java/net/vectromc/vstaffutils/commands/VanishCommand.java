@@ -64,7 +64,7 @@ public class VanishCommand implements CommandExecutor {
                         if (target != null) {
                             if (!plugin.vanished.contains(target.getUniqueId())) {
                                 nitrogen.setPlayerColor(player);
-                                nitrogen.setTargetColor(target);
+                                nitrogen.setPlayerColor(target);
                                 plugin.vanished.add(target.getUniqueId());
                                 Utils.sendMessage(player, plugin.getConfig().getString("VanishOnOther").replaceAll("%target%", target.getDisplayName()));
                                 Utils.sendTargetMessage(target, plugin.getConfig().getString("VanishOnSelf"));
@@ -78,7 +78,7 @@ public class VanishCommand implements CommandExecutor {
                                 }
                             } else {
                                 nitrogen.setPlayerColor(player);
-                                nitrogen.setTargetColor(target);
+                                nitrogen.setPlayerColor(target);
                                 plugin.vanished.remove(target.getUniqueId());
                                 Utils.sendMessage(player, plugin.getConfig().getString("VanishOffOther").replaceAll("%target%", target.getDisplayName()));
                                 Utils.sendTargetMessage(target, plugin.getConfig().getString("VanishOffSelf"));

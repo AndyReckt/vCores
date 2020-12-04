@@ -41,7 +41,7 @@ public class FreezeCommand implements CommandExecutor {
                         Player target = Bukkit.getPlayer(args[0]);
                         nitrogen.setPlayerColor(player);
                         if (target != null) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             if (plugin.frozen.contains(target.getUniqueId())) {
                                 plugin.frozen.remove(target.getUniqueId());
                                 Utils.sendTargetMessage(target, plugin.getConfig().getString("FreezeOffPlayer"));

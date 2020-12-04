@@ -9,8 +9,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityPickupItemEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
-import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerQuitEvent;
 
@@ -31,20 +31,6 @@ public class VanishUpdater implements Listener {
             if (plugin.vanished.contains(onlinePlayers.getUniqueId())) {
                 if (!player.hasPermission(plugin.getConfig().getString("VanishPermission"))) {
                     player.hidePlayer(onlinePlayers);
-                }
-            }
-        }
-    }
-
-    @EventHandler
-    public void onCommand(PlayerCommandPreprocessEvent event) {
-        Player player = event.getPlayer();
-        if (event.getMessage().startsWith("/setrank ") || event.getMessage().startsWith("/pex ") || event.getMessage().startsWith("/op ")) {
-            for (Player onlinePlayers : Bukkit.getOnlinePlayers()) {
-                if (plugin.vanished.contains(onlinePlayers.getUniqueId())) {
-                    if (player.hasPermission(plugin.getConfig().getString("VanishPermission"))) {
-                        player.showPlayer(onlinePlayers);
-                    }
                 }
             }
         }
@@ -89,6 +75,17 @@ public class VanishUpdater implements Listener {
         Entity entity = event.getTarget();
         if (entity instanceof Player) {
             Player player = (Player) event.getTarget();
+            if (plugin.vanished.contains(player.getUniqueId())) {
+                event.setCancelled(true);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onPickup(EntityPickupItemEvent event) {
+        Entity entity = event.getEntity();
+        if (entity instanceof Player) {
+            Player player = (Player) event.getEntity();
             if (plugin.vanished.contains(player.getUniqueId())) {
                 event.setCancelled(true);
             }

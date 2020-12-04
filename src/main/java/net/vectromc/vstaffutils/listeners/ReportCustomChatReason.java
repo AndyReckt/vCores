@@ -27,7 +27,7 @@ public class ReportCustomChatReason implements Listener {
         if (plugin.custom_reason.contains(player.getUniqueId())) {
             event.setCancelled(true);
             Player target = plugin.report_set.get(player.getUniqueId());
-            nitrogen.setTargetColor(target);
+            nitrogen.setPlayerColor(target);
             nitrogen.setPlayerColor(player);
             String reason = event.getMessage();
             String world = player.getWorld().getName();

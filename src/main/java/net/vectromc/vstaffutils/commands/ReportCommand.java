@@ -11,7 +11,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -40,7 +39,7 @@ public class ReportCommand implements CommandExecutor {
                 Player target = Bukkit.getPlayer(args[0]);
                 if (target != null) {
                     nitrogen.setPlayerColor(player);
-                    nitrogen.setTargetColor(target);
+                    nitrogen.setPlayerColor(target);
                     Inventory reportGui = Bukkit.createInventory(player, 18, ChatColor.RED + "Report");
                     ItemStack hacks = XMaterial.DIAMOND_SWORD.parseItem();
                     ItemStack spam = XMaterial.WRITABLE_BOOK.parseItem();
