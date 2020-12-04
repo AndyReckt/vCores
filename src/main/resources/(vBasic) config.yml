@@ -96,18 +96,6 @@ TmsOff: "&cYou have disabled message sounds."
 TgcOn: "&aYou have enabled global chat."
 TgcOff: "&cYou have disabled global chat."
 
-# Everything regarding the spawn is below:
-
-SpawnEveryJoin: false
-
-Spawn:
-  X: 0.5
-  Y: 60
-  Z: 0.5
-  World: world
-  Pitch: 0.0
-  Yaw: 0.1
-
 # Everything relating to /fly is below:
 
 FlyPermission: "vbasic.fly"
@@ -157,6 +145,30 @@ Sudo:
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /sudo <player> <command/message>"
   InvalidPlayer: "%server_prefix% &cInvalid Player!"
   Format: "&eYou have sudod %player% &eto run &6%sudo%&e."
+
+# Everything below is relating to the economy:
+
+Economy:
+  Enabled: true
+  EnabledWorlds:
+    - kitpvp
+    - soup
+  StartingAmount: 0
+  NotEnabledMessage: "%server_prefix% &cThe economy is not enabled."
+
+Balance:
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /bal <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  Format: "%player%&e's balance: &6%balance%&e."
+
+Pay:
+  MinimumAmount: 1
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /pay <player> <amount>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  InvalidAmount: "%server_prefix% &cInvalid Amount! Must be at least %minimum%."
+  NotEnoughMoney: "%server_prefix% &cYou don't have enough money for that."
+  FormatSender: "&eYou have paid %player% &6%amount%&e."
+  FormatTarget: "&eYou have been sent &6%amount% &efrom %player%&e."
 
 # Staff Alerts for everything are below:
 
