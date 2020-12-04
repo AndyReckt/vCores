@@ -1,4 +1,4 @@
-# vBasic v1.0 by Yochran
+# vScoreboard v1.0 by Yochran
 # https://github.com/Yochran
 
 # One of the server cores for VectroMC
@@ -18,15 +18,23 @@ ReloadPermission: "vscoreboard.reload"
 
 # Scoreboard:
 
-  # Available Placeholders for the Scoreboard Format:
-  #
-  # %vanish% - player's vanish status
-  # %onlinestaff% - all online staff
-  # %online% - amount of online players (non vanished)
-  # %rank% - player's rank
-  # %name% - player's name
-  # %world% - player's server
+# Available Placeholders for the Scoreboard Format:
+#
+# %vanish% - player's vanish status
+# %onlinestaff% - all online staff
+# %online% - amount of online players (non vanished)
+# %rank% - player's rank
+# %name% - player's name
+# %world% - player's server
 # %displayname% - player's display name (non-prefix)
+#
+# Stats/Eco:
+#
+# %balance% - Balance of a user. (vBasic)
+# %kills% - Kills of a user. (vBasic)
+# %deaths% - Deaths of a user. (vBasic)
+# %kdr% - KDR of a user. (vBasic)
+# %streak% - Streak of a user. (vBasic)
 
 Scoreboard:
   Enabled: true
@@ -64,11 +72,11 @@ Scoreboard:
       Title: "&6&lvScoreboard &7| KitPvP"
       Format:
         - "&7&m----------------------&r"
-        - "&e * &f&lKills: &6N/A"
-        - "&e * &f&lDeaths: &6N/A"
-        - "&e * &f&lKDR: &6N/A"
-        - "&e * &f&lMoney: &6N/A"
-        - "&e * &f&lStreak: &6N/A &7(N/A)"
+        - "&e * &f&lKills: &6%kills%"
+        - "&e * &f&lDeaths: &6%deaths%"
+        - "&e * &f&lKDR: &6%kdr%"
+        - "&e * &f&lMoney: &6%balance%"
+        - "&e * &f&lStreak: &6%streak%"
         - "&6 "
         - "&7vScoreboard v1.0"
         - "&7&m----------------------"
