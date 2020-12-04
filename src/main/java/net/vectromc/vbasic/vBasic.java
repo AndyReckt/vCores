@@ -40,9 +40,6 @@ public class vBasic extends JavaPlugin {
     public EconomyData economy;
     public StatData stats;
 
-    public StatManagement statManagement = new StatManagement();
-    public EconomyManagement economyManagement = new EconomyManagement();
-
     @Override
     public void onEnable() {
         // Plugin startup logic
