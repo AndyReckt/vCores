@@ -1,8 +1,8 @@
 package net.vectromc.vscoreboard.commands;
 
+import net.vectromc.vbasic.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
-import net.vectromc.vscoreboard.VScoreboard;
-import net.vectromc.vscoreboard.utils.Utils;
+import net.vectromc.vscoreboard.vScoreboard;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
@@ -15,12 +15,12 @@ import java.util.List;
 
 public class ListCommand implements CommandExecutor {
 
-    private VScoreboard plugin;
+    private vScoreboard plugin;
     private vNitrogen nitrogen;
     private vStaffUtils staffUtils;
 
     public ListCommand() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
         nitrogen = vNitrogen.getPlugin(vNitrogen.class);
         staffUtils = vStaffUtils.getPlugin(vStaffUtils.class);
     }

@@ -1,6 +1,6 @@
 package net.vectromc.vscoreboard.listeners;
 
-import net.vectromc.vscoreboard.VScoreboard;
+import net.vectromc.vscoreboard.vScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,10 +10,10 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class WorldChangeListener implements Listener {
 
-    private VScoreboard plugin;
+    private vScoreboard plugin;
 
     public WorldChangeListener() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
     }
 
     @EventHandler

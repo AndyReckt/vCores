@@ -20,12 +20,12 @@ import java.util.UUID;
 public class PlayerScoreboard implements Listener {
 
     public ArrayList<UUID> enabled = new ArrayList<>();
-    private VScoreboard plugin;
+    private vScoreboard plugin;
     private vNitrogen nitrogen;
     private vStaffUtils staffUtils;
 
     public PlayerScoreboard() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
         nitrogen = vNitrogen.getPlugin(vNitrogen.class);
         staffUtils = vStaffUtils.getPlugin(vStaffUtils.class);
     }

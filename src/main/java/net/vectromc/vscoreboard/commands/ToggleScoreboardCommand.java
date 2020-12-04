@@ -1,8 +1,7 @@
 package net.vectromc.vscoreboard.commands;
 
-import net.vectromc.vscoreboard.PlayerScoreboard;
-import net.vectromc.vscoreboard.VScoreboard;
 import net.vectromc.vscoreboard.utils.Utils;
+import net.vectromc.vscoreboard.vScoreboard;
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -11,10 +10,10 @@ import org.bukkit.entity.Player;
 
 public class ToggleScoreboardCommand implements CommandExecutor {
 
-    private VScoreboard plugin;
+    private vScoreboard plugin;
 
     public ToggleScoreboardCommand() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
     }
 
     @Override

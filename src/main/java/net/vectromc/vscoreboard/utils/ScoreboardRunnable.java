@@ -1,7 +1,7 @@
 package net.vectromc.vscoreboard.utils;
 
 import net.vectromc.vnitrogen.vNitrogen;
-import net.vectromc.vscoreboard.VScoreboard;
+import net.vectromc.vscoreboard.vScoreboard;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -9,12 +9,12 @@ import org.bukkit.scheduler.BukkitRunnable;
 
 public class ScoreboardRunnable extends BukkitRunnable {
 
-    private VScoreboard plugin;
+    private vScoreboard plugin;
     private vStaffUtils staffUtils;
     private vNitrogen nitrogen;
 
     public ScoreboardRunnable() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
         staffUtils = vStaffUtils.getPlugin(vStaffUtils.class);
         nitrogen = vNitrogen.getPlugin(vNitrogen.class);
     }

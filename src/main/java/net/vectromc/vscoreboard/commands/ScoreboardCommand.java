@@ -1,18 +1,17 @@
 package net.vectromc.vscoreboard.commands;
 
-import net.vectromc.vbasic.utils.Utils;
-import net.vectromc.vscoreboard.VScoreboard;
+import net.vectromc.vscoreboard.utils.Utils;
+import net.vectromc.vscoreboard.vScoreboard;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 
 public class ScoreboardCommand implements CommandExecutor {
 
-    private VScoreboard plugin;
+    private vScoreboard plugin;
 
     public ScoreboardCommand() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
     }
 
     @Override

@@ -1,23 +1,28 @@
 package net.vectromc.vscoreboard.utils;
 
+import net.vectromc.vbasic.vBasic;
 import net.vectromc.vnitrogen.vNitrogen;
-import net.vectromc.vscoreboard.VScoreboard;
+import net.vectromc.vscoreboard.vScoreboard;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.text.DecimalFormat;
+
 public class Utils {
 
     private vStaffUtils staffutils;
     private vNitrogen nitrogen;
-    private VScoreboard plugin;
+    private vScoreboard plugin;
+    private vBasic basic;
 
     public Utils() {
-        plugin = VScoreboard.getPlugin(VScoreboard.class);
+        plugin = vScoreboard.getPlugin(vScoreboard.class);
         staffutils = vStaffUtils.getPlugin(vStaffUtils.class);
         nitrogen = vNitrogen.getPlugin(vNitrogen.class);
+        basic = vBasic.getPlugin(vBasic.class);
     }
 
     public static void sendMessage(Player player, String message) {
@@ -79,6 +84,15 @@ public class Utils {
             }
         }
 
+        DecimalFormat df = new DecimalFormat("###,###,###,###,###,###.##");
+        String server = player.getWorld().getName();
+
+        String kills = df.format(basic.stats.config.getInt(player.getUniqueId().toString() + "." + server + ".Kills"));
+        String deaths = df.format(basic.stats.config.getInt(player.getUniqueId().toString() + "." + server + ".Deaths"));
+        String kdr = df.format(basic.stats.config.getDouble(player.getUniqueId().toString() + "." + server + ".KDR"));
+        String balance = df.format(basic.economy.config.getDouble(player.getUniqueId().toString() + "." + server + ".Balance"));
+        String streak = df.format(basic.stats.config.getInt(player.getUniqueId().toString() + "." + server + ".Streak"));
+
         return message
                 .replace("%online%", "" + online)
                 .replace("%rank%", rank)
@@ -86,6 +100,12 @@ public class Utils {
                 .replace("%displayname%", player.getDisplayName())
                 .replace("%vanish%", vanish)
                 .replace("%onlinestaff%", "" + staffonline)
-                .replace("%world%", player.getWorld().getName());
+                .replace("%world%", player.getWorld().getName())
+
+                .replace("%kills%", kills)
+                .replace("%deaths%", deaths)
+                .replace("%kdr%", kdr)
+                .replace("%balance%", balance)
+                .replace("%streak%", streak);
     }
 }

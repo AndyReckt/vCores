@@ -8,7 +8,7 @@ import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 public class CommandListener implements Listener {
 
     @EventHandler
-     public void onCommand(PlayerCommandPreprocessEvent event) {
+    public void onCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
         if (event.getMessage().equalsIgnoreCase("/list") || event.getMessage().equalsIgnoreCase("/online")) {
             event.setCancelled(true);
