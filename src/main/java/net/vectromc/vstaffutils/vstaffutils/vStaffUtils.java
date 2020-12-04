@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class vStaffUtils extends JavaPlugin {
+public class vStaffUtils extends JavaPlugin {
 
     @Override
     public void onEnable() {
