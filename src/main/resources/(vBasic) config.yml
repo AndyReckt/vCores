@@ -23,6 +23,10 @@ InvalidPlayer: "%server_prefix% &cInvalid Player!"
 ReloadConfig: "%plugin_prefix% &aYou have successfully reloaded the config.yml."
 ReloadPermission: "vbasic.reload"
 
+# Death Messages
+
+DeathMessages: false
+
 # Everything regarding /teleport is below:
 
 TeleportIncorrectUsage: "%server_prefix% &cIncorrect Usage! /tp <player> [player]"
@@ -149,26 +153,100 @@ Sudo:
 # Everything below is relating to the economy:
 
 Economy:
-  Enabled: true
   EnabledWorlds:
     - kitpvp
     - soup
-  StartingAmount: 0
+    - survival
+  StartingAmount: 0.00
+  # Warning: Going over this maximum amount will cause the plugin to break. In future version,
+  # it will be able to be more than this.
+  MaximumAmount: 999999999999999
+  MoneyPerKill:
+    EnabledWorlds:
+      - kitpvp
+      - soup
+    Highest: 20.5
+    Lowest: 12.5
+  MoneyOnKillMessage: "&eYou have killed %player% &efor &6$%amount%&e."
   NotEnabledMessage: "%server_prefix% &cThe economy is not enabled."
+  # Economy Command
+  Command:
+    Permission: "vbasic.economy.command"
+    IncorrectUsage: "%server_prefix% &cIncorrect Usage! /eco <set/give/take/reset> <player> [amount]"
+    InvalidPlayer: "%server_prefix% &cInvalid Player!"
+    InvalidAmount: "%server_prefix% &cInvalid Amount! Must be less than %maximum%."
+    Format:
+      Set: "&eYou have set %player%&e's balance to &6$%amount%&e."
+      Give: "&eYou have added &6$%amount% &eto %player%&e's balance."
+      Take: "&eYou have removed &6$%amount% &efrom %player%&e's balance."
+      Reset: "&eYou have reset %player%&e's balance to &6$%amount%&e."
+    FormatTarget: "&eYour balance has been set to &6$%balance%&e."
 
 Balance:
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /bal <player>"
   InvalidPlayer: "%server_prefix% &cInvalid Player!"
-  Format: "%player%&e's balance: &6%balance%&e."
+  Format: "%player%&e's balance: &6$%balance%&e."
 
 Pay:
   MinimumAmount: 1
   IncorrectUsage: "%server_prefix% &cIncorrect Usage! /pay <player> <amount>"
   InvalidPlayer: "%server_prefix% &cInvalid Player!"
-  InvalidAmount: "%server_prefix% &cInvalid Amount! Must be at least %minimum%."
+  InvalidAmount: "%server_prefix% &cInvalid Amount! Must be at least $%minimum%, must be less than $%maximum%."
   NotEnoughMoney: "%server_prefix% &cYou don't have enough money for that."
-  FormatSender: "&eYou have paid %player% &6%amount%&e."
-  FormatTarget: "&eYou have been sent &6%amount% &efrom %player%&e."
+  FormatSender: "&eYou have paid %player% &6$%amount%&e."
+  FormatTarget: "&eYou have been sent &6$%amount% &efrom %player%&e."
+
+Bounty:
+  EnabledWorlds:
+    - kitpvp
+    - soup
+  NotEnabledMessage: "%server_prefix% &cBounty is not enabled."
+  MinimumAmount: 100
+  RemoveFee: 1000
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /bounty <player> <amount>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  InvalidAmount: "%server_prefix% &cInvalid Amount! Must be more than $%minimum%, must be less than $%maximum%!"
+  NotEnoughMoney: "%server_prefix% &cYou don't have enough money for that."
+  Format: "&eYou have placed a bounty on %player% &efor &6$%amount%&e."
+  FormatIncreased: "&eYou have increased the bounty on %player% &eto &6$%amount%&e."
+  Broadcast: "%player% &ehas placed a &6$%amount% &ebounty on %target%&e!\n&eKill them to receive this money."
+  BroadcastIncreased: "%player% &ehas increased then bounty on %target% &eto &6$%amount%&e!\n&eKill them to receive this money."
+  Completed: "%player% &ehas killed %target% &eand claimed a &6$%amount% &ebounty!"
+
+Unbounty:
+  Permission: "vbasic.unbounty"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /unbounty <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  PlayerNotBountied: "%server_prefix% &cPlayer is not bountied!"
+  Format: "&eYou have removed the &6$%amount% &ebounty on %player%&e."
+
+# Everything below is relating to player stats.
+
+Stats:
+  EnabledWorlds:
+    - kitpvp
+    - soup
+  NotEnabledMessage: "%server_prefix% &cStats are not enabled."
+  MinimumStreakEndBroadcast: 10
+  StreakEndBroadcast: "&6&l<!> %player% &ehas ended %target%&e's &6%streak% &ekillstreak. &6&l<!>"
+  Command:
+    IncorrectUsage: "%server_prefix% &cIncorrect Usage! /stats [player]"
+    InvalidPlayer: "%server_prefix% &cInvalid Player!"
+    Format: |-
+      &7&m-----------------------
+      %player%&e's Stats:
+      &7- -
+      &eKills: &6%kills%
+      &eDeaths: &6%deaths%
+      &eKDR: &6%kdr%
+      &eStreak: &6%streak%
+      &7&m-----------------------
+
+ResetStats:
+  Permission: "vbasic.resetstats"
+  IncorrectUsage: "%server_prefix% &cIncorrect Usage! /resetstats <player>"
+  InvalidPlayer: "%server_prefix% &cInvalid Player!"
+  Format: "&eYou have successfully reset %player%&e's &6stats&e."
 
 # Staff Alerts for everything are below:
 
