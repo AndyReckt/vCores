@@ -48,7 +48,7 @@ public class FlyCommand implements CommandExecutor {
                 } else if (args.length == 1) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         if (!plugin.fly.contains(target.getUniqueId())) {
                             target.setAllowFlight(true);
                             target.setFlying(true);

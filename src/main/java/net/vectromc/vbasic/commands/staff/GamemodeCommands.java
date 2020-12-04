@@ -54,7 +54,7 @@ public class GamemodeCommands implements CommandExecutor {
                         Player target = Bukkit.getPlayer(args[1]);
                         if (args[0] != null) {
                             if (target != null) {
-                                nitrogen.setTargetColor(target);
+                                nitrogen.setPlayerColor(target);
                                 if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("c") || args[0].equalsIgnoreCase("1")) {
                                     target.setGameMode(GameMode.CREATIVE);
                                     Utils.sendTargetMessage(target, plugin.getConfig().getString("CreativeSelf"));
@@ -97,7 +97,7 @@ public class GamemodeCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             target.setGameMode(GameMode.CREATIVE);
                             Utils.sendTargetMessage(target, plugin.getConfig().getString("CreativeSelf"));
                             Utils.sendMessage(player, plugin.getConfig().getString("CreativeOther").replaceAll("%target%", target.getDisplayName()));
@@ -123,7 +123,7 @@ public class GamemodeCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             target.setGameMode(GameMode.SURVIVAL);
                             Utils.sendTargetMessage(target, plugin.getConfig().getString("SurvivalSelf"));
                             Utils.sendMessage(player, plugin.getConfig().getString("SurvivalOther").replaceAll("%target%", target.getDisplayName()));
@@ -149,7 +149,7 @@ public class GamemodeCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             target.setGameMode(GameMode.SPECTATOR);
                             Utils.sendTargetMessage(target, plugin.getConfig().getString("SpectatorSelf"));
                             Utils.sendMessage(player, plugin.getConfig().getString("SpectatorOther").replaceAll("%target%", target.getDisplayName()));
@@ -175,7 +175,7 @@ public class GamemodeCommands implements CommandExecutor {
                     } else if (args.length == 1) {
                         Player target = Bukkit.getPlayer(args[0]);
                         if (target != null) {
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             target.setGameMode(GameMode.ADVENTURE);
                             Utils.sendTargetMessage(target, plugin.getConfig().getString("AdventureSelf"));
                             Utils.sendMessage(player, plugin.getConfig().getString("AdventureOther").replaceAll("%target%", target.getDisplayName()));

@@ -39,7 +39,7 @@ public class TeleportCommands implements CommandExecutor {
                             plugin.back.remove(player);
                             Location oldLoc = player.getLocation();
                             plugin.back.put(player, oldLoc);
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             nitrogen.setPlayerColor(player);
                             player.teleport(target);
                             Utils.sendMessage(player, plugin.getConfig().getString("TeleportedToPlayer").replaceAll("%target%", target.getDisplayName()));
@@ -59,8 +59,8 @@ public class TeleportCommands implements CommandExecutor {
                                 plugin.back.remove(target);
                                 Location oldLoc = target.getLocation();
                                 plugin.back.put(target, oldLoc);
-                                nitrogen.setTargetColor(target);
-                                nitrogen.setTarget2Color(target2);
+                                nitrogen.setPlayerColor(target);
+                                nitrogen.setPlayerColor(target2);
                                 nitrogen.setPlayerColor(player);
                                 target.teleport(target2);
                                 Utils.sendMessage(player, plugin.getConfig().getString("YouTeleportedPlayerToPlayer").replaceAll("%target1%", target.getDisplayName()).replaceAll("%target2%", target2.getDisplayName()));
@@ -98,7 +98,7 @@ public class TeleportCommands implements CommandExecutor {
                             plugin.back.remove(target);
                             Location oldLoc = target.getLocation();
                             plugin.back.put(target, oldLoc);
-                            nitrogen.setTargetColor(target);
+                            nitrogen.setPlayerColor(target);
                             nitrogen.setPlayerColor(player);
                             target.teleport(player);
                             Utils.sendMessage(player, plugin.getConfig().getString("TeleportPlayerToYou").replaceAll("%target%", target.getDisplayName()));

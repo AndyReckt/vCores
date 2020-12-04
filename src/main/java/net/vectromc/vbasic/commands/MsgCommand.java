@@ -34,7 +34,7 @@ public class MsgCommand implements CommandExecutor {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
                         nitrogen.setPlayerColor(player);
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         if (plugin.tpm.contains(player.getUniqueId())) {
                             Utils.sendMessage(player, plugin.getConfig().getString("TpmToError"));
                         } else if (plugin.tpm.contains(target.getUniqueId())) {

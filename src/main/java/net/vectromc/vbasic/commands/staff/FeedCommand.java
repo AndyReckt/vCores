@@ -41,7 +41,7 @@ public class FeedCommand implements CommandExecutor {
                 } else if (args.length == 1) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         nitrogen.setPlayerColor(player);
                         Utils.sendMessage(player, plugin.getConfig().getString("FeedOtherMsg").replaceAll("%target%", target.getDisplayName()));
                         target.setFoodLevel(20);

@@ -23,8 +23,6 @@ import net.vectromc.vbasic.listeners.SettingsClickListeners;
 import net.vectromc.vbasic.listeners.WorldChangeListener;
 import net.vectromc.vbasic.listeners.economy.PlayerKillListener;
 import net.vectromc.vbasic.listeners.stats.PlayerDeathListener;
-import net.vectromc.vbasic.management.EconomyManagement;
-import net.vectromc.vbasic.management.StatManagement;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;

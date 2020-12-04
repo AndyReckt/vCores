@@ -46,7 +46,7 @@ public class HealCommand implements CommandExecutor {
                 } else if (args.length == 1) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         nitrogen.setPlayerColor(player);
                         Utils.sendMessage(player, plugin.getConfig().getString("HealOtherMsg").replaceAll("%target%", target.getDisplayName()));
                         Utils.sendTargetMessage(target, plugin.getConfig().getString("HealSelfMsg"));
