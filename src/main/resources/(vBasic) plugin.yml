@@ -104,3 +104,26 @@ commands:
   Sudo:
     description: Sudo a user to say or run something.
     usage: /<command>
+  Balance:
+    description: Get the balance of yourself or another user.
+    usage: /<command>
+    aliases: [money, bal]
+  Pay:
+    description: Pay a user an amount of money.
+    usage: /<command>
+  Economy:
+    description: Manage the economy status of a player.
+    usage: /<command>
+    aliases: eco
+  Bounty:
+    description: Bounty a player for a sum of money, so that if another player kills them, that other player gets that money.
+    usage: /<command>
+  Unbounty:
+    description: Remove the bounty on a player.
+    usage: /<command>
+  Stats:
+    description: Get the stats of a player.
+    usage: /<command>
+  ResetStats:
+    description: Reset the stats of a player.
+    usage: /<command>
