@@ -1,5 +1,6 @@
 package net.vectromc.vscoreboard;
 
+import net.vectromc.vbasic.vBasic;
 import net.vectromc.vnitrogen.vNitrogen;
 import net.vectromc.vscoreboard.commands.ListCommand;
 import net.vectromc.vscoreboard.commands.ScoreboardCommand;
@@ -16,11 +17,6 @@ import java.util.UUID;
 public final class VScoreboard extends JavaPlugin {
 
     public PlayerScoreboard scoreboard;
-    private vNitrogen nitrogen;
-
-    public VScoreboard() {
-        nitrogen = vNitrogen.getPlugin(vNitrogen.class);
-    }
 
     @Override
     public void onEnable() {

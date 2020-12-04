@@ -28,9 +28,6 @@ public class Utils {
         sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
     }
 
-    public static void sendTargetMessage(Player target, String message) {
-        target.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
-    }
 
     public static void liner(Player player) {
         player.sendMessage(ChatColor.translateAlternateColorCodes('&', "&7&m----------------------"));
@@ -58,7 +55,6 @@ public class Utils {
         int online;
         int staffonline;
         String rank = "";
-
         int vanished = staffutils.vanished.size();
         online = Bukkit.getOnlinePlayers().size() - vanished;
         staffonline = 0;
@@ -82,6 +78,7 @@ public class Utils {
                 }
             }
         }
+
         return message
                 .replace("%online%", "" + online)
                 .replace("%rank%", rank)
