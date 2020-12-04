@@ -39,7 +39,7 @@ public class BlacklistCommand implements CommandExecutor {
                                     .replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                         } else {
                             plugin.setPlayerColor(player);
-                            plugin.setTargetColor(target);
+                            plugin.setPlayerColor(target);
                             if (!plugin.data.config.contains("IPs." + target.getUniqueId().toString() + ".IP")) {
                                 Utils.sendMessage(player, plugin.getConfig().getString("Blacklist.CantBlacklist")
                                         .replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
@@ -180,7 +180,7 @@ public class BlacklistCommand implements CommandExecutor {
                                     .replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                                     .replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                         } else {
-                            plugin.setTargetColor(target);
+                            plugin.setPlayerColor(target);
                             if (!plugin.data.config.contains("IPs." + target.getUniqueId().toString() + ".IP")) {
                                 Utils.sendMessage(sender, plugin.getConfig().getString("Blacklist.CantBlacklist")
                                         .replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))

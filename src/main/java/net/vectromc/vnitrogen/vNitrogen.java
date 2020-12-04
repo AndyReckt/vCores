@@ -46,11 +46,12 @@ public final class vNitrogen extends JavaPlugin {
         registerEvents();
         registerCommands();
         registerData();
-        runRunnables();
         registerRanks();
+        runRunnables();
         refreshBlacklists();
         refreshBans();
         refreshMutes();
+
         startupAnnouncements();
     }
 
@@ -70,6 +71,8 @@ public final class vNitrogen extends JavaPlugin {
     public HashMap<Player, String> punishDuration = new HashMap<>();
     public HashMap<Player, String> punishReason = new HashMap<>();
     public HashMap<Player, String> punishSilent = new HashMap<>();
+
+    public HashMap<UUID, String> nickname = new HashMap<>();
 
     public ArrayList<UUID> buildchat_toggle = new ArrayList<>();
     public ArrayList<UUID> staffchat_toggle = new ArrayList<>();
@@ -168,7 +171,7 @@ public final class vNitrogen extends JavaPlugin {
         }
         for (String test : this.ranks) {
             String permName = getConfig().getString("Ranks." + test + ".permission");
-            System.out.println(test + ", " + permName);
+            System.out.println(test);
         }
     }
 
@@ -195,20 +198,6 @@ public final class vNitrogen extends JavaPlugin {
                 if (pData.config.getString(player.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
                     String color = getConfig().getString("Ranks." + rank + ".color");
                     player.setDisplayName(ChatColor.translateAlternateColorCodes('&', color + player.getName()));
-                }
-            }
-        }
-    }
-
-    public void setTargetPrefix(Player target) {
-        for (String rank : this.ranks) {
-            if (!pData.config.contains(target.getUniqueId().toString()) || pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase("DEFAULT")) {
-                String prefix = getConfig().getString("Ranks.DEFAULT.prefix");
-                target.setDisplayName(prefix + target.getName());
-            } else {
-                if (pData.config.getString(target.getUniqueId().toString() + ".Rank").equalsIgnoreCase(rank.toUpperCase())) {
-                    String prefix = getConfig().getString("Ranks." + rank + ".prefix");
-                    target.setDisplayName(ChatColor.translateAlternateColorCodes('&', prefix + target.getName()));
                 }
             }
         }

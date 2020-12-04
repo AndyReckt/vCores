@@ -35,7 +35,7 @@ public class WarnCommand implements CommandExecutor {
                         Utils.sendMessage(player, plugin.getConfig().getString("Warn.InvalidPlayer").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                     } else {
                         plugin.setPlayerColor(player);
-                        plugin.setTargetColor(target);
+                        plugin.setPlayerColor(target);
                         String reason = "";
                         for (int i = 1; i < args.length; i++) {
                             reason = reason + " " + args[i];
@@ -81,7 +81,7 @@ public class WarnCommand implements CommandExecutor {
                     if (target == null) {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Warn.InvalidPlayer").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                     } else {
-                        plugin.setTargetColor(target);
+                        plugin.setPlayerColor(target);
                         String reason = "";
                         for (int i = 1; i < args.length; i++) {
                             reason = reason + " " + args[i];

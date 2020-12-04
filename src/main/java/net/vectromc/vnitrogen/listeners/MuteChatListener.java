@@ -56,7 +56,7 @@ public class MuteChatListener implements Listener {
     public void onCommand(PlayerCommandPreprocessEvent event) {
         Player player = event.getPlayer();
         String command = event.getMessage().toLowerCase();
-        if (command.contains("/message") || command.contains("/msg") || command.contains("/tell") || command.contains("/whisper") || command.contains("/w") || command.contains("/t")) {
+        if (command.contains("/message") || command.contains("/msg") || command.contains("/tell") || command.contains("/whisper") || command.contains("/w") || command.contains("/t") || command.contains("/r") || command.contains("/reply")) {
             if (plugin.muted.contains(player.getUniqueId().toString())) {
                 event.setCancelled(true);
                 PunishmentManagement punishmentManagement = new PunishmentManagement(player);

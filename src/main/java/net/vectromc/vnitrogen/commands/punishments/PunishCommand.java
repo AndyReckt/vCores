@@ -221,20 +221,26 @@ public class PunishCommand implements CommandExecutor, Listener {
                     .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                     .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
         } else {
-            Player player = (Player) sender;
-            if (args.length != 1) {
-                Utils.sendMessage(player, plugin.getConfig().getString("Punish.IncorrectUsage")
+            if (!sender.hasPermission(plugin.getConfig().getString("Punish.Permission"))) {
+                Utils.sendMessage(sender, plugin.getConfig().getString("NoPermission")
                         .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
                         .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
             } else {
-                OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
-                plugin.punishPlayer.remove(player);
-                plugin.punishType.remove(player);
-                plugin.punishDuration.remove(player);
-                plugin.punishReason.remove(player);
-                plugin.punishSilent.remove(player);
-                openTypeGUI(player, target);
-                plugin.punishPlayer.put(player, target);
+                Player player = (Player) sender;
+                if (args.length != 1) {
+                    Utils.sendMessage(player, plugin.getConfig().getString("Punish.IncorrectUsage")
+                            .replace("%server_prefix%", plugin.getConfig().getString("ServerPrefix"))
+                            .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
+                } else {
+                    OfflinePlayer target = Bukkit.getOfflinePlayer(args[0]);
+                    plugin.punishPlayer.remove(player);
+                    plugin.punishType.remove(player);
+                    plugin.punishDuration.remove(player);
+                    plugin.punishReason.remove(player);
+                    plugin.punishSilent.remove(player);
+                    openTypeGUI(player, target);
+                    plugin.punishPlayer.put(player, target);
+                }
             }
         }
         return true;

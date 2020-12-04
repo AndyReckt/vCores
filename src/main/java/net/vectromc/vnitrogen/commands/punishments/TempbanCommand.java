@@ -44,7 +44,7 @@ public class TempbanCommand implements CommandExecutor {
                                 Utils.sendMessage(player, plugin.getConfig().getString("TempBan.PlayerIsBanned").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                             } else {
                                 plugin.setPlayerColor(player);
-                                plugin.setTargetColor(target);
+                                plugin.setPlayerColor(target);
                                 String time = args[1];
                                 String userTime = "";
                                 int id = plugin.data.config.getInt(target.getUniqueId().toString() + ".BansAmount") + 1;
@@ -299,7 +299,7 @@ public class TempbanCommand implements CommandExecutor {
                             if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(target.getUniqueId().toString())) {
                                 Utils.sendMessage(sender, plugin.getConfig().getString("TempBan.PlayerIsBanned").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                             } else {
-                                plugin.setTargetColor(target);
+                                plugin.setPlayerColor(target);
                                 String time = args[1];
                                 String userTime = "";
                                 int id = plugin.data.config.getInt(target.getUniqueId().toString() + ".BansAmount") + 1;

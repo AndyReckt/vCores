@@ -28,6 +28,7 @@ public class NitrogenCommand implements CommandExecutor {
             if (args[0].equalsIgnoreCase("reload")) {
                 if (sender.hasPermission(plugin.getConfig().getString("ReloadPermission"))) {
                     plugin.reloadConfig();
+                    plugin.data.setupData();
                     plugin.data.saveData();
                     plugin.data.reloadData();
                     plugin.registerRanks();

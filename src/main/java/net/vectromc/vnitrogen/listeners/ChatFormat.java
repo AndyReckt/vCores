@@ -18,7 +18,12 @@ public class ChatFormat implements Listener {
     @EventHandler
     public void onChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
-        String message = event.getMessage().replaceAll("%", "%%");
+        String message = "";
+        if (!player.hasPermission(plugin.getConfig().getString("ColorChat.Permission"))) {
+            message = ChatColor.stripColor(event.getMessage().replaceAll("%", "%%").replace("&", ""));
+        } else {
+            message = event.getMessage().replaceAll("%", "%%");
+        }
         plugin.setPlayerPrefix(player);
         event.setFormat(ChatColor.translateAlternateColorCodes('&', player.getDisplayName() + "&7: &f" + message));
     }

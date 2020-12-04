@@ -41,7 +41,7 @@ public class BanCommand implements CommandExecutor {
                             if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(target.getUniqueId().toString())) {
                                 Utils.sendMessage(sender, plugin.getConfig().getString("Ban.PlayerIsBanned").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                             } else {
-                                plugin.setTargetColor(target);
+                                plugin.setPlayerColor(target);
                                 plugin.setPlayerColor(player);
                                 String reason = "";
                                 for (int i = 1; i < args.length; i++) {
@@ -161,7 +161,7 @@ public class BanCommand implements CommandExecutor {
                             if (plugin.data.config.getConfigurationSection("BannedPlayers").getKeys(false).contains(target.getUniqueId().toString())) {
                                 Utils.sendMessage(sender, plugin.getConfig().getString("Ban.PlayerIsBanned").replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")).replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
                             } else {
-                                plugin.setTargetColor(target);
+                                plugin.setPlayerColor(target);
                                 String reason = "";
                                 for (int i = 1; i < args.length; i++) {
                                     reason = reason + " " + args[i];

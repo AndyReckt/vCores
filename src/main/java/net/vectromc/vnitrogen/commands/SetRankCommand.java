@@ -43,7 +43,7 @@ public class SetRankCommand implements CommandExecutor {
                     plugin.pData.saveData();
                 } else {
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
-                        plugin.setTargetColor(target);
+                        plugin.setPlayerColor(target);
                         String rankName = args[1];
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun")
                                 .replace("%player%", target.getName())
