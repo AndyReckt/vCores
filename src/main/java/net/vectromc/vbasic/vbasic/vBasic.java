@@ -2,9 +2,14 @@ package net.vectromc.vbasic;
 
 import net.vectromc.vbasic.commands.*;
 import net.vectromc.vbasic.commands.staff.*;
+import net.vectromc.vbasic.commands.staff.BroadcastCommand;
+import net.vectromc.vbasic.commands.staff.FeedCommand;
+import net.vectromc.vbasic.commands.staff.GamemodeCommands;
+import net.vectromc.vbasic.commands.staff.HealCommand;
+import net.vectromc.vbasic.commands.staff.TeleportCommands;
+import net.vectromc.vbasic.commands.staff.ToggleStaffAlertsCommand;
 import net.vectromc.vbasic.listeners.ChatListener;
 import net.vectromc.vbasic.listeners.SettingsClickListeners;
-import net.vectromc.vbasic.listeners.SpawnListeners;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
@@ -15,7 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.UUID;
 
-public final class vBasic extends JavaPlugin {
+public class vBasic extends JavaPlugin {
 
     @Override
     public void onEnable() {
@@ -76,12 +81,12 @@ public final class vBasic extends JavaPlugin {
         getCommand("speed").setExecutor(new SpeedCommand());
         getCommand("seen").setExecutor(new SeenCommand());
         getCommand("hat").setExecutor(new HatCommand());
+        getCommand("Sudo").setExecutor(new SudoCommand());
     }
 
     private void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new SettingsClickListeners(), this);
-        manager.registerEvents(new SpawnListeners(), this);
     }
 }
