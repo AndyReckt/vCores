@@ -35,6 +35,7 @@ ReloadPermission: "vscoreboard.reload"
 # %deaths% - Deaths of a user. (vBasic)
 # %kdr% - KDR of a user. (vBasic)
 # %streak% - Streak of a user. (vBasic)
+# %bounty% - Get a user's bounty amount. (vBasic)
 
 Scoreboard:
   Enabled: true
@@ -56,52 +57,66 @@ Scoreboard:
   Servers:
     hub-1:
       Enabled: true
-      Title: "&6&lvScoreboard &7| Hub"
+      Title: "&6&lvScoreboard &7| &6Hub"
       Format:
         - "&7&m----------------------&r"
-        - "&6&lOnline:"
-        - "&f %online%"
+        - "&6&lServer:"
+        - "&e * &f&lOnline: &6%online%"
         - "&e "
-        - "&6&lRank:"
-        - "&f %rank%"
+        - "&6&lYou:"
+        - "&e * &f&lRank: &6%rank%"
         - "&6 "
         - "&7vScoreboard v1.0"
         - "&7&m----------------------"
     kitpvp:
       Enabled: true
-      Title: "&6&lvScoreboard &7| KitPvP"
+      Title: "&6&lvScoreboard &7| &aKitPvP"
       Format:
         - "&7&m----------------------&r"
-        - "&e * &f&lKills: &6%kills%"
-        - "&e * &f&lDeaths: &6%deaths%"
-        - "&e * &f&lKDR: &6%kdr%"
-        - "&e * &f&lMoney: &6%balance%"
-        - "&e * &f&lStreak: &6%streak%"
+        - "&a&lStats:"
+        - "&a * &f&lKills: &2%kills%"
+        - "&a * &f&lDeaths: &2%deaths%"
+        - "&a * &f&lKDR: &2%kdr%"
+        - "&a * &f&lMoney: &2$%balance%"
+        - "&a * &f&lStreak: &2%streak%"
         - "&6 "
+        - "&a&lYou:"
+        - "&a * &f&lRank: &2%rank%"
+        - "&a * &f&lBounty: &2%bounty%"
+        - "&a "
         - "&7vScoreboard v1.0"
         - "&7&m----------------------"
     soup:
       Enabled: true
-      Title: "&6&lvScoreboard &7| Soup"
+      Title: "&6&lvScoreboard &7| &3Soup"
       Format:
         - "&7&m----------------------&r"
-        - "&e * &f&lKills: &6N/A"
-        - "&e * &f&lDeaths: &6N/A"
-        - "&e * &f&lKDR: &6N/A"
-        - "&e * &f&lMoney: &6N/A"
-        - "&e * &f&lStreak: &6N/A &7(N/A)"
+        - "&3&lStats:"
+        - "&b * &f&lKills: &3%kills%"
+        - "&b * &f&lDeaths: &3%deaths%"
+        - "&b * &f&lKDR: &3%kdr%"
+        - "&b * &f&lMoney: &3$%balance%"
+        - "&b * &f&lStreak: &3%streak%"
         - "&6 "
+        - "&3&lYou:"
+        - "&b * &f&lRank: &3%rank%"
+        - "&b * &f&lBounty: &3%bounty%"
+        - "&a "
         - "&7vScoreboard v1.0"
         - "&7&m----------------------"
     survival:
       Enabled: true
-      Title: "&6&lvScoreboard &7| Survival"
+      Title: "&6&lvScoreboard &7| &5Survival"
       Format:
         - "&7&m----------------------&r"
-        - "&e * &f&lDeaths: &6N/A"
-        - "&e * &f&lMoney: &6N/A"
-        - "&e * &f&lRank: &6%rank%"
+        - "&5&lYou:"
+        - "&d * &f&lMoney: &5$%balance%"
+        - "&d * &f&lRank: &5%rank%"
         - "&6 "
+        - "&5&lClaims:"
+        - "&d * &f&lCurrent: &5N/A"
+        - "&d * &f&lAmount: &5N/A"
+        - "&5 "
         - "&7vScoreboard v1.0"
         - "&7&m----------------------"
 
@@ -111,10 +126,10 @@ StaffScoreboard:
   Title: "&6&lvScoreboard &7| ModMode"
   Format:
     - "&7&m----------------------&r"
-    - "&e * &fVanish: %vanish%"
-    - "&e * &fStaff Online: &6%onlinestaff%"
-    - "&e * &fPlayers Online: &6%online%"
-    - "&e * &fServer: &6%world%"
+    - "&e * &f&lVanish: %vanish%"
+    - "&e * &f&lStaff Online: &6%onlinestaff%"
+    - "&e * &f&lPlayers Online: &6%online%"
+    - "&e * &f&lServer: &6%world%"
     - "&6 "
     - "&7vScoreboard v1.0"
     - "&7&m----------------------"
