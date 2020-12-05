@@ -63,17 +63,17 @@ public class vBasic extends JavaPlugin {
     public HashMap<String, String> reply = new HashMap<>();
     public HashMap<Player, Location> back = new HashMap<>();
 
-    private void startupAnnouncements() {
+    void startupAnnouncements() {
         System.out.println("[VectroMC] vBasic v1.0 by Yochran is loading...");
         System.out.println("[VectroMC] vBasic v1.0 by Yochran has successfully loaded.");
     }
 
-    private void shutdownAnnouncements() {
+    void shutdownAnnouncements() {
         System.out.println("[VectroMC] vBasic v1.0 by Yochran is unloading...");
         System.out.println("[VectroMC] vBasic v1.0 by Yochran has successfully unloaded.");
     }
 
-    private void registerCommands() {
+    void registerCommands() {
         getCommand("vbasic").setExecutor(new BasicCommand());
         getCommand("teleport").setExecutor(new TeleportCommands());
         getCommand("teleporthere").setExecutor(new TeleportCommands());
@@ -108,7 +108,7 @@ public class vBasic extends JavaPlugin {
         getCommand("ResetStats").setExecutor(new ResetStatsCommand());
     }
 
-    private void registerEvents() {
+    void registerEvents() {
         PluginManager manager = getServer().getPluginManager();
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new SettingsClickListeners(), this);
@@ -118,7 +118,7 @@ public class vBasic extends JavaPlugin {
         manager.registerEvents(new PlayerDeathListener(), this);
     }
 
-    private void registerData() {
+    void registerData() {
         economy = new EconomyData();
         economy.setupData();
         economy.saveData();

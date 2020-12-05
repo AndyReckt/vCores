@@ -1,5 +1,6 @@
 package net.vectromc.vbasic.commands.staff;
 
+import com.google.common.base.Joiner;
 import net.vectromc.vbasic.utils.Utils;
 import net.vectromc.vbasic.vBasic;
 import net.vectromc.vnitrogen.vNitrogen;
@@ -32,7 +33,11 @@ public class SudoCommand implements CommandExecutor {
                         .replace("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")));
             } else {
                 Player target = Bukkit.getPlayer(args[0]);
-                String sudo = args[1];
+                String sudo = "";
+                for (int i = 1; i < args.length; i++) {
+                    sudo = sudo + " " + args[i];
+                }
+                sudo = sudo.replaceFirst(" ", "");
                 if (target != null) {
                     if (sudo.startsWith("/")) {
                         target.performCommand(sudo.replaceFirst("/", ""));

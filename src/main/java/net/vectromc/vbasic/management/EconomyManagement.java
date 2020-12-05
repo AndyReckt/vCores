@@ -1,7 +1,10 @@
 package net.vectromc.vbasic.management;
 
 import net.vectromc.vbasic.vBasic;
+import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
+
+import java.util.HashMap;
 
 public class EconomyManagement {
 
