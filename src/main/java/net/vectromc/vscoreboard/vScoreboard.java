@@ -1,20 +1,34 @@
 package net.vectromc.vscoreboard;
 
+import net.vectromc.vnitrogen.vNitrogen;
 import net.vectromc.vscoreboard.commands.ListCommand;
 import net.vectromc.vscoreboard.commands.ScoreboardCommand;
 import net.vectromc.vscoreboard.commands.ToggleScoreboardCommand;
 import net.vectromc.vscoreboard.listeners.CommandListener;
 import net.vectromc.vscoreboard.listeners.WorldChangeListener;
+import net.vectromc.vscoreboard.nametags.NametagSetter;
+import net.vectromc.vscoreboard.nametags.NametagUpdater;
 import net.vectromc.vscoreboard.utils.ScoreboardRunnable;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.UUID;
 
 public final class vScoreboard extends JavaPlugin {
 
     public PlayerScoreboard scoreboard;
+    public NametagSetter nametag;
+
+    private vNitrogen nitrogen;
+
+    public vScoreboard() {
+        nitrogen = vNitrogen.getPlugin(vNitrogen.class);
+    }
 
     @Override
     public void onEnable() {
@@ -61,9 +75,11 @@ public final class vScoreboard extends JavaPlugin {
 
     private void runRunnables() {
         new ScoreboardRunnable().runTaskTimer(this, 0, 5);
+        new NametagUpdater().runTaskTimer(this, 0, 10);
     }
 
     private void registerScoreboard() {
+        nametag = new NametagSetter();
         scoreboard = new PlayerScoreboard();
     }
 }

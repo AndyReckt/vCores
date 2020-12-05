@@ -91,6 +91,7 @@ public class PlayerScoreboard implements Listener {
                 player.setScoreboard(Bukkit.getServer().getScoreboardManager().getNewScoreboard());
             }
             Scoreboard score = player.getScoreboard();
+
             final Objective objective = (score.getObjective(player.getName()) == null) ? score.registerNewObjective(player.getName(), "dummy") : score.getObjective(player.getName());
             int online;
             int staffonline;
