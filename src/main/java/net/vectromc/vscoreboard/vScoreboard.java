@@ -5,6 +5,7 @@ import net.vectromc.vscoreboard.commands.ListCommand;
 import net.vectromc.vscoreboard.commands.ScoreboardCommand;
 import net.vectromc.vscoreboard.commands.ToggleScoreboardCommand;
 import net.vectromc.vscoreboard.listeners.CommandListener;
+import net.vectromc.vscoreboard.listeners.PlayerLogListener;
 import net.vectromc.vscoreboard.listeners.WorldChangeListener;
 import net.vectromc.vscoreboard.nametags.NametagSetter;
 import net.vectromc.vscoreboard.nametags.NametagUpdater;
@@ -65,6 +66,7 @@ public final class vScoreboard extends JavaPlugin {
         manager.registerEvents(new PlayerScoreboard(), this);
         manager.registerEvents(new CommandListener(), this);
         manager.registerEvents(new WorldChangeListener(), this);
+        manager.registerEvents(new PlayerLogListener(), this);
     }
 
     private void registerCommands() {

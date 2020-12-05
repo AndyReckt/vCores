@@ -1,5 +1,6 @@
 package net.vectromc.vscoreboard.utils;
 
+import net.vectromc.vbasic.management.EconomyManagement;
 import net.vectromc.vbasic.vBasic;
 import net.vectromc.vnitrogen.vNitrogen;
 import net.vectromc.vscoreboard.vScoreboard;
@@ -93,6 +94,15 @@ public class Utils {
         String balance = df.format(basic.economy.config.getDouble(player.getUniqueId().toString() + "." + server + ".Balance"));
         String streak = df.format(basic.stats.config.getInt(player.getUniqueId().toString() + "." + server + ".Streak"));
 
+        String bounty = "";
+        EconomyManagement economyManagement = new EconomyManagement();
+        if (!economyManagement.isBountied(server, player)) {
+            bounty = "None";
+        } else {
+            double amount = economyManagement.getBountyAmount(server, player);
+            bounty = "$" + df.format(amount);
+        }
+
         return message
                 .replace("%online%", "" + online)
                 .replace("%rank%", rank)
@@ -106,6 +116,7 @@ public class Utils {
                 .replace("%deaths%", deaths)
                 .replace("%kdr%", kdr)
                 .replace("%balance%", balance)
-                .replace("%streak%", streak);
+                .replace("%streak%", streak)
+                .replace("%bounty%", bounty);
     }
 }
