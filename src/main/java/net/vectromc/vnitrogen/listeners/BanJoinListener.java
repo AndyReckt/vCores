@@ -26,11 +26,19 @@ public class BanJoinListener implements Listener {
         if (plugin.banned.contains(player.getUniqueId().toString())) {
             PunishmentManagement punishmentManagement = new PunishmentManagement(player);
             if (plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Temp").equalsIgnoreCase("true")) {
-                String reason = plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Reason");
-                String expirationDate = Utils.TIME_FORMAT.format(new Date(plugin.data.config.getLong(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Duration")));
-                player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("TempBan.BanMessage").replaceAll("%reason%", reason).replaceAll("%expiry%", expirationDate)));
-                plugin.data.saveData();
-                event.setJoinMessage("");
+                if (System.currentTimeMillis() >= plugin.data.config.getLong(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Duration")) {
+                    plugin.banned.remove(player.getUniqueId().toString());
+                    plugin.data.config.set("BannedPlayers." + player.getUniqueId(), null);
+                    plugin.data.config.set(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Status", "Expired");
+                    plugin.data.saveData();
+                } else {
+                    String reason = plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Reason");
+                    String expirationDate = Utils.TIME_FORMAT.format(new Date(plugin.data.config.getLong(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Duration")));
+                    player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("TempBan.BanMessage").replaceAll("%reason%", reason).replaceAll("%expiry%", expirationDate)));
+                    plugin.data.saveData();
+                    event.setJoinMessage("");
+
+                }
             } else {
                 String reason = plugin.data.config.getString(player.getUniqueId().toString() + ".Bans." + punishmentManagement.getBansAmount() + ".Reason");
                 player.kickPlayer(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("Ban.BanMessage").replaceAll("%reason%", reason)));
