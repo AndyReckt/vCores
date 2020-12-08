@@ -126,6 +126,7 @@ This is an important feature. For commands in vBasic such as /heal, /feed, /tele
 ### Runnables:
   - The scoreboard runnable that refreshes the scoreboard.
   - Added a runnable that sets player's nametags. I've been wanting to do this for a while, and finally figured it out.
+  - Added a healthbar runnable, that displays player's health under their nametag. Also been wanting to do this for a while.
   
 # vBungee:
 
