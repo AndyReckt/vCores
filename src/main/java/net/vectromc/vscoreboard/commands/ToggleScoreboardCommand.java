@@ -7,6 +7,9 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 
 public class ToggleScoreboardCommand implements CommandExecutor {
 
@@ -28,11 +31,11 @@ public class ToggleScoreboardCommand implements CommandExecutor {
             } else {
                 plugin.tsb.add(player.getUniqueId());
                 Utils.sendMessage(player, plugin.getConfig().getString("Scoreboard.ToggleOffMessage"));
-                Bukkit.getServer().getScheduler().scheduleSyncDelayedTask(this.plugin, new Runnable() {
+                new BukkitRunnable() {
                     public void run() {
                         player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
                     }
-                }, 1);
+                }.runTaskLater(plugin, 5);
             }
         }
         return true;
