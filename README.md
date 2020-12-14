@@ -2,7 +2,7 @@
 These are the server cores for VectroMC. Source code for all 5 of them are under the 'src' folder.
 
 # About:
-These plugins are 5 of the server cores, for the relaunch of a server VectroMC. My friend EtshawMC is the owner of this server, and when we discussed starting it back up, I opted in to become a developer, so these server cores are the biproduct of that. 
+These plugins were originally for a server I was developer on VectroMC, but unfortunately it never started. So, I am releasing these cores to the public now.
 
 # Note:
 vBasic, vStaffUtils and vScoreboard are all dependant on vNitrogen. vNitrogen is dependant on some sort of permissions plugin, however there are no hooks therefore you can use ANY permissions plugin, as it is concurrent with every single one because of the config.yml.
