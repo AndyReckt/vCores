@@ -25,7 +25,7 @@ public class StaffWorldChangeEvents implements Listener {
             plugin.setPlayerColor(player);
             for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
                 if (onlineStaff.hasPermission(plugin.getConfig().getString("StaffWorldChange.notifypermission"))) {
-                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffWorldChange.format").replaceAll("%player%", player.getDisplayName()).replaceAll("%oldWorld%", oldWorld)).replaceAll("%newWorld%", newWorld));
+                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffWorldChange.format").replaceAll("%player%", player.getName()).replaceAll("%oldWorld%", oldWorld)).replaceAll("%newWorld%", newWorld));
                 }
             }
         }
