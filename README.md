@@ -100,6 +100,8 @@ While none of these plugins actually have an API, in vNitrogen I am using the se
   - /bounty <player> <amount>
   - /stats [player]
   - /resetstats <player>
+  - /clear <player>
+  - /itemname <item>
   
 ### Listeners:
   - Player log listeners, where you can set custom join messages through the config.yml.
