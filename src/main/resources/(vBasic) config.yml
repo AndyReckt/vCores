@@ -80,6 +80,20 @@ FeedOtherMsg: "&eYou have fed %target%&e."
 HealInvalidPlayer: "%server_prefix% &cInvalid Player!"
 FeedInvalidPlayer: "%server_prefix% &cInvalid Player!"
 
+# Everything relating to /clear is below:
+
+ClearPermission: "vbasic.clear"
+ClearIncorrectUsage: "%server_prefix% &cIncorrect Usage! /clear [player]"
+ClearInvalidPlayer: "%server_prefix% &cInvalid Player!"
+ClearMsg: "&eCleared all items from %player%&e."
+
+# Everything relating to /itemname is below:
+
+ItemNamePermission: "vbasic.iname"
+ItemNameIncorrectUsage: "%server_prefix% &cIncorrect Usage! /iname <name>"
+ItemNameInvalidItem: "%server_prefix% &cInvalid Item!"
+ItemNameMsg: "&eYou have set the name of your current item to &6%name%&e."
+
 # Everything relating to /msg, /tgc, and /tms is below:
 
 MsgIncorrectUsage: "%server_prefix% &cIncorrect Usage! /msg <player> <message>"
