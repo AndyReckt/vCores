@@ -38,7 +38,7 @@ public class BasicCommand implements CommandExecutor {
                 Utils.sendMessage(sender, "&7[&6&lvBasic&7]: &eHelp:");
                 Utils.sendMessage(sender, "&e ");
                 Utils.sendMessage(sender, "&6&lMisc:");
-                Utils.sendMessage(sender, "&e/feed, /heal, /message, /reply, /settings");
+                Utils.sendMessage(sender, "&e/feed, /heal, /message, /reply, /settings, /clear");
                 Utils.sendMessage(sender, "&e/tpm, /tms, /tgc, /teleport, /tphere, /back");
                 Utils.sendMessage(sender, "&e ");
                 Utils.sendMessage(sender, "&6&lStaff:");
