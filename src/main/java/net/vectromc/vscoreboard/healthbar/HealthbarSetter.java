@@ -7,6 +7,9 @@ import org.bukkit.scoreboard.DisplaySlot;
 import org.bukkit.scoreboard.Objective;
 import org.bukkit.scoreboard.Scoreboard;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class HealthbarSetter {
 
     private vScoreboard plugin;
@@ -16,11 +19,17 @@ public class HealthbarSetter {
     }
 
     public void setHealthbar(Player player1) {
-        Scoreboard scoreboard = player1.getScoreboard();
-        if (scoreboard.getObjective("health") == null) {
-            Objective objective = scoreboard.registerNewObjective("health", "health");
-            objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c❤"));
-            objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+        List<String> servers = new ArrayList<>();
+        for (String enabled : plugin.getConfig().getStringList("HealthBar.EnabledWorlds")) {
+            servers.add(enabled);
+        }
+        if (servers.contains(player1.getWorld().getName())) {
+            Scoreboard scoreboard = player1.getScoreboard();
+            if (scoreboard.getObjective("health") == null) {
+                Objective objective = scoreboard.registerNewObjective("health", "health");
+                objective.setDisplayName(ChatColor.translateAlternateColorCodes('&', "&c❤"));
+                objective.setDisplaySlot(DisplaySlot.BELOW_NAME);
+            }
         }
     }
 }
