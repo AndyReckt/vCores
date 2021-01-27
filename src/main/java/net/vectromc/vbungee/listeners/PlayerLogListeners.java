@@ -42,7 +42,7 @@ public class PlayerLogListeners implements Listener {
                         }
                     }
                 }
-            }.runTaskLater(plugin, 10);
+            }.runTaskLater(plugin, 5);
         }
     }
 }

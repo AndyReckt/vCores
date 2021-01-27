@@ -21,6 +21,8 @@ public class ServerCommand implements CommandExecutor {
         plugin = vbungee.getPlugin(vbungee.class);
     }
 
+    Utils utils = new Utils();
+
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
         if (!(sender instanceof Player)) {
@@ -56,6 +58,7 @@ public class ServerCommand implements CommandExecutor {
                             Location tpLoc = new Location(Bukkit.getWorld(server), 0.5, 0.5, 0.5);
                             Player player = (Player) sender;
                             player.teleport(tpLoc);
+                            utils.spawn(player, Bukkit.getWorld(server));
                             Utils.sendMessage(player, plugin.getConfig().getString("Server.FormatSent")
                                     .replace("%server%", Bukkit.getWorld(server).getName()));
                         }

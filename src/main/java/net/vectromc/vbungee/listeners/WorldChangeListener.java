@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerChangedWorldEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 public class WorldChangeListener implements Listener {
 
@@ -19,13 +20,20 @@ public class WorldChangeListener implements Listener {
     @EventHandler
     public void onWorldChange(PlayerChangedWorldEvent event) {
         Player player = event.getPlayer();
-        World world = player.getWorld();
-        double X = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.X");
-        double Y = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Y");
-        double Z = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Z");
-        double Pitch = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Pitch");
-        double Yaw = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Yaw");
-        Location spawnLoc = new Location(world, X, Y, Z, (float) Pitch, (float) Yaw);
-        player.teleport(spawnLoc);
+        new BukkitRunnable() {
+            @Override
+            public void run() {
+                if (player.getHealth() <= 0) {
+                    World world = player.getWorld();
+                    double X = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.X");
+                    double Y = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Y");
+                    double Z = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Z");
+                    double Pitch = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Pitch");
+                    double Yaw = plugin.data.config.getDouble("Servers." + world.getName() + ".Spawn.Yaw");
+                    Location spawnLoc = new Location(world, X, Y, Z, (float) Pitch, (float) Yaw);
+                    player.teleport(spawnLoc);
+                }
+            }
+        }.runTaskLater(plugin, 10);
     }
 }

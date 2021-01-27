@@ -55,6 +55,8 @@ public class SendCommand implements CommandExecutor {
                     } else {
                         Location tpLoc = new Location(Bukkit.getWorld(server), 0.5, 0.5, 0.5);
                         target.teleport(tpLoc);
+                        Utils utils = new Utils();
+                        utils.spawn(target, target.getWorld());
                         Utils.sendMessage(sender, plugin.getConfig().getString("Send.FormatSender")
                                 .replace("%server%", Bukkit.getWorld(server).getName())
                                 .replace("%player%", target.getDisplayName()));
