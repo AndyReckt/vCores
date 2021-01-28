@@ -1,6 +1,3 @@
-# vCores
-These are the server cores for VectroMC. Source code for all 5 of them are under the 'src' folder.
-
 # About:
 These plugins were originally for a server I was developer on VectroMC, but unfortunately it never started. So, I am releasing these cores to the public now.
 
