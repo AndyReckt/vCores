@@ -7,8 +7,6 @@ import org.bukkit.World;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
-import java.text.SimpleDateFormat;
-
 public class Utils {
 
     private vbungee plugin;

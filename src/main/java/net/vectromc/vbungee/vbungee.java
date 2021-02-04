@@ -2,10 +2,7 @@ package me.yochran.vbungee;
 
 import me.yochran.vbungee.commands.*;
 import me.yochran.vbungee.data.ServerData;
-import me.yochran.vbungee.listeners.ChatListener;
-import me.yochran.vbungee.listeners.CommandListener;
-import me.yochran.vbungee.listeners.PlayerLogListeners;
-import me.yochran.vbungee.listeners.WorldChangeListener;
+import me.yochran.vbungee.listeners.*;
 import me.yochran.vbungee.runnables.PlayerSeparatorRunnable;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -59,6 +56,7 @@ public final class vbungee extends JavaPlugin {
         manager.registerEvents(new ChatListener(), this);
         manager.registerEvents(new CommandListener(), this);
         manager.registerEvents(new WorldChangeListener(), this);
+        manager.registerEvents(new RespawnListener(), this);
     }
 
     private void runRunnables() {
