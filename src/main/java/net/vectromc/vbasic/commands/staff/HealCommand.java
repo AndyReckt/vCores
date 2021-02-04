@@ -43,6 +43,7 @@ public class HealCommand implements CommandExecutor {
                             onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.HealSelf").replaceAll("%player%", player.getDisplayName())));
                         }
                     }
+                    player.setFireTicks(0);
                 } else if (args.length == 1) {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
@@ -55,6 +56,7 @@ public class HealCommand implements CommandExecutor {
                         for (PotionEffect effect : target.getActivePotionEffects()) {
                             target.removePotionEffect(effect.getType());
                         }
+                        target.setFireTicks(0);
                         for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
                             if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
                                 onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.HealOther").replaceAll("%player%", player.getDisplayName()).replaceAll("%target%", target.getDisplayName())));

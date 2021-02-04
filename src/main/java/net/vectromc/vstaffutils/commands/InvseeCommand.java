@@ -35,7 +35,7 @@ public class InvseeCommand implements CommandExecutor {
                 } else {
                     Player target = Bukkit.getPlayer(args[0]);
                     if (target != null) {
-                        nitrogen.setTargetColor(target);
+                        nitrogen.setPlayerColor(target);
                         Utils.sendMessage(player, "&eOpening inventory of " + target.getDisplayName());
                         plugin.invsee_inventory.put(target.getUniqueId(), target.getInventory().getContents());
                         plugin.invsee_armor.put(target.getUniqueId(), target.getInventory().getArmorContents());

@@ -106,6 +106,8 @@ public class vBasic extends JavaPlugin {
         getCommand("Unbounty").setExecutor(new UnbountyCommand());
         getCommand("Stats").setExecutor(new StatsCommand());
         getCommand("ResetStats").setExecutor(new ResetStatsCommand());
+        getCommand("Clear").setExecutor(new ClearCommand());
+        getCommand("ItemName").setExecutor(new ItemNameCommand());
     }
 
     void registerEvents() {

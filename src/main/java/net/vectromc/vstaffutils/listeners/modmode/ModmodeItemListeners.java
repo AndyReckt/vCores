@@ -7,19 +7,28 @@ import net.vectromc.vstaffutils.utils.XMaterial;
 import net.vectromc.vstaffutils.vStaffUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
+import org.bukkit.Location;
+import org.bukkit.Material;
+import org.bukkit.block.Skull;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
+import org.bukkit.event.entity.ItemMergeEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.player.PlayerInteractEntityEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.inventory.meta.SkullMeta;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+
+import static org.bukkit.ChatColor.*;
 
 public class ModmodeItemListeners implements Listener {
 
@@ -67,7 +76,7 @@ public class ModmodeItemListeners implements Listener {
                         ItemMeta skullMeta = skull.getItemMeta();
                         skullMeta.setDisplayName(ChatColor.translateAlternateColorCodes('&', target.getDisplayName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------------"));
-                        nitrogen.setPlayerPrefix(target);
+                        nitrogen.setPlayerColor(target);
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&eDisplay: " + target.getDisplayName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&eServer: &6" + target.getWorld().getName()));
                         player_lore.add(ChatColor.translateAlternateColorCodes('&', "&7&m---------------------------"));
