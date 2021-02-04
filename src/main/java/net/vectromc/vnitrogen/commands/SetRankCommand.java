@@ -1,5 +1,6 @@
 package net.vectromc.vnitrogen.commands;
 
+import net.vectromc.vnitrogen.management.PermissionManagement;
 import net.vectromc.vnitrogen.utils.Utils;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
@@ -10,6 +11,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
 public class SetRankCommand implements CommandExecutor {
+
+    PermissionManagement permissions = new PermissionManagement();
 
     private vNitrogen plugin;
 
@@ -30,19 +33,22 @@ public class SetRankCommand implements CommandExecutor {
                     OfflinePlayer target2 = Bukkit.getOfflinePlayer(args[0]);
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
                         String rankName = args[1];
-                        Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun")
-                                .replace("%player%", target2.getName())
-                                .replace("%rank%", rankName));
                         String target2display = plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".color") + target2.getName();
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.SenderSetRank").replaceAll("%target%", target2display).replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         plugin.pData.config.set(target2.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
                         plugin.pData.config.set(target2.getUniqueId().toString() + ".Name", target2.getName());
+                        plugin.pData.saveData();
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
-                    plugin.pData.saveData();
                 } else {
                     if (plugin.ranks.contains(args[1].toUpperCase())) {
+                        for (String perms : plugin.permData.config.getStringList("Ranks." + plugin.pData.config.getString(target.getUniqueId().toString() + ".Rank") + ".Permissions")) {
+                            if (permissions.attachments.containsKey(target.getUniqueId())) {
+                                permissions.attachments.get(target.getUniqueId()).unsetPermission(perms);
+                                permissions.attachments.get(target.getUniqueId()).setPermission(perms, false);
+                            }
+                        }
                         plugin.setPlayerColor(target);
                         String rankName = args[1];
                         Bukkit.dispatchCommand(Bukkit.getConsoleSender(), plugin.getConfig().getString("Setrank.CommandToRun")
@@ -52,11 +58,11 @@ public class SetRankCommand implements CommandExecutor {
                         Utils.sendMessage(target, plugin.getConfig().getString("Setrank.TargetSetRank").replaceAll("%rank%", plugin.getConfig().getString("Ranks." + rankName.toUpperCase() + ".display")));
                         plugin.pData.config.set(target.getUniqueId().toString() + ".Rank", rankName.toUpperCase());
                         plugin.pData.config.set(target.getUniqueId().toString() + ".Name", target.getName());
-
+                        plugin.pData.saveData();
+                        permissions.setupPlayerPermissions(target);
                     } else {
                         Utils.sendMessage(sender, plugin.getConfig().getString("Setrank.InvalidRank").replaceAll("%plugin_prefix%", plugin.getConfig().getString("PluginPrefix")).replaceAll("%server_prefix%", plugin.getConfig().getString("ServerPrefix")));
                     }
-                    plugin.pData.saveData();
                 }
             }
         }
