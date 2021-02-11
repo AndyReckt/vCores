@@ -35,6 +35,8 @@ These plugins need parts of the other plugins to have functionality.
   - /alts <player>
   - /history <player>
   - /punish <player>
+  - /user <player> <list/add/remove> [permission]
+  - /rank <rank> <list/add/remove> [permission]
   
 ### Listeners:
   - A chat formatting listener, that formats the prefixes of the ranks (customizable in the config.yml) to be shown in chat.
