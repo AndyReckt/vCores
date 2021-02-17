@@ -3,8 +3,7 @@ version: ${project.version}
 main: net.vectromc.vnitrogen.vNitrogen
 api-version: 1.16
 authors: [Yochran]
-description: One of the server cores for VectroMC
-website: https://vectromc.net
+description: One of my cores.
 commands:
   vNitrogen:
     description: Gets the plugin information.
