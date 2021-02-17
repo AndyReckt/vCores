@@ -1,6 +1,5 @@
 package net.vectromc.vnitrogen.listeners;
 
-import net.vectromc.vnitrogen.management.PermissionManagement;
 import net.vectromc.vnitrogen.vNitrogen;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,12 +8,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
-import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerLogEvent implements Listener {
 
     private vNitrogen plugin;
-    PermissionManagement permissions = new PermissionManagement();
 
     public PlayerLogEvent() {
         plugin = vNitrogen.getPlugin(vNitrogen.class);
@@ -36,13 +33,6 @@ public class PlayerLogEvent implements Listener {
         }
         plugin.pData.config.set(player.getUniqueId() + ".Name", player.getName());
         plugin.pData.saveData();
-
-        if (!permissions.isInitialized(player)) {
-            plugin.permData.config.set(player.getUniqueId().toString() + ".Permissions", "");
-            plugin.permData.saveData();
-        }
-
-        permissions.setupPlayerPermissions(player);
 
         String ip = player.getAddress().getAddress().getHostAddress();
         plugin.data.config.set("IPs." + player.getUniqueId().toString() + ".IP", ip);
@@ -96,14 +86,6 @@ public class PlayerLogEvent implements Listener {
                     }
                 }
             }
-        }
-    }
-
-    @EventHandler
-    public void onPlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        if (permissions.attachments.containsKey(player.getUniqueId())) {
-            player.removeAttachment(permissions.attachments.get(player.getUniqueId()));
         }
     }
 }

@@ -1,20 +1,16 @@
 package net.vectromc.vnitrogen;
 
-import com.sun.org.apache.xpath.internal.objects.XString;
 import net.vectromc.vnitrogen.chats.AdminChatCommand;
 import net.vectromc.vnitrogen.chats.BuildChatCommand;
 import net.vectromc.vnitrogen.chats.ManagementChatCommand;
 import net.vectromc.vnitrogen.chats.StaffChatCommand;
 import net.vectromc.vnitrogen.commands.*;
-import net.vectromc.vnitrogen.commands.permissions.RankCommand;
-import net.vectromc.vnitrogen.commands.permissions.UserCommand;
 import net.vectromc.vnitrogen.commands.punishments.*;
 import net.vectromc.vnitrogen.commands.toggles.AdminChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.BuildChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.ManagementChatToggle;
 import net.vectromc.vnitrogen.commands.toggles.StaffChatToggle;
 import net.vectromc.vnitrogen.data.GrantData;
-import net.vectromc.vnitrogen.data.PermissionData;
 import net.vectromc.vnitrogen.data.PlayerData;
 import net.vectromc.vnitrogen.data.PunishmentData;
 import net.vectromc.vnitrogen.listeners.*;
@@ -26,7 +22,6 @@ import net.vectromc.vnitrogen.listeners.starterlisteners.ACStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.BCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.MCStarterListener;
 import net.vectromc.vnitrogen.listeners.starterlisteners.SCStarterListener;
-import net.vectromc.vnitrogen.management.PermissionManagement;
 import net.vectromc.vnitrogen.runnables.GrantActivityUpdater;
 import org.bukkit.ChatColor;
 import org.bukkit.OfflinePlayer;
@@ -43,7 +38,6 @@ public final class vNitrogen extends JavaPlugin {
     public PunishmentData data;
     public GrantData gData;
     public PlayerData pData;
-    public PermissionData permData;
 
     @Override
     public void onEnable() {
@@ -137,9 +131,6 @@ public final class vNitrogen extends JavaPlugin {
         getCommand("Unblacklist").setExecutor(new UnblacklistCommand());
         getCommand("ClearHistory").setExecutor(new ClearHistoryCommand());
         getCommand("Punish").setExecutor(new PunishCommand());
-        // Permissions
-        getCommand("User").setExecutor(new UserCommand());
-        getCommand("Rank").setExecutor(new RankCommand());
     }
 
     private void registerEvents() {
@@ -177,10 +168,6 @@ public final class vNitrogen extends JavaPlugin {
     public void registerRanks() {
         ranks.clear();
         for (String rank : getConfig().getConfigurationSection("Ranks").getKeys(false)) {
-            if (!permData.config.contains("Ranks." + rank)) {
-                permData.config.set("Ranks." + rank + ".Permissions", "");
-                permData.saveData();
-            }
             ranks.add(rank);
             System.out.println(rank);
         }
@@ -229,11 +216,6 @@ public final class vNitrogen extends JavaPlugin {
         pData.setupData();
         pData.saveData();
         pData.reloadData();
-
-        permData = new PermissionData();
-        permData.setupData();
-        permData.saveData();
-        permData.reloadData();
     }
 
     private void refreshMutes() {
