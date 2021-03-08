@@ -41,13 +41,13 @@ public class PunishCommand implements CommandExecutor, Listener {
 
     @EventHandler
     public void onInvClick(InventoryClickEvent event) {
-        if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Type")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
+            return;
+        } else {
+            if (!event.getCurrentItem().getItemMeta().hasLore()) {
+                event.setCancelled(true);
             } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Type")) {
                     clickedType = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String type : plugin.getConfig().getConfigurationSection("Punish.Types").getKeys(false)) {
                         if (plugin.getConfig().getString("Punish.Types." + type + ".ID").equals(clickedType)) {
@@ -69,15 +69,7 @@ public class PunishCommand implements CommandExecutor, Listener {
                             }
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Duration")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Duration")) {
                     clickedDuration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String duration : plugin.getConfig().getConfigurationSection("Punish.Durations.Items").getKeys(false)) {
                         if (plugin.getConfig().getString("Punish.Durations.Items." + duration + ".ID").equals(clickedDuration)) {
@@ -87,15 +79,7 @@ public class PunishCommand implements CommandExecutor, Listener {
                             openReasonGUI(player, target);
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Reason")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Choose A Punishment Reason")) {
                     clickedReason = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String reason : plugin.getConfig().getConfigurationSection("Punish.Reasons.Items").getKeys(false)) {
                         if (plugin.getConfig().getString("Punish.Reasons.Items." + reason + ".ID").equals(clickedReason)) {
@@ -105,15 +89,7 @@ public class PunishCommand implements CommandExecutor, Listener {
                             openSilentGUI(player, target);
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Will It Be Silent?")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Will It Be Silent?")) {
                     clickedSilent = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String silent : plugin.getConfig().getConfigurationSection("Punish.Silent").getKeys(false)) {
                         if (plugin.getConfig().getString("Punish.Silent." + silent + ".ID").equals(clickedSilent)) {
@@ -123,15 +99,7 @@ public class PunishCommand implements CommandExecutor, Listener {
                             openConfirmationGUI(player, target);
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Confirm This Punishment")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Confirm This Punishment")) {
                     Player player = (Player) event.getWhoClicked();
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', "&2&lConfirm Punishment"))) {
                         OfflinePlayer target = plugin.punishPlayer.get(player);
@@ -141,26 +109,37 @@ public class PunishCommand implements CommandExecutor, Listener {
                         String type = plugin.punishType.get(player);
                         String duration = plugin.punishDuration.get(player);
                         String fnlDura = "";
-                        if (duration.equalsIgnoreCase("10 Seconds")) {
-                            fnlDura = "10s";
-                        } else if (duration.equalsIgnoreCase("1 Minute")) {
-                            fnlDura = "1m";
-                        } else if (duration.equalsIgnoreCase("5 Minutes")) {
-                            fnlDura = "5m";
-                        } else if (duration.equalsIgnoreCase("30 Minutes")) {
-                            fnlDura = "30m";
-                        } else if (duration.equalsIgnoreCase("1 Hour")) {
-                            fnlDura = "1h";
-                        } else if (duration.equalsIgnoreCase("3 Hours")) {
-                            fnlDura = "3h";
-                        } else if (duration.equalsIgnoreCase("1 Day")) {
-                            fnlDura = "1d";
-                        } else if (duration.equalsIgnoreCase("1 Week")) {
-                            fnlDura = "1w";
-                        } else if (duration.equalsIgnoreCase("1 Month")) {
-                            fnlDura = "1mo";
-                        } else if (duration.equalsIgnoreCase("1 Year")) {
-                            fnlDura = "1y";
+                        switch (duration.toLowerCase()) {
+                            case "10 seconds":
+                                fnlDura = "10s";
+                                break;
+                            case "1 minute":
+                                fnlDura = "1m";
+                                break;
+                            case "5 minutes":
+                                fnlDura = "5m";
+                                break;
+                            case "30 minutes":
+                                fnlDura = "30m";
+                                break;
+                            case "1 hour":
+                                fnlDura = "1h";
+                                break;
+                            case "3 hours":
+                                fnlDura = "3h";
+                                break;
+                            case "1 day":
+                                fnlDura = "1d";
+                                break;
+                            case "1 week":
+                                fnlDura = "1w";
+                                break;
+                            case "1 month":
+                                fnlDura = "1mo";
+                                break;
+                            case "1 year":
+                                fnlDura = "1y";
+                                break;
                         }
                         String reason = plugin.punishReason.get(player);
                         String silent = plugin.punishSilent.get(player);

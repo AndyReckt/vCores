@@ -42,13 +42,13 @@ public class GrantCommand implements CommandExecutor, Listener {
     @EventHandler
     public void guiClick(InventoryClickEvent event) {
         Player clicker = (Player) event.getWhoClicked();
-        if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Rank")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
+        if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
+            return;
+        } else {
+            if (!event.getCurrentItem().getItemMeta().hasLore()) {
+                event.setCancelled(true);
             } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Rank")) {
                     clickedRank = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String rank : plugin.getConfig().getConfigurationSection("Ranks").getKeys(false)) {
                         if (plugin.getConfig().getString("Ranks." + rank + ".name").equalsIgnoreCase(clickedRank)) {
@@ -62,15 +62,7 @@ public class GrantCommand implements CommandExecutor, Listener {
                             }
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Duration")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Duration")) {
                     clickedDuration = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String duration : plugin.getConfig().getConfigurationSection("Grant.DurationMenu.Items").getKeys(false)) {
                         if (plugin.getConfig().getString("Grant.DurationMenu.Items." + duration + ".ID").equalsIgnoreCase(clickedDuration)) {
@@ -80,15 +72,7 @@ public class GrantCommand implements CommandExecutor, Listener {
                             openReasonGUI(player, target);
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Reason")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Select A Reason")) {
                     clickedReason = ChatColor.stripColor(event.getCurrentItem().getItemMeta().getDisplayName());
                     for (String reason : plugin.getConfig().getConfigurationSection("Grant.ReasonMenu.Items").getKeys(false)) {
                         if (plugin.getConfig().getString("Grant.ReasonMenu.Items." + reason + ".ID").equalsIgnoreCase(clickedReason)) {
@@ -98,15 +82,7 @@ public class GrantCommand implements CommandExecutor, Listener {
                             openConfirmationGUI(player, target);
                         }
                     }
-                }
-            }
-        } else if (event.getView().getTitle().equalsIgnoreCase(ChatColor.DARK_GRAY + "Confirmation")) {
-            if (event.getCurrentItem() == null || event.getCurrentItem().getType() == XMaterial.AIR.parseMaterial()) {
-                return;
-            } else {
-                if (!event.getCurrentItem().getItemMeta().hasLore()) {
-                    event.setCancelled(true);
-                } else {
+                } else if (event.getView().getTitle().equals(ChatColor.DARK_GRAY + "Confirmation")) {
                     Player player = clicker;
                     if (event.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase(ChatColor.translateAlternateColorCodes('&', "&2&lConfirm Grant"))) {
                         OfflinePlayer target = plugin.grantPlayer.get(player);
@@ -132,61 +108,70 @@ public class GrantCommand implements CommandExecutor, Listener {
                             plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", "Permanent");
                         } else {
                             plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Temp", "true");
-                            if (duration.equalsIgnoreCase("10 Seconds")) {
-                                int formattedTime = 10 * 1000;
-                                Long expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Minute")) {
-                                int formattedTime = 60 * 1000;
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                            long formattedTime;
+                            Long expireTime;
+                            switch (duration.toLowerCase()) {
+                                case "10 seconds":
+                                    formattedTime = 10 * 1000;
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("5 Minutes")) {
-                                int formattedTime = 5 * (60 * 1000);
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 minute":
+                                    formattedTime = 60 * 1000;
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("30 Minutes")) {
-                                int formattedTime = 30 * (60 * 1000);
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "5 minutes":
+                                    formattedTime = 5 * (60 * 1000);
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Hour")) {
-                                int formattedTime = 60 * (60 * 1000);
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "30 minutes":
+                                    formattedTime = 30 * (60 * 1000);
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("3 Hours")) {
-                                int formattedTime = 3 * (60 * (60 * 1000));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 hour":
+                                    formattedTime = 60 * (60 * 1000);
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Day")) {
-                                int formattedTime = 24 * (60 * (60 * 1000));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "3 hours":
+                                    formattedTime = 3 * (60 * (60 * 1000));
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Week")) {
-                                int formattedTime = 7 * (24 * (60 * (60 * 1000)));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 day":
+                                    formattedTime = 24 * (60 * (60 * 1000));
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Month")) {
-                                long formattedTime = 31 * (24 * (60 * (60 * 1000)));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 week":
+                                    formattedTime = 7 * (24 * (60 * (60 * 1000)));
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else if (duration.equalsIgnoreCase("1 Year")) {
-                                long formattedTime = 12 * (31 * (24 * (60 * (60 * 1000))));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 month":
+                                    formattedTime = 31 * (24 * (60 * (60 * 1000)));
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
-                            } else {
-                                int formattedTime = 24 * (60 * (60 * 1000));
-                                Long expireTime = formattedTime + System.currentTimeMillis();
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
+                                case "1 year":
+                                    formattedTime = 12 * (31 * (24 * (60 * (60 * 1000))));
+                                    expireTime = formattedTime + System.currentTimeMillis();
 
-                                plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    plugin.gData.config.set(target.getUniqueId() + ".Grants." + id + ".Duration", expireTime);
+                                    break;
                             }
                         }
                         player.closeInventory();
