@@ -1,12 +1,9 @@
 # About:
-These plugins were originally for a server I was developer on VectroMC, but unfortunately it never started. So, I am releasing these cores to the public now.
+The vCores were originally for VectroMC, but that server never started so now they are public and on spigot. Find them here:
 
-# Note:
-vBasic, vStaffUtils and vScoreboard are all dependant on vNitrogen. vNitrogen is dependant on some sort of permissions plugin, however there are no hooks therefore you can use ANY permissions plugin, as it is concurrent with every single one because of the config.yml.
+https://www.spigotmc.org/resources/vcores-invadedlands-minemen-club.86720/
 
-vStaffUtils is dependant on vBasic as well as vNitrogen, and vScoreboard is dependant on vStaffUtils, and vNitrogen.
-
-These plugins need parts of the other plugins to have functionality.
+### IF YOU'RE FROM SPIGOT, USE THE `Issues` TAB FOR SUPPORT!
 
 # vNitrogen:
 
