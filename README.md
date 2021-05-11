@@ -1,9 +1,5 @@
 # About:
-The vCores were originally for VectroMC, but that server never started so now they are public and on spigot. Find them here:
-
-https://www.spigotmc.org/resources/vcores-invadedlands-minemen-club.86720/
-
-### IF YOU'RE FROM SPIGOT, USE THE `Issues` TAB FOR SUPPORT!
+The vCores were originally for VectroMC, but that server never started.
 
 # vNitrogen:
 
