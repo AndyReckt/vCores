@@ -42,10 +42,10 @@ public class TeleportCommands implements CommandExecutor {
                             nitrogen.setPlayerColor(target);
                             nitrogen.setPlayerColor(player);
                             player.teleport(target);
-                            Utils.sendMessage(player, plugin.getConfig().getString("TeleportedToPlayer").replaceAll("%target%", target.getDisplayName()));
+                            Utils.sendMessage(player, plugin.getConfig().getString("TeleportedToPlayer").replaceAll("%target%", target.getName()));
                             for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
                                 if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
-                                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.TeleportToPlayer").replaceAll("%player%", player.getDisplayName()).replaceAll("%target%", target.getDisplayName())));
+                                    onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.TeleportToPlayer").replaceAll("%player%", player.getName()).replaceAll("%target%", target.getName())));
                                 }
                             }
                         } else {
@@ -63,11 +63,11 @@ public class TeleportCommands implements CommandExecutor {
                                 nitrogen.setPlayerColor(target2);
                                 nitrogen.setPlayerColor(player);
                                 target.teleport(target2);
-                                Utils.sendMessage(player, plugin.getConfig().getString("YouTeleportedPlayerToPlayer").replaceAll("%target1%", target.getDisplayName()).replaceAll("%target2%", target2.getDisplayName()));
-                                Utils.sendTargetMessage(target, plugin.getConfig().getString("PlayerTeleportedPlayerToPlayer").replaceAll("%target%", target.getDisplayName()).replaceAll("%player%", player.getDisplayName()));
+                                Utils.sendMessage(player, plugin.getConfig().getString("YouTeleportedPlayerToPlayer").replaceAll("%target1%", target.getName()).replaceAll("%target2%", target2.getName()));
+                                Utils.sendTargetMessage(target, plugin.getConfig().getString("PlayerTeleportedPlayerToPlayer").replaceAll("%target%", target.getName()).replaceAll("%player%", player.getName()));
                                 for (Player onlineStaff : Bukkit.getOnlinePlayers()) {
                                     if (plugin.toggle_staff_alerts.contains(onlineStaff.getUniqueId())) {
-                                        onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.PlayerTeleportedPlayerToPlayer").replaceAll("%player%", player.getDisplayName()).replaceAll("%target1%", target.getDisplayName()).replaceAll("%target2%", target2.getDisplayName())));
+                                        onlineStaff.sendMessage(ChatColor.translateAlternateColorCodes('&', plugin.getConfig().getString("StaffAlerts.PlayerTeleportedPlayerToPlayer").replaceAll("%player%", player.getName()).replaceAll("%target1%", target.getName()).replaceAll("%target2%", target2.getName())));
                                     }
                                 }
                             } else {
